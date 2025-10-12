@@ -1,0 +1,167 @@
+/* Fondo general */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+
+/* Contenedor principal */
+.login-container {
+    display: flex;
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    width: 700px;
+    max-width: 95%;
+    gap: 20px;
+}
+
+/* Lado izquierdo - Logo */
+.login-icon {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #a9b1bb;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.logo {
+    max-width: 120px;
+    max-height: 120px;
+}
+
+/* Lado derecho - Formulario */
+.login-form {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative; /* Para posicionar la notificación */
+}
+
+.login-form h2 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.login-form p {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.login-form label {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* Contenedor del input con icono */
+.input-container {
+    position: relative;
+    width: 100%;
+    margin-top: 5px;
+}
+
+/* Campos de texto */
+.login-form input {
+    padding: 10px 40px 10px 10px; /* Espacio para el icono a la derecha */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+/* Botón del icono de ojo */
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+}
+
+.toggle-password:hover svg {
+    fill: #ff8c00;
+}
+
+/* Notificación de error */
+.notificacion {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    border-radius: 4px;
+    margin-top: 15px;
+    border: 1px solid #f5c6cb;
+    font-size: 14px;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    text-align: center;
+}
+
+.notificacion p {
+    margin: 0;
+}
+
+/* Botón de ingresar */
+.login-form button {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #ffa733;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.login-form button:hover {
+    background-color: #ff8c00;
+}
+
+/* 📱 Responsivo */
+@media (max-width: 768px) {
+    .login-container {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .login-icon {
+        margin-right: 0;
+    }
+
+    .login-form {
+        margin-top: 20px;
+        align-items: center;
+    }
+
+    .login-form input {
+        width: 90%;
+    }
+
+    .login-form button {
+        width: 95%;
+    }
+
+    .notificacion {
+        width: 90%;
+        margin: 15px auto 0;
+    }
+}
