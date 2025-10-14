@@ -7,6 +7,13 @@ Si tienen alguna duda con respecto al manejo de GitHub pregunten ya sea a los co
 ### REQUISITOS PARA EL PROYECTO: 
 Tener instalado PHP 8.4 y Composer
 
+**Para ver la versión de PHP y Composer: **
+
+*php -v* 
+
+*composer -v*
+
+
 **1.Clonar el repositorio:** *git clone git@github.com:AdanBallesillo/ProyectoEmpresaDeSeguridad.git*
 
 **2. Entrar a la ruta del proyecto:** *cd ProyectoEmpresaDeSeguridad/SIASEG*
