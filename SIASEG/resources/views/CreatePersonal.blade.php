@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
@@ -64,8 +64,10 @@
 
           <label for="rol">Rol:</label>
           <select id="rol">
-            <option value="admin">Administrador</option>
-            <option value="empleado">Empleado</option>
+            <option value="Administrador"> Administrador </option>
+            <option value="Empleado"> Empleado </option>
+            <option value="Secretaria"> Secretaria </option>
+            <option value="Transportista"> Transportista </option>
           </select>
         </div>
 
