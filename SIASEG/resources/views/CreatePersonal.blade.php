@@ -42,28 +42,28 @@
         <!-- Fila 1 -->
         <div class="row">
           <label for="nombre">Nombre(s):</label>
-          <input type="text" id="nombre" placeholder="Ingresa el nombre completo">
+          <input type="text" id="nombre" name="nombres" placeholder="Ingresa el nombre completo">
 
           <label for="apellidos">Apellidos:</label>
-          <input type="text" id="apellidos" placeholder="Ingresa los apellidos">
+          <input type="text" id="apellidos" name="apellidos" placeholder="Ingresa los apellidos">
         </div>
 
         <!-- Fila 2 -->
         <div class="row">
           <label for="curp">CURP:</label>
-          <input type="text" id="curp" placeholder="Ingresa el CURP">
+          <input type="text" id="curp" name="CURP" placeholder="Ingresa el CURP">
 
           <label for="rfc">RFC:</label>
-          <input type="text" id="rfc" placeholder="Ingresa el RFC">
+          <input type="text" id="rfc" name="RFC" placeholder="Ingresa el RFC">
         </div>
 
         <!-- Fila 3 -->
         <div class="row">
           <label for="foto">FOTO:</label>
-          <input type="file" id="foto">
+          <input type="file" id="foto" name="fotografia">
 
           <label for="rol">Rol:</label>
-          <select id="rol">
+          <select id="rol" name="rol">
             <option value="Administrador"> Administrador </option>
             <option value="Empleado"> Empleado </option>
             <option value="Secretaria"> Secretaria </option>
@@ -77,10 +77,10 @@
         <!-- Fila 4 -->
         <div class="row">
           <label for="correo">Correo Electrónico:</label>
-          <input type="email" id="correo" placeholder="Ingresa el Correo Electrónico">
+          <input type="email" id="correo" name="correo" placeholder="Ingresa el Correo Electrónico">
 
           <label for="telefono">Número (Tel):</label>
-          <input type="tel" id="telefono" placeholder="Ingresa el Número">
+          <input type="tel" id="telefono" name="telefono" placeholder="Ingresa el Número">
         </div>
 
         <!-- Botones -->
