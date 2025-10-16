@@ -1,15 +1,57 @@
-/* Fondo general */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f2f2f2;
+/* 🔹 Barra superior tipo menú */
+.menu-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background-color: #0d284e; /* Azul oscuro */
     display: flex;
-    height: 100vh;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
-    margin: 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    z-index: 1000;
+    flex-wrap: wrap;
 }
 
-/* Contenedor principal */
+/* 🔹 Contenedor de botones */
+.menu-buttons {
+    display: flex;
+    gap: 10px;
+    margin-right: 60px; /* Espaciado hacia la izquierda */
+    flex-wrap: wrap;
+}
+
+/* 🔹 Botones del menú */
+.menu-btn {
+    background-color: #ffa733;
+    color: #000;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    white-space: nowrap;
+}
+
+.menu-btn:hover {
+    background-color: #ff8c00;
+}
+
+/* 🔹 Ajuste general del body */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    height: 100vh; /* Ocupa todo el alto visible */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 🔹 Contenedor principal del login */
 .login-container {
     display: flex;
     background: #fff;
@@ -17,8 +59,9 @@ body {
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
     width: 700px;
-    max-width: 95%;
+    max-width: 90%;
     gap: 20px;
+    margin-top: 60px; /* Deja espacio para la barra fija */
 }
 
 /* Lado izquierdo - Logo */
@@ -43,7 +86,6 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    position: relative; /* Para posicionar la notificación */
 }
 
 .login-form h2 {
@@ -63,16 +105,8 @@ body {
     margin-top: 10px;
 }
 
-/* Contenedor del input con icono */
-.input-container {
-    position: relative;
-    width: 100%;
-    margin-top: 5px;
-}
-
-/* Campos de texto */
 .login-form input {
-    padding: 10px 40px 10px 10px; /* Espacio para el icono a la derecha */
+    padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
     width: 100%;
@@ -80,46 +114,6 @@ body {
     font-size: 14px;
 }
 
-/* Botón del icono de ojo */
-.toggle-password {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: 0.3s;
-}
-
-.toggle-password:hover svg {
-    fill: #ff8c00;
-}
-
-/* Notificación de error */
-.notificacion {
-    background-color: #f8d7da;
-    color: #721c24;
-    padding: 10px;
-    border-radius: 4px;
-    margin-top: 15px;
-    border: 1px solid #f5c6cb;
-    font-size: 14px;
-    opacity: 0;
-    transform: translateY(-10px);
-    transition: opacity 0.3s ease, transform 0.3s ease;
-    text-align: center;
-}
-
-.notificacion p {
-    margin: 0;
-}
-
-/* Botón de ingresar */
 .login-form button {
     margin-top: 20px;
     padding: 10px;
@@ -135,20 +129,29 @@ body {
     background-color: #ff8c00;
 }
 
-/* 📱 Responsivo */
+/* 🔹 Responsivo */
 @media (max-width: 768px) {
+    .menu-bar {
+        justify-content: center;
+        height: auto;
+        padding: 10px;
+    }
+
+    .menu-buttons {
+        margin-right: 0;
+        justify-content: center;
+        gap: 8px;
+    }
+
     .login-container {
         flex-direction: column;
         text-align: center;
         padding: 20px;
-    }
-
-    .login-icon {
-        margin-right: 0;
+        margin-top: 80px;
+        height: auto;
     }
 
     .login-form {
-        margin-top: 20px;
         align-items: center;
     }
 
@@ -157,11 +160,25 @@ body {
     }
 
     .login-form button {
-        width: 95%;
+        width: 90%;
+    }
+}
+
+@media (max-width: 480px) {
+    .menu-buttons {
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
     }
 
-    .notificacion {
+    .menu-btn {
         width: 90%;
-        margin: 15px auto 0;
+        text-align: center;
+    }
+
+    .login-container {
+        width: 90%;
+        margin-top: 90px;
+        padding: 15px;
     }
 }
