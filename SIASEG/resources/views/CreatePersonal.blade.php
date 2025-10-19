@@ -40,6 +40,17 @@
     <div class="form-container">
       <form id="formEmpleado" action="{{ route('employed.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
+
+        {{-- Mostrar las credenciales del usuario de manera provicional en lo que se compra el dominio, favor de guardarlas o tomar captura --}}
+        @if(session('success'))
+            <div class="alert success">
+                {{ session('success') }}
+                <br>
+                Número de control: {{ session('no_empleado') }} <br>
+                Contraseña temporal: {{ session('password') }}
+            </div>
+        @endif
+
         <!-- Fila 1 -->
         <div class="row">
           <label for="nombre">Nombre(s):</label>

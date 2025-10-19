@@ -64,10 +64,10 @@ class EmployedController extends Controller
             // Generar nombre único
             $imageName = time() . '_' . $image->getClientOriginalName();
 
-            // Guardar en storage/app/public/fotos
+            // Guardar en storage/app/public/fotos la imagen
             $path = $image->storeAs('fotos', $imageName, 'public');
 
-            // Guardar ruta accesible públicamente
+            // Guardar ruta accesible públicamente en public/storage/fotos con ayuda del link simbólico
             $personal->fotografia = 'storage/' . $path;
         }
 
