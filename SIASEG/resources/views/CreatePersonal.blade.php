@@ -38,7 +38,8 @@
   <!-- Contenedor principal -->
   <main>
     <div class="form-container">
-      <form id="formEmpleado">
+      <form id="formEmpleado" action="{{ route('employed.store') }}" method="POST" enctype="multipart/form-data">
+        @csrf
         <!-- Fila 1 -->
         <div class="row">
           <label for="nombre">Nombre(s):</label>
@@ -95,10 +96,10 @@
 
   <script>
     // Guardar: mostrar mensaje emergente
-    document.getElementById('formEmpleado').addEventListener('submit', function(e) {
-      e.preventDefault(); // Evita el envío real del formulario
-      alert('¡Empleado guardado correctamente!');
-    });
+    // document.getElementById('formEmpleado').addEventListener('submit', function(e) {
+    //   e.preventDefault(); // Evita el envío real del formulario
+    //   alert('¡Empleado guardado correctamente!');
+    // });
 
     // Cancelar: regresar a Frm_VistaPersonal.php
     document.querySelector('.cancelar').addEventListener('click', function() {
