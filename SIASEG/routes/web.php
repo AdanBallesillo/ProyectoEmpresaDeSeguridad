@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EmployedController;
 use App\Http\Controllers\LoginAdministradorController;
+use App\http\Controllers\LoginTransportistaController;
 
 
 
@@ -67,3 +68,25 @@ Route::get('/Administrador/Menu', function () {
 
 // Ruta para cerrar sesion
 Route::post('/Administrador/Logout', [LoginAdministradorController::class, 'Logout']) -> name('Administrador.Logout');
+
+
+/*------------------------------------------------
+RUTAS PARA EL LOGIN DE TRANSPORTISTA
+--------------------------------------------------
+*/
+
+// Ruta para abrir el login de Transportista
+Route::get('/LoginTransportista', [LoginTransportistaController::class, 'Index']) -> name('Transportista.Login');
+
+// Ruta para validar los datos
+Route::post('/Transportista/Validate', [LoginTransportistaController::class, 'Validate']) -> name('Transportista.Validate');
+
+// Ruta para mostrar el dashboard o menú, protegido por el middleware
+Route::get('/Trasportista/Menu', function () {
+    return view ('IndexLoginEmpleados');
+}) -> middleware('checkrol:Transportista') -> name('Transportista.Menu');
+
+// Ruta para cerrar sesion
+Route::post('/Transportista/Logout', [LoginTransportistaController::class, 'Logout']) -> name('Transportista.Logout');
+
+
