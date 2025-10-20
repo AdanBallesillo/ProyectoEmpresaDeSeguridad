@@ -27,7 +27,8 @@
         </div>
 
         <!-- Lado derecho con formulario -->
-        <form action="#" method="POST">
+         {{-- Se agrega ala ruta --}}
+        <form action="{{ route ('Transportista.Validate') }}" method="POST">
             @csrf
             <div class="login-form">
             <h2>Acceso al sistema!</h2>
@@ -43,6 +44,10 @@
 
             <button id="btnIngresar" type="submit">INGRESAR</button>
             </div>
+            {{-- Mostrar algun error, Nenuco dale estilo a este mensaje por fa, en todos los login. --}}
+            @if ($errors -> has('login_error'))
+                {{ $errors -> first('login_error') }}
+            @endif
         </form>
     </div>
 
