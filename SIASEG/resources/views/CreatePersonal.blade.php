@@ -35,21 +35,17 @@
       </button>
     </div>
 
+  <!-- Notificación emergente -->
+    <div id="notification" style="
+    position: fixed; top: 20px; right: 20px; 
+    padding: 15px; border-radius: 5px; color: white; display:none;
+    z-index: 9999;"></div>
+
   <!-- Contenedor principal -->
   <main>
     <div class="form-container">
       <form id="formEmpleado" action="{{ route('employed.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
-
-        {{-- Mostrar las credenciales del usuario de manera provicional en lo que se compra el dominio, favor de guardarlas o tomar captura --}}
-        @if(session('success'))
-            <div class="alert success">
-                {{ session('success') }}
-                <br>
-                Número de control: {{ session('no_empleado') }} <br>
-                Contraseña temporal: {{ session('password') }}
-            </div>
-        @endif
 
         <!-- Fila 1 -->
         <div class="row">
@@ -72,7 +68,7 @@
         <!-- Fila 3 -->
         <div class="row">
           <label for="foto">FOTO:</label>
-          <input type="file" id="foto" name="fotografia">
+          <input type="file" id="foto " name="fotografia">
 
           <label for="rol">Rol:</label>
           <select id="rol" name="rol" required>
@@ -106,6 +102,29 @@
   </main>
 
   <script>
+    // Mostrar notificaciones
+    const notification = document.getElementById('notification');
+
+    // Éxito: mostrar mensaje emergente
+    @if(session('success'))
+        notification.style.backgroundColor = 'green';
+        notification.innerHTML = "{{ session('success') }}<br>Número: {{ session('no_empleado') }}<br>Contraseña: {{ session('password') }}";
+        notification.style.display = 'block';
+        setTimeout(() => notification.style.display = 'none', 5000);
+    @endif
+
+    // Errores: mostrar mensajes emergentes
+    @if($errors->any())
+        notification.style.backgroundColor = 'red';
+        let errorsHtml = "";
+        @foreach ($errors->all() as $error)
+            errorsHtml += "{{ $error }}<br>";
+        @endforeach
+        notification.innerHTML = errorsHtml;
+        notification.style.display = 'block';
+        setTimeout(() => notification.style.display = 'none', 5000);
+    @endif
+
     // Guardar: mostrar mensaje emergente
     // document.getElementById('formEmpleado').addEventListener('submit', function(e) {
     //   e.preventDefault(); // Evita el envío real del formulario

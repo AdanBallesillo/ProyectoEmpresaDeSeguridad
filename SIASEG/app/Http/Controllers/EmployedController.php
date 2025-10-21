@@ -40,6 +40,10 @@ class EmployedController extends Controller
             'fotografia' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
             'rol' => 'required|string|max:100',
             'correo' => 'required|email|max:150|unique:empleados,correo'
+        ], [
+            'CURP.unique' => 'El CURP ya está registrado.',
+            'RFC.unique' => 'El RFC ya está registrado.',
+            'correo.unique' => 'El correo ya está registrado.'
         ]);
 
         // Generar num_control único
