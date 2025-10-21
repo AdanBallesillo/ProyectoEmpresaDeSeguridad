@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Acceso al sistema</title>
     <link rel="stylesheet" href="{{ asset('css/style_Login.css')}}">
 </head>
+
 <body>
 
     <!-- 🔹 Barra superior tipo menú -->
@@ -26,23 +28,29 @@
 
         <!-- Lado derecho con formulario -->
         {{-- Modificaciones --}}
-        <form action="#" method="POST">
+        <form action="{{ route('Secretaria.Validate') }}" method="POST">
             @csrf
             <div class="login-form">
-            <h2>Acceso al sistema!</h2>
-            <p>Bienvenido al acceso del Asistente Administrativo
-            <br>Por favor, ingrese sus datos:</p>
+                <h2>Acceso al sistema!</h2>
+                <p>Bienvenido al acceso de Secretaria
+                    <br>Por favor, ingrese sus datos:
+                </p>
 
-            <label for="usuario">No. Empleado:</label>
-            <input type="text" name="no_empleado" placeholder="Ingrese su No.Empleado">
+                <label for="usuario">No. Empleado:</label>
+                <input type="text" name="no_empleado" placeholder="Ingrese su No. De empleado">
 
-            <label for="password">Contraseña:</label>
-            <input type="password" name="password" placeholder="Ingrese su contraseña">
+                <label for="password">Contraseña:</label>
+                <input type="password" name="password" placeholder="Ingrese su contraseña">
 
-            <button id="btnIngresar" type="submit">INGRESAR</button>
+                <button id="btnIngresar" type="submit">INGRESAR</button>
             </div>
+            {{-- Mostrar algun error, Nenuco dale estilo a este mensaje por fa, en todos los login. --}}
+            @if ($errors -> has('login_error'))
+            {{ $errors -> first('login_error') }}
+            @endif
         </form>
     </div>
 
 </body>
+
 </html>
