@@ -54,19 +54,19 @@
         <!-- Fila 1 -->
         <div class="row">
           <label for="nombre">Nombre(s):</label>
-          <input type="text" id="nombre" name="nombres" placeholder="Ingresa el nombre completo">
+          <input type="text" id="nombre" name="nombres" placeholder="Ingresa el nombre completo" required>
 
           <label for="apellidos">Apellidos:</label>
-          <input type="text" id="apellidos" name="apellidos" placeholder="Ingresa los apellidos">
+          <input type="text" id="apellidos" name="apellidos" placeholder="Ingresa los apellidos" required>
         </div>
 
         <!-- Fila 2 -->
         <div class="row">
           <label for="curp">CURP:</label>
-          <input type="text" id="curp" name="CURP" placeholder="Ingresa el CURP">
+          <input type="text" id="curp" name="CURP" placeholder="Ingresa el CURP" required maxlength="18" minlength="18">
 
           <label for="rfc">RFC:</label>
-          <input type="text" id="rfc" name="RFC" placeholder="Ingresa el RFC">
+          <input type="text" id="rfc" name="RFC" placeholder="Ingresa el RFC" required maxlength="13" minlength="13">
         </div>
 
         <!-- Fila 3 -->
@@ -75,7 +75,7 @@
           <input type="file" id="foto" name="fotografia">
 
           <label for="rol">Rol:</label>
-          <select id="rol" name="rol">
+          <select id="rol" name="rol" required>
             <option value="Administrador"> Administrador </option>
             <option value="Empleado"> Empleado </option>
             <option value="Secretaria"> Secretaria </option>
@@ -89,10 +89,10 @@
         <!-- Fila 4 -->
         <div class="row">
           <label for="correo">Correo Electrónico:</label>
-          <input type="email" id="correo" name="correo" placeholder="Ingresa el Correo Electrónico">
+          <input type="email" id="correo" name="correo" placeholder="Ingresa el Correo Electrónico" required >
 
           <label for="telefono">Número (Tel):</label>
-          <input type="tel" id="telefono" name="telefono" placeholder="Ingresa el Número">
+          <input type="tel" id="telefono" name="telefono" placeholder="Ingresa el Número" required>
         </div>
 
         <!-- Botones -->
