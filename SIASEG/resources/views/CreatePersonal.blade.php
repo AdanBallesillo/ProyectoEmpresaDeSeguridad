@@ -52,16 +52,6 @@
                     Contraseña temporal: {{ session('password') }}
                 </div>
                 @endif
-
-<<<<<<< HEAD
-        <!-- Fila 1 -->
-        <div class="row">
-          <label for="nombre">Nombre(s):</label>
-          <input type="text" id="nombre" name="nombres" placeholder="Ingresa el nombre completo" required>
-
-          <label for="apellidos">Apellidos:</label>
-          <input type="text" id="apellidos" name="apellidos" placeholder="Ingresa los apellidos" required>
-=======
                 <!-- Fila 1 -->
                 <div class="row">
                     <label for="nombre">Nombre(s):</label>
@@ -113,74 +103,9 @@
                     <button type="button" class="limpiar">Limpiar</button>
                 </div>
             </form>
->>>>>>> LoginSecretaria
         </div>
     </main>
 
-<<<<<<< HEAD
-        <!-- Fila 2 -->
-        <div class="row">
-          <label for="curp">CURP:</label>
-          <input type="text" id="curp" name="CURP" placeholder="Ingresa el CURP" required maxlength="18" minlength="18">
-
-          <label for="rfc">RFC:</label>
-          <input type="text" id="rfc" name="RFC" placeholder="Ingresa el RFC" required maxlength="13" minlength="13">
-        </div>
-
-        <!-- Fila 3 -->
-        <div class="row">
-          <label for="foto">FOTO:</label>
-          <input type="file" id="foto" name="fotografia">
-
-          <label for="rol">Rol:</label>
-          <select id="rol" name="rol" required>
-            <option value="Administrador"> Administrador </option>
-            <option value="Empleado"> Empleado </option>
-            <option value="Secretaria"> Secretaria </option>
-            <option value="Transportista"> Transportista </option>
-          </select>
-        </div>
-
-        <!-- Sección -->
-        <h3 class="seccion">Datos de contacto y Emergencia</h3>
-
-        <!-- Fila 4 -->
-        <div class="row">
-          <label for="correo">Correo Electrónico:</label>
-          <input type="email" id="correo" name="correo" placeholder="Ingresa el Correo Electrónico" required >
-
-          <label for="telefono">Número (Tel):</label>
-          <input type="tel" id="telefono" name="telefono" placeholder="Ingresa el Número" required>
-        </div>
-
-        <!-- Botones -->
-        <div class="botones">
-          <button type="submit" class="guardar">Guardar</button>
-          <button type="button" class="cancelar">Cancelar</button>
-          <button type="button" class="limpiar">Limpiar</button>
-        </div>
-      </form>
-    </div>
-  </main>
-
-  <script>
-    // Guardar: mostrar mensaje emergente
-    // document.getElementById('formEmpleado').addEventListener('submit', function(e) {
-    //   e.preventDefault(); // Evita el envío real del formulario
-    //   alert('¡Empleado guardado correctamente!');
-    // });
-
-    // Cancelar: regresar a Frm_VistaPersonal.php
-    document.querySelector('.cancelar').addEventListener('click', function() {
-      window.location.href = "../Formularios/Frm_VistaPersonal.php";
-    });
-
-    // Limpiar: borrar todos los campos
-    document.querySelector('.limpiar').addEventListener('click', function() {
-      document.getElementById('formEmpleado').reset();
-    });
-  </script>
-=======
     <script>
         // Guardar: mostrar mensaje emergente
         // document.getElementById('formEmpleado').addEventListener('submit', function(e) {
@@ -198,7 +123,6 @@
             document.getElementById('formEmpleado').reset();
         });
     </script>
->>>>>>> LoginSecretaria
 </body>
 
 </html>
