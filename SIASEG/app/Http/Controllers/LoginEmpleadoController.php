@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+// Faltaba la libreria
+use Illuminate\Support\Facades\Auth;
+
 
 class LoginEmpleadoController extends Controller
 {
@@ -14,7 +17,8 @@ class LoginEmpleadoController extends Controller
     // Funcion para validar los datos
     public function Validate(Request $request){
 
-        //dd($request->all()); -> Sirve para ver como se estan mandando los datos
+        // dd($request->all());
+        // -> Sirve para ver como se estan mandando los datos
 
         // Hacemos la consulta a la base de datos y validamos
         if(Auth::attempt([
@@ -22,7 +26,7 @@ class LoginEmpleadoController extends Controller
             'password' => $request -> password
         ])){
             // Si son correctas las credenciales lo redireccionamos a su menú o dashboard
-            return redirect() -> route('Empleado.Dashboard');
+            return redirect() -> route('Empleado.Menu');
         }else{
             // Si no, le mostramos este mensaje.
             return back() -> withErrors([

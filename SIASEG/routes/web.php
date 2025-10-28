@@ -4,7 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EmployedController;
 use App\Http\Controllers\LoginAdministradorController;
 use App\Http\Controllers\LoginSecretariaController;
-use App\http\Controllers\LoginTransportistaController;
+use App\Http\Controllers\LoginTransportistaController;
+use App\Http\Controllers\LoginEmpleadoController;
 
 
 
@@ -120,12 +121,12 @@ RUTAS PARA EL LOGIN DE EMPLEADOS
 Route::get('/LoginEmpleado', [LoginEmpleadoController::class, 'Index']) -> name('Empleado.Login');
 
 // Ruta para validar los datos
-Route::post('/Empleado/Validate', [LoginTransportistaController::class, 'Validate']) -> name('Empleado.Validate');
+Route::post('/Empleado/Validate', [LoginEmpleadoController::class, 'Validate']) -> name('Empleado.Validate');
 
 // Ruta para mostrar el dashboard o menú, protegido por el middleware
 Route::get('/Empleado/Menu', function () {
-    return view ('IndexLoginEmpleados');
+    return view ('welcome');
 }) -> middleware('checkrol:Empleado') -> name('Empleado.Menu');
 
 // Ruta para cerrar sesion
-Route::post('/Empleado/Logout', [LoginTransportistaController::class, 'Logout']) -> name('Empleado.Logout');
+Route::post('/Empleado/Logout', [LoginEmpleadoController::class, 'Logout']) -> name('Empleado.Logout');

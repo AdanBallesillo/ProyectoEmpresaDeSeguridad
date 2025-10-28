@@ -38,7 +38,7 @@
             <input type="text" name="no_empleado" placeholder="Ingrese su No. De empleado">
 
             <label for="password">Contraseña:</label>
-            <input type="password" name="no_empleado" placeholder="Ingrese su contraseña">
+            <input type="password" name="password" placeholder="Ingrese su contraseña">
 
             <button id="btnIngresar" type="submit">INGRESAR</button>
             </div>
