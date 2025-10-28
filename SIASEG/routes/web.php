@@ -90,3 +90,20 @@ Route::get('/Trasportista/Menu', function () {
 Route::post('/Transportista/Logout', [LoginTransportistaController::class, 'Logout']) -> name('Transportista.Logout');
 
 
+/*------------------------------------------------
+RUTAS PARA EL LOGIN DE EMPLEADOS
+--------------------------------------------------*/
+
+// Ruta para abrir el Login del Empleado
+Route::get('/LoginEmpleado', [LoginEmpleadoController::class, 'Index']) -> name('Empleado.Login');
+
+// Ruta para validar los datos
+Route::post('/Empleado/Validate', [LoginTransportistaController::class, 'Validate']) -> name('Empleado.Validate');
+
+// Ruta para mostrar el dashboard o menú, protegido por el middleware
+Route::get('/Empleado/Menu', function () {
+    return view ('IndexLoginEmpleados');
+}) -> middleware('checkrol:Empleado') -> name('Empleado.Menu');
+
+// Ruta para cerrar sesion
+Route::post('/Empleado/Logout', [LoginTransportistaController::class, 'Logout']) -> name('Empleado.Logout');
