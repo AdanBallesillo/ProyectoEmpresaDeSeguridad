@@ -97,6 +97,7 @@ RUTAS PARA EL LOGIN DE SECRETARIA
 --------------------------------------------------
 */
 
+
 // Ruta para abrir el login de Secretaria
 Route::get('/LoginSecretaria', [LoginSecretariaController::class, 'Index'])->name('Secretaria.Login');
 
@@ -110,3 +111,21 @@ Route::get('/Secretaria/Menu', function () {
 
 // Ruta para cerrar sesion
 Route::post('/Secretaria/Logout', [LoginSecretariaController::class, 'Logout'])->name('Secretaria.Logout');
+
+/*------------------------------------------------
+RUTAS PARA EL LOGIN DE EMPLEADOS
+--------------------------------------------------*/
+
+// Ruta para abrir el Login del Empleado
+Route::get('/LoginEmpleado', [LoginEmpleadoController::class, 'Index']) -> name('Empleado.Login');
+
+// Ruta para validar los datos
+Route::post('/Empleado/Validate', [LoginTransportistaController::class, 'Validate']) -> name('Empleado.Validate');
+
+// Ruta para mostrar el dashboard o menú, protegido por el middleware
+Route::get('/Empleado/Menu', function () {
+    return view ('IndexLoginEmpleados');
+}) -> middleware('checkrol:Empleado') -> name('Empleado.Menu');
+
+// Ruta para cerrar sesion
+Route::post('/Empleado/Logout', [LoginTransportistaController::class, 'Logout']) -> name('Empleado.Logout');
