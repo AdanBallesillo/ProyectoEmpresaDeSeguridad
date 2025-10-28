@@ -27,7 +27,7 @@
 
         <!-- Lado derecho con formulario -->
         {{-- Modificaciones --}}
-        <form action="#" method="POST">
+        <form action="{{ route('Empleado.Validate')}}" method="POST">
             @csrf
             <div class="login-form">
             <h2>Acceso al sistema!</h2>
@@ -42,6 +42,10 @@
 
             <button id="btnIngresar" type="submit">INGRESAR</button>
             </div>
+                        {{-- Mostrar algun error, Nenuco dale estilo a este mensaje por fa, en todos los login. --}}
+            @if ($errors -> has('login_error'))
+                {{ $errors -> first('login_error') }}
+            @endif
         </form>
 
     </div>
