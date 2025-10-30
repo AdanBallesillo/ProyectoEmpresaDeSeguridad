@@ -129,6 +129,36 @@ body {
     background-color: #ff8c00;
 }
 
+
+.error-message {
+    color: #c9320c;
+    background-color: #fff0e6;
+    border: 1px solid;
+    padding: 12px 15px;
+    margin-top: 15px;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    animation: fadeIn 0.5s ease-in;
+}
+
+.error-message::before {
+    content: "⚠︎";
+    font-size: 16px;
+}
+
+@keyframes fadeIn {
+    from {opacity: 0; transform: translateY(-10px);}
+    to { opacity: 1; transform: translateY(0);}
+}
+
 /* 🔹 Responsivo */
 @media (max-width: 768px) {
     .menu-bar {

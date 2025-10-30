@@ -46,7 +46,9 @@
             </div>
             {{-- Mostrar algun error, Nenuco dale estilo a este mensaje por fa, en todos los login. --}}
             @if ($errors -> has('login_error'))
-                {{ $errors -> first('login_error') }}
+                <div class="error-message">
+                    {{ $errors -> first('login_error') }}
+                </div>
             @endif
         </form>
     </div>
