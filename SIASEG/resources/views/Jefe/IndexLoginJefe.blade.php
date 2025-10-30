@@ -35,10 +35,10 @@
             <br>Por favor, ingrese sus datos:</p>
 
             <label for="usuario">No. Empleado:</label>
-            <input type="text" name="no_empleado" placeholder="Ingrese su No. De empleado">
+            <input type="text" name="no_empleado" placeholder="Ingrese su No. De empleado" required>
 
             <label for="password">Contraseña:</label>
-            <input type="password" name="password" placeholder="Ingrese su contraseña">
+            <input type="password" name="password" placeholder="Ingrese su contraseña" required>
 
             <button id="btnIngresar" type="submit" >INGRESAR</button>
             </div>
