@@ -326,3 +326,56 @@ h2 {
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     }
 }
+
+/* Estilo para el input de fecha */
+.input-date {
+    flex-grow: 1;
+    padding: 10px 12px;
+    border: 1px solid var(--medium-grey);
+    border-radius: 5px;
+    background-color: var(--input-bg-grey);
+    font-size: 1em;
+    color: var(--text-color);
+}
+
+.input-date:focus {
+    border-color: var(--dark-blue);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(20, 47, 75, 0.3);
+    background-color: var(--white);
+}
+
+/* Grupo de radio buttons */
+.radio-group {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.radio-group label {
+    font-weight: normal;
+    cursor: pointer;
+    color: var(--text-color);
+}
+
+.radio-group input[type="radio"] {
+    accent-color: var(--orange);
+    transform: scale(1.1);
+}
+
+/* === Ajuste responsive solo para los radio buttons === */
+.radio-group {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    flex-wrap: wrap; /* permite que se acomoden si hay poco espacio */
+}
+
+/* Vista móvil: los radio buttons se apilan verticalmente */
+@media (max-width: 768px) {
+    .radio-group {
+        flex-direction: column;
+        align-items: flex-start; /* alineación a la izquierda */
+        gap: 8px; /* espacio más compacto entre opciones */
+    }
+}
