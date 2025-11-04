@@ -28,10 +28,15 @@ Route::get('/Nuevo-Empleado', function () {
 })->name('crearempleado');
 
 Route::post(
-    '/empleados',
+    '/Registrar-Empleado',
     [EmployedController::class, 'store']
 )->name('employed.store');
 
+
+
+Route::get('/Empleados',
+    [EmployedController::class, 'index']
+)->name('employed.index');
 
 /*------------------------------------------------
 RUTAS PARA EL MENÚ DE LOS LOGIN
@@ -68,7 +73,8 @@ Route::post('/Administrador/Validate', [LoginAdministradorController::class, 'Va
 // Ruta para mostrar el dashboard o menú, protegido por el middleware
 Route::get('/Administrador/Menu', function () {
     return view('CreatePersonal');
-})->middleware('checkrol:Administrador')->name('Administrador.Dashboard');
+});
+// ->middleware('checkrol:Administrador')->name('Administrador.Dashboard');
 
 // Ruta para cerrar sesion
 Route::post('/Administrador/Logout', [LoginAdministradorController::class, 'Logout'])->name('Administrador.Logout');

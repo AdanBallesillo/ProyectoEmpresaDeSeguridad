@@ -17,7 +17,17 @@ class EmployedController extends Controller
      */
     public function index()
     {
-        //
+        try {
+        // Obtener todos los empleados de la tabla 'empleados'
+        $empleados = Employed::all();
+
+        // Retornar la vista y enviar los datos
+        return view('Jefe.IndexPersonal', compact('empleados'));
+
+        } catch (\Exception $e) {
+            \Log::error('Error al obtener la lista de empleados: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Ocurrió un error al cargar la lista de empleados.');
+        }
     }
 
     /**
@@ -125,7 +135,7 @@ class EmployedController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return redirect()->route('cre');
     }
 
     /**

@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../Estilos/style_Personal.css">
-    <link rel="stylesheet" href="../Estilos/style_Menu.css">
+    <link rel="stylesheet" href="{{ asset ('css/style_Personal.css') }}">
+    <link rel="stylesheet" href="{{ asset ('css/style_Menu.css') }}">
     <title>Sistema de Gestión de Personal</title>
 </head>
 <body>
@@ -170,7 +170,7 @@
                 <h2 class="page-title">Control de Personal</h2>
                 <p class="page-subtitle">Monitoreo en tiempo real y redistribución del personal</p>
             </div>
-            <button class="new-employee-button"> Nuevo Empleado</button>
+            <button class="new-employee-button" id="btnNuevoEmpleado"> Nuevo Empleado</button>
         </div>
 
         <div class="table-container">
@@ -186,17 +186,23 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Emiliano Villa Hernandez Martinez</td>
-                        <td>876SDF45</td>
-                        <td>LASO00987JUSH8MKLL</td>
-                        <td>678-098-8764</td>
-                        <td>VillaHernandez@correo.com</td>
-                        <td class="actions-cell">
-                            <button class="action-button modify-button">Modificar</button>
-                            <button class="action-button delete-button">Eliminar</button>
-                        </td>
-                    </tr>
+                    @forelse ($empleados as $empleado)
+                        <tr>
+                            <td>{{ $empleado->nombres }} {{ $empleado->apellidos }}</td>
+                            <td>{{ $empleado->RFC }}</td>
+                            <td>{{ $empleado->CURP }}</td>
+                            <td>{{ $empleado->telefono }}</td>
+                            <td>{{ $empleado->correo }}</td>
+                            <td class="actions-cell">
+                                <button class="action-button modify-button">Modificar</button>
+                                <button class="action-button delete-button">Eliminar</button>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="6" style="text-align:center;">No hay empleados registrados.</td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>
@@ -206,8 +212,8 @@
     <script src="../Java/Anim_Menu.js"></script>
     <script>
         // Redirigir botón Nuevo Empleado
-        document.querySelector('.new-employee-button').addEventListener('click', function() {
-            window.location.href = "../Formularios/Frm_AgregarUsuarios.php";
+        document.getElementById('btnNuevoEmpleado').addEventListener('click', function() {
+            window.location.href = "{{ route('crearempleado') }}";
         });
 
         // Redirigir botones Modificar
