@@ -7,14 +7,15 @@
     <link rel="stylesheet" href="{{ asset('css/style_Login.css')}}">
 </head>
 <body>
-    
+
     <!-- 🔹 Barra superior tipo menú -->
     <header class="menu-bar">
         <nav class="menu-buttons">
-            <a href="{{ asset('views/IndexLoginJefe.blade.php') }}" class="menu-btn">Jefe</a>
-            <a href="{{ asset('views/IndexLoginSecretaria.blade.php') }}" class="menu-btn">Secretaría</a>
-            <a href="{{ asset('views/IndexLoginEmpleados.blade.php') }}" class="menu-btn">Empleado</a>
-            <a href="{{ asset('views/IndexLoginTransportistas.blade.php') }}" class="menu-btn">Transportistas</a>
+            {{-- Modificación de rutas al menú  --}}
+            <a href="{{ route('Ruta.LoginAdmin')}}" class="menu-btn">Jefe</a>
+            <a href="{{ route('Ruta.LoginSecretaria') }}" class="menu-btn">Secretaría</a>
+            <a href="{{ route('Ruta.LoginEmpleado') }}" class="menu-btn">Empleado</a>
+            <a href="{{ route('Ruta.LoginTranspo') }}" class="menu-btn">Transportistas</a>
         </nav>
     </header>
 
@@ -25,19 +26,29 @@
         </div>
 
         <!-- Lado derecho con formulario -->
-        <div class="login-form">
+        {{-- Modificaciones --}}
+        <form action="{{ route('Administrador.Validate') }}" method="POST">
+            @csrf
+            <div class="login-form">
             <h2>Acceso al sistema!</h2>
             <p>Bienvenido al acceso del Jefe
-                <br>Por favor, ingrese sus datos:</p>
+            <br>Por favor, ingrese sus datos:</p>
 
-            <label for="usuario">Usuario:</label>
-            <input type="text" id="usuario" placeholder="Ingrese su usuario">
+            <label for="usuario">No. Empleado:</label>
+            <input type="text" name="no_empleado" placeholder="Ingrese su No. De empleado" required>
 
             <label for="password">Contraseña:</label>
-            <input type="password" id="password" placeholder="Ingrese su contraseña">
+            <input type="password" name="password" placeholder="Ingrese su contraseña" required>
 
-            <button id="btnIngresar" type="button" onclick="window.location.href='Frm_Huella.php'">INGRESAR</button>
-        </div>
+            <button id="btnIngresar" type="submit" >INGRESAR</button>
+            </div>
+            {{-- Mostrar algun error, Nenuco dale estilo a este mensaje por fa, en todos los login. --}}
+            @if ($errors -> has('login_error'))
+                <div class="error-message">
+                    {{ $errors -> first('login_error') }}
+                </div>
+            @endif
+        </form>
     </div>
 
 </body>
