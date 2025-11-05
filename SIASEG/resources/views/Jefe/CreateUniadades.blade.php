@@ -39,12 +39,12 @@
           <div class="form-grid">
             <div class="form-group">
               <label for="modelo">Modelo:</label>
-              <input type="text" id="modelo" name="modelo" required />
+              <input type="text" id="modelo" name="modelo" required maxlength="50" minlength="2"/>
             </div>
 
             <div class="form-group">
               <label for="placas">Placas:</label>
-              <input type="text" id="placas" name="placas" required />
+              <input type="text" id="placas" name="placas" required maxlength="15" minlength="10"/>
             </div>
 
             <div class="form-group">
@@ -54,17 +54,17 @@
 
             <div class="form-group">
               <label for="niv">NIV:</label>
-              <input type="text" id="niv" name="numero_serie" />
+              <input type="text" id="niv" name="numero_serie" maxlength="50" minlength="2"/>
             </div>
 
             <div class="form-group">
               <label for="marca">Marca:</label>
-              <input type="text" id="marca" name="marca" />
+              <input type="text" id="marca" name="marca" maxlength="50" minlength="2"/>
             </div>
 
             <div class="form-group">
               <label for="tipo">Tipo:</label>
-              <input type="text" id="tipo" name="tipo" />
+              <input type="text" id="tipo" name="tipo" maxlength="50" minlength="2"/>
             </div>
 
             <div class="form-group">
@@ -88,7 +88,7 @@
 
             <div class="form-group full-width">
               <label for="comentarios">Comentarios:</label>
-              <input type="text" id="comentarios" name="comentarios" />
+              <input type="text" id="comentarios" name="comentarios" maxlength="255" minlength="255"/>
             </div>
           </div>
 
