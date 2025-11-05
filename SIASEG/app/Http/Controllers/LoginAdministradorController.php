@@ -18,6 +18,7 @@ class LoginAdministradorController extends Controller
 
         //dd($request->all()); -> Sirve para ver como se estan mandando los datos
 
+
         // Hacemos la consulta a la base de datos y validamos
         if(Auth::attempt([
             'no_empleado' => $request -> no_empleado,
