@@ -16,13 +16,14 @@ class TransporteController extends Controller
     public function create()
     {
         return view('Jefe.CreateUniadades');
-    } 
+    }
 
     /**
      * Guardar una nueva unidad en la base de datos.
      */
     public function store(Request $request)
     {
+
         $mensajes = [
             'required' => 'El campo :attribute es obligatorio.',
             'max' => 'El campo :attribute no puede tener más de :max caracteres.',
