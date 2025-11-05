@@ -36,7 +36,7 @@ Route::post(
 
 Route::get('/Empleados',
     [EmployedController::class, 'index']
-)->name('employed.index');
+)->name('mostrarempleados');
 
 /*------------------------------------------------
 RUTAS PARA EL MENÚ DE LOS LOGIN

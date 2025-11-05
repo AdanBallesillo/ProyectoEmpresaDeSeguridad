@@ -35,7 +35,7 @@ class EmployedController extends Controller
      */
     public function create()
     {
-        return view('crearempleado');
+        // return view('crearempleado');
     }
 
     /**
@@ -135,7 +135,7 @@ class EmployedController extends Controller
      */
     public function show(string $id)
     {
-        return redirect()->route('cre');
+        return redirect()->route('mostrarempleados');
     }
 
     /**
