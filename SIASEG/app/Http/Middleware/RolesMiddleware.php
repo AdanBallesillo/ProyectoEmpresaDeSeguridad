@@ -15,7 +15,7 @@ class RolesMiddleware
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next, $rol): Response
+    public function handle(Request $request, Closure $next, ...$roles): Response
     {
         // Validamos si ya inicio sesión o no
         if (!Auth::check()){
@@ -23,14 +23,20 @@ class RolesMiddleware
             return redirect ('Jefe.IndexLoginJefe') -> withErrors(['login_error' => 'Se debe de iniciar sesión primero']);
         }
 
-        // Verificamos el rol, si es distinto al que necesita los formularios para acceder le mostramos un mensaje.
-        if (Auth::user() -> rol != $rol){
+        // Primero versión para mostrar el error
+        // if (!in_array(Auth::user()->rol, $roles)){
+        //     // Cerramos la sesión
+        //     Auth::logout();
+        //     return back() -> withErrors(['login_error' => 'No tienes los permisos para iniciar sesión.']);
+        // }
+
+        // Segunda versión para mostrar el error
+        if (!in_array(Auth::user()->rol, $roles)){
             // Cerramos la sesión
-            Auth::logout();
-            return back() -> withErrors(['login_error' => 'No tienes los permisos para iniciar sesión.']);
+            abort(403, 'No tienes los permisos para acceder a esta página.');
         }
 
-        // Si todo esta bien avanzamos.
+        // Si su rol SÍ estaba en la lista, avanzamos.
         return $next($request);
     }
 }

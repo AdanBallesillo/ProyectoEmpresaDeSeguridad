@@ -37,19 +37,19 @@ Route::post(
 RUTAS PARA EL MENÚ DE LOS LOGIN
 --------------------------------------------------
 */
-Route::get('/LoginAdministrador/View', function () {
+Route::get('/Administrador', function () {
     return view('Jefe.IndexLoginJefe');
 })->name('Ruta.LoginAdmin');
 
-Route::get('/LoginEmpleados/View', function () {
+Route::get('/Empleado', function () {
     return view('Empleados.IndexLoginEmpleados');
 })->name('Ruta.LoginEmpleado');
 
-Route::get('/LoginSecretaria/View', function () {
+Route::get('/Secretaria', function () {
     return view('Secretaria.IndexLoginSecretaria');
 })->name('Ruta.LoginSecretaria');
 
-Route::get('/LoginTransportista/View', function () {
+Route::get('/Transportista', function () {
     return view('Transportistas.IndexLoginTransportistas');
 })->name('Ruta.LoginTranspo');
 
@@ -88,7 +88,7 @@ Route::post('/Transportista/Validate', [LoginTransportistaController::class, 'Va
 // Ruta para mostrar el dashboard o menú, protegido por el middleware
 Route::get('/Trasportista/Menu', function () {
     return view('IndexLoginEmpleados');
-})->middleware('checkrol:Transportista')->name('Transportista.Menu');
+})->middleware('checkrol:Transportista,Administrador')->name('Transportista.Menu');
 
 // Ruta para cerrar sesion
 Route::post('/Transportista/Logout', [LoginTransportistaController::class, 'Logout'])->name('Transportista.Logout');
@@ -108,7 +108,7 @@ Route::post('/Secretaria/Validate', [LoginSecretariaController::class, 'Validate
 // Ruta para mostrar el dashboard o menú, protegido por el middleware
 Route::get('/Secretaria/Menu', function () {
     return view('CreatePersonal');
-})->middleware('checkrol:Secretaria')->name('Secretaria.Dashboard');
+})->middleware('checkrol:Secretaria,Administrador')->name('Secretaria.Dashboard');
 
 // Ruta para cerrar sesion
 Route::post('/Secretaria/Logout', [LoginSecretariaController::class, 'Logout'])->name('Secretaria.Logout');
@@ -126,7 +126,7 @@ Route::post('/Empleado/Validate', [LoginEmpleadoController::class, 'Validate']) 
 // Ruta para mostrar el dashboard o menú, protegido por el middleware
 Route::get('/Empleado/Menu', function () {
     return view ('welcome');
-}) -> middleware('checkrol:Empleado') -> name('Empleado.Menu');
+}) -> middleware('checkrol:Empleado,Administrador') -> name('Empleado.Menu');
 
 // Ruta para cerrar sesion
 Route::post('/Empleado/Logout', [LoginEmpleadoController::class, 'Logout']) -> name('Empleado.Logout');
