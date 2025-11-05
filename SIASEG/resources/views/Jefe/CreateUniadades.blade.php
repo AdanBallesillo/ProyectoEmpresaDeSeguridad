@@ -88,7 +88,7 @@
 
             <div class="form-group full-width">
               <label for="comentarios">Comentarios:</label>
-              <input type="text" id="comentarios" name="comentarios" maxlength="255" minlength="255"/>
+              <input type="text" id="comentarios" name="comentarios" maxlength="255" minlength="1"/>
             </div>
           </div>
 
