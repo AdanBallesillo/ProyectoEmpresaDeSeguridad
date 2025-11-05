@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Nuevas Unidades - Sistema Integral de Gestión</title>
-    <link rel="stylesheet" href="../Estilos/style_NuevasUnidades.css" />
+    <link rel="stylesheet" href="{{ asset('css/style_NuevasUnidades.css') }}" />
   </head>
   <body>
     <!-- HEADER PRINCIPAL -->
@@ -34,61 +34,79 @@
         <h3>Información de las Unidades</h3>
       </div>
       <div class="card-body">
-        <form>
+        <form action="{{ route('unidades.store') }}" method="POST">
+          @csrf
           <div class="form-grid">
             <div class="form-group">
               <label for="modelo">Modelo:</label>
-              <input type="text" id="modelo" />
+              <input type="text" id="modelo" name="modelo" required />
             </div>
+
             <div class="form-group">
               <label for="placas">Placas:</label>
-              <input type="text" id="placas" />
+              <input type="text" id="placas" name="placas" required />
             </div>
+
             <div class="form-group">
               <label for="anio">Año:</label>
-              <input type="number" id="anio" />
+              <input type="number" id="anio" name="anio" required />
             </div>
+
             <div class="form-group">
               <label for="niv">NIV:</label>
-              <input type="text" id="niv" />
+              <input type="text" id="niv" name="numero_serie" />
             </div>
+
             <div class="form-group">
               <label for="marca">Marca:</label>
-              <input type="text" id="marca" />
+              <input type="text" id="marca" name="marca" />
             </div>
+
             <div class="form-group">
               <label for="tipo">Tipo:</label>
-              <input type="text" id="tipo" />
+              <input type="text" id="tipo" name="tipo" />
             </div>
+
             <div class="form-group">
               <label for="capacidad">Capacidad de carga:</label>
-              <input type="text" id="capacidad" />
+              <input type="text" id="capacidad" name="capacidad_carga" />
             </div>
-            <br><br><br>
+
             <div class="form-group">
               <label for="fechaAdquisicion">Fecha de adquisición:</label>
-              <input type="date" id="fechaAdquisicion" class="input-date" />
+              <input type="date" id="fechaAdquisicion" name="fecha_adquisicion" />
             </div>
+
             <div class="form-group">
               <label>Status:</label>
               <div class="radio-group">
-                <label><input type="radio" name="status" value="Activo" /> Activo</label>
-                <label><input type="radio" name="status" value="Mantenimiento" /> Mantenimiento</label>
+                <label><input type="radio" name="status" value="Activo" checked /> Activo</label>
+                <label><input type="radio" name="status" value="En mantenimiento" /> En mantenimiento</label>
                 <label><input type="radio" name="status" value="Baja" /> Baja</label>
               </div>
             </div>
+
             <div class="form-group full-width">
               <label for="comentarios">Comentarios:</label>
-              <input type="text" id="comentarios" />
+              <input type="text" id="comentarios" name="comentarios" />
             </div>
           </div>
+
           <div class="form-actions">
             <button type="submit" class="btn btn-primary">Guardar</button>
-            <button type="button" class="btn btn-secondary">Cancelar</button>
-            <button type="button" class="btn btn-tertiary">Limpiar</button>
+            <button type="button" class="btn btn-secondary" onclick="window.location.reload()">Cancelar</button>
+            <button type="reset" class="btn btn-tertiary">Limpiar</button>
           </div>
         </form>
       </div>
     </div>
+
+    @if(session('success'))
+      <script>alert("{{ session('success') }}");</script>
+    @endif
+
+    @if(session('error'))
+      <script>alert("{{ session('error') }}");</script>
+    @endif
   </body>
 </html>

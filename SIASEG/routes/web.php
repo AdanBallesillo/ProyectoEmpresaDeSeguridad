@@ -6,6 +6,7 @@ use App\Http\Controllers\LoginAdministradorController;
 use App\Http\Controllers\LoginSecretariaController;
 use App\Http\Controllers\LoginTransportistaController;
 use App\Http\Controllers\LoginEmpleadoController;
+use App\Http\Controllers\TransporteController;
 
 
 
@@ -130,3 +131,12 @@ Route::get('/Empleado/Menu', function () {
 
 // Ruta para cerrar sesion
 Route::post('/Empleado/Logout', [LoginEmpleadoController::class, 'Logout']) -> name('Empleado.Logout');
+
+
+/*--------------------------------------------
+RUTAS PARA TRASNPORTE
+--------------------------------------------*/
+
+
+Route::get('/nuevasunidades', [TransporteController::class, 'create'])->name('nuevasunidades');
+Route::post('/nuevasunidades', [TransporteController::class, 'store'])->name('unidades.store');
