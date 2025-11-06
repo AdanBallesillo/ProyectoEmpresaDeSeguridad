@@ -63,10 +63,10 @@
         <!-- Fila 2 -->
         <div class="row">
           <label for="curp">CURP:</label>
-          <input type="text" id="curp" name="CURP" value= "{{ $empleado->CURP }}" placeholder="Ingresa el CURP">
+          <input type="text" id="curp" name="CURP" value= "{{ $empleado->CURP }}" placeholder="Ingresa el CURP" maxlength="18" minlength="18">
 
           <label for="rfc">RFC:</label>
-          <input type="text" id="rfc" name="RFC" value= "{{ $empleado->RFC }}" placeholder="Ingresa el RFC">
+          <input type="text" id="rfc" name="RFC" value= "{{ $empleado->RFC }}" placeholder="Ingresa el RFC" maxlength="13" minlength="12">
         </div>
 
         <!-- Fila 3 -->
@@ -105,7 +105,7 @@
           <input type="email" id="correo" name="correo" value="{{ $empleado->correo }}" placeholder="Ingresa el Correo Electrónico">
 
           <label for="telefono">Número (Tel):</label>
-          <input type="tel" id="telefono" name="telefono" value='{{ $empleado->telefono }}' placeholder="Ingresa el Número">
+          <input type="tel" id="telefono" name="telefono" value='{{ $empleado->telefono }}' placeholder="Ingresa el Número" maxlength="10" minlength="10" inputmode="numeric">
         </div>
 
         <!-- Botones -->
