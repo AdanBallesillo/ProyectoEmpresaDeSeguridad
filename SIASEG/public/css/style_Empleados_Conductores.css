@@ -1,0 +1,523 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #0d284e; 
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+
+.top-bar {
+    background-color: #0d284e;
+    height: 20px; 
+}
+
+/* El main-content es el contenedor principal que centra el contenido blanco */
+.main-content {
+    background-color: #0d284e; 
+    padding: 20px 0;
+}
+
+/* El contenedor blanco principal que tiene toda la interfaz */
+.page-container {
+    max-width: 100rem;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 45px;
+}
+
+/* Encabezado dentro del contenedor blanco */
+.content-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #e1e1e1;
+}
+
+.header-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #0d284e;
+    margin: 0;
+}
+
+.header-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 5px;
+    font-size: 1rem;
+}
+
+.date {
+    font-size: 25px;
+    font-weight: 500;
+    color: #888;
+}
+
+.time {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.notification-icon .material-icons {
+    font-size: 2rem;
+    color: #888;
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+/* Pie de página azul sin contenido - OCULTADO PARA ELIMINAR LA BARRA INFERIOR */
+.bottom-bar {
+    display: none; /* Cambiado para ocultar completamente la barra inferior */
+}
+
+.footer-content {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* El resto de estilos se mantiene igual */
+.section-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 30px 0 15px;
+}
+
+.progress-section {
+    text-align: center;
+}
+
+.progress-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 10px;
+    margin: 0 20px;
+}
+
+.progress-circle {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #ccc;
+    z-index: 1;
+}
+
+.progress-circle.start {
+    background-color: #0d284e;
+}
+
+.progress-circle.current {
+    background-color: #4CAF50;
+    width: 25px;
+    height: 25px;
+}
+
+.progress-circle.end {
+    background-color: #f0f2f5;
+    border: 3px solid #ccc;
+}
+
+.progress-line {
+    flex-grow: 1;
+    height: 5px;
+    background-color: #ccc;
+}
+
+.personal-data-section {
+    margin-top: 40px;
+}
+
+.data-table {
+    display: flex;
+    flex-direction: column;
+    background-color: #e6eef6;
+    border-radius: 10px;
+    padding: 15px;
+}
+
+.table-header, .table-row {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 1fr 1.5fr;
+    gap: 10px;
+}
+
+.table-header {
+    font-weight: bold;
+    color: #0d284e;
+    padding-bottom: 10px;
+}
+
+.table-row {
+    align-items: center;
+    padding-top: 10px;
+    font-weight: 500;
+}
+
+.employee-number-cell {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    background-color: #f7a831;
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+}
+
+.avatar::before {
+    content: '';
+    position: absolute;
+    bottom: 8px;
+    left: 31%;
+    width: 16px;
+    height: 12px;
+    background-color: white;
+    border-radius: 50% 50% 0 0;
+    transform: scaleX(1.4);
+}
+
+.avatar::after {
+    content: '';
+    position: absolute;
+    top: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 12px;
+    height: 12px;
+    background-color: white;
+    border-radius: 50%;
+}
+
+.info-cards-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-top: 40px;
+}
+
+.card {
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* ¡CAMBIO CLAVE AQUÍ! Centra los elementos verticalmente */
+    align-items: center; /* Centra los elementos horizontalmente (texto del encabezado e ícono) */
+    text-align: center;
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.card-header .material-icons {
+    font-size: 2.2rem;
+}
+
+.card h3 {
+    margin: 0;
+    font-size: 1rem;
+    color: #121111;
+    text-transform: uppercase;
+}
+
+.card p {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 0 auto;
+    text-align: center;
+    width: 100%;
+}
+
+.card-gray {
+    background-color: #e9ecef;
+}
+
+.card-gray .material-icons {
+    color: rgb(247, 168, 49);
+}
+
+.card-green {
+    background-color: #d4edda;
+}
+
+.card-green .material-icons {
+    color: rgb(247, 168, 49);
+}
+
+.card-white {
+    background-color: #dee2e6;
+    border: 1px solid #dee2e6;
+}
+
+.card-white .material-icons {
+    color: rgb(247, 168, 49);
+}
+
+.card-orange {
+    background-color: #ffeeba;
+    justify-content: space-between;
+}
+
+.card-orange .material-icons {
+    color: rgb(247, 168, 49);
+}
+
+.start-route-btn {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: auto;
+}
+
+@media (max-width: 600px) {
+    .content-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .header-info {
+        align-items: flex-start;
+        margin-top: 10px;
+    }
+    .data-table {
+        padding: 10px;
+    }
+    .table-header, .table-row {
+        grid-template-columns: 1fr;
+    }
+    .info-cards-section {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* --- ESTILOS PARA TRANSICIÓN DE PÁGINAS (FADE IN/OUT) --- */
+
+/* 1. Estado inicial del cuerpo: Opacidad 0. 
+      La transición suave ocurre cuando se carga la página y se remueve 'fade-out' en JS. */
+body {
+    opacity: 1; /* Valor inicial visible */
+    transition: opacity 0.4s ease-in-out; /* Transición suave de 0.4 segundos */
+}
+
+/* 2. Clase para iniciar el FADE OUT (Usada por JS) */
+.fade-out {
+    opacity: 0 !important; /* Fuerza la opacidad a cero al salir de la página */
+}
+
+/* Fondo del modal */
+.modal {
+    display: none; /* Oculto por defecto */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    overflow: auto;
+    transition: opacity 0.4s ease-in-out;
+}
+
+/* Contenido centrado */
+.modal-content {
+    background-color: #fff;
+    margin: 5% auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 1000px;
+    position: relative;
+    animation: slideIn 0.4s ease-in-out;
+}
+
+/* Botón cerrar */
+.close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Animación */
+@keyframes slideIn {
+    from {transform: translateY(-50px); opacity: 0;}
+    to {transform: translateY(0); opacity: 1;}
+}
+
+/* Estilos para el panel de notificaciones */
+.notification-panel {
+    position: fixed;
+    top: 0;
+    right: -300px; /* Oculto inicialmente fuera de la pantalla */
+    width: 300px;
+    height: 100%;
+    background-color: #f9f9f9;
+    box-shadow: -2px 0 5px rgba(0,0,0,0.3);
+    transition: right 0.3s ease, visibility 0.3s ease;
+    z-index: 1000;
+    padding: 20px;
+    overflow-y: auto;
+    visibility: hidden; /* Completamente oculto cuando no está abierto */
+}
+.notification-panel.open {
+    right: 0; /* Visible cuando tiene la clase 'open' */
+    visibility: visible; /* Visible cuando está abierto */
+}
+.notification-panel h3 {
+    margin-bottom: 15px;
+    font-size: 18px;
+    color: #333;
+}
+.notification-item {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+.notification-item h4 {
+    margin: 0 0 5px 0;
+    font-size: 14px;
+    color: #007bff;
+}
+.notification-item p {
+    margin: 0;
+    font-size: 12px;
+    color: #666;
+}
+.notification-icon {
+    cursor: pointer; /* Hace que el ícono sea clickeable */
+}
+.close-panel {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 24px;
+    color: #333;
+}
+
+/* Media query para móviles: hacer el panel más responsivo */
+@media (max-width: 600px) {
+    .notification-panel {
+        top: 100%; /* Oculto inicialmente abajo de la pantalla */
+        right: 0;
+        left: 0;
+        width: 100%;
+        height: 70%; /* Ocupa el 70% de la altura en móviles para no cubrir todo */
+        transition: top 0.3s ease, visibility 0.3s ease; /* Cambia la transición a top */
+    }
+    .notification-panel.open {
+        top: 30%; /* Se desliza desde abajo, dejando espacio arriba */
+        visibility: visible;
+    }
+}
+
+        /* Estilos para el panel de notificaciones */
+        .notification-panel {
+            position: fixed;
+            top: 0;
+            right: -300px; /* Oculto inicialmente fuera de la pantalla */
+            width: 300px;
+            height: 100%;
+            background-color: #f9f9f9;
+            box-shadow: -2px 0 5px rgba(0,0,0,0.3);
+            transition: right 0.3s ease, visibility 0.3s ease;
+            z-index: 1000;
+            padding: 20px;
+            overflow-y: auto;
+            visibility: hidden; /* Completamente oculto cuando no está abierto */
+        }
+        .notification-panel.open {
+            right: 0; /* Visible cuando tiene la clase 'open' */
+            visibility: visible; /* Visible cuando está abierto */
+        }
+        .notification-panel h3 {
+            margin-bottom: 15px;
+            font-size: 18px;
+            color: #333;
+        }
+        .notification-item {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        .notification-item .material-icons {
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+        .notification-item.leve {
+            border-left: 5px solid #8CD95B;
+        }
+        .notification-item.leve .material-icons {
+            color: #8CD95B;
+        }
+        .notification-item.grave {
+            border-left: 5px solid #F43D3D;
+        }
+        .notification-item.grave .material-icons {
+            color: #F43D3D;
+        }
+        .notification-item h4 {
+            margin: 0 0 5px 0;
+            font-size: 14px;
+            color: #007bff;
+        }
+        .notification-item p {
+            margin: 0;
+            font-size: 12px;
+            color: #666;
+        }
+        .notification-icon {
+            cursor: pointer; /* Hace que el ícono sea clickeable */
+        }
+        .close-panel {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            font-size: 24px;
+            color: #333;
+        }
+
+        /* Media query para móviles: hacer el panel más responsivo */
+        @media (max-width: 600px) {
+            .notification-panel {
+                top: 100%; /* Oculto inicialmente abajo de la pantalla */
+                right: 0;
+                left: 0;
+                width: 100%;
+                height: 70%; /* Ocupa el 70% de la altura en móviles para no cubrir todo */
+                transition: top 0.3s ease, visibility 0.3s ease; /* Cambia la transición a top */
+            }
+            .notification-panel.open {
+                top: 30%; /* Se desliza desde abajo, dejando espacio arriba */
+                visibility: visible;
+            }
+        }
