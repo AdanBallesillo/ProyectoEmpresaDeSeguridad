@@ -46,11 +46,11 @@ Route::get('/empleados/{id}/edit',
     [EmployedController::class, 'edit']
 )->name('modificarempleadojefe');
 
-
 Route::put(
     '/Editar-Empleado/{id}',
     [EmployedController::class, 'update']
 )->name('employed.update');
+
 /*------------------------------------------------
 RUTAS PARA EL MENÚ DE LOS LOGIN
 --------------------------------------------------

@@ -76,7 +76,7 @@
 
           <label for="rol">Rol:</label>
           <select id="rol" name="rol">
-            <option value="admin" {{ $empleado->rol == 'admin' ? 'selected' : '' }}>Administrador</option>
+            <option value="administrador" {{ $empleado->rol == 'administrador' ? 'selected' : '' }}>Administrador</option>
             <option value="empleado" {{ $empleado->rol == 'empleado' ? 'selected' : '' }}>Empleado</option>
           </select>
         </div>
