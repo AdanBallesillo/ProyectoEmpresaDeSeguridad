@@ -194,7 +194,17 @@
                             <td>{{ $empleado->telefono }}</td>
                             <td>{{ $empleado->correo }}</td>
                             <td class="actions-cell">
-                                <button class="action-button modify-button">Modificar</button>
+                                <button class="action-button modify-button"
+                                    data-id="{{ $empleado->id_empleado }}"
+                                    data-nombres="{{ $empleado->nombres }}"
+                                    data-apellidos="{{ $empleado->apellidos }}"
+                                    data-curp="{{ $empleado->CURP }}"
+                                    data-rfc="{{ $empleado->RFC }}"
+                                    data-telefono="{{ $empleado->telefono }}"
+                                    data-rol="{{ $empleado->rol }}"
+                                    data-correo="{{ $empleado->correo }}"
+                                    data-foto="{{ $empleado->fotografia }}"
+                                >Modificar</button>
                                 <button class="action-button delete-button">Eliminar</button>
                             </td>
                         </tr>
@@ -218,10 +228,14 @@
 
         // Redirigir botones Modificar
         document.querySelectorAll('.modify-button').forEach(button => {
-            button.addEventListener('click', function() {
-                window.location.href = "../Formularios/Frm_ModificarUsuarios.php";
-            });
+        button.addEventListener('click', () => {
+            // le damos el id del usuario a modificar
+            const id = button.dataset.id;
+            // construimos la url con el id hacia la vista de modificar
+            const url = "{{ route('modificarempleadojefe', ['id' => ':id']) }}".replace(':id', id);
+            window.location.href = url;
         });
+    });
     </script>
 </body>
 </html>

@@ -23,6 +23,7 @@ RUTAS PARA EL CRUD DE USUARIOS
 --------------------------------------------------
 */
 
+// Rutas para crear usuarios
 Route::get('/Nuevo-Empleado', function () {
     return view('CreatePersonal');
 })->name('crearempleado');
@@ -33,11 +34,22 @@ Route::post(
 )->name('employed.store');
 
 
-
+// Rutas para mostrar los usuarios
 Route::get('/Empleados',
     [EmployedController::class, 'index']
 )->name('mostrarempleados');
 
+
+// Rutas para modificar usuarios como jefe
+Route::get('/empleados/{id}/edit',
+    [EmployedController::class, 'edit']
+)->name('modificarempleadojefe');
+
+
+Route::put(
+    '/Editar-Empleado/{id}',
+    [EmployedController::class, 'update']
+)->name('employed.update');
 /*------------------------------------------------
 RUTAS PARA EL MENÚ DE LOS LOGIN
 --------------------------------------------------
