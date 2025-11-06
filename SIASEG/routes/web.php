@@ -63,12 +63,12 @@ RUTAS PARA EL LOGIN DE ADMINISTRADOR
 Route::get('/LoginAdministrador', [LoginAdministradorController::class, 'Index'])->name('Administrador.Login');
 
 // Ruta para validar los datos
-Route::post('/Administrador/Validate', [LoginAdministradorController::class, 'Validate'])->name('Administrador.Validate');
+Route::post('/Administrador/Validate', [LoginAdministradorController::class, 'Validate'])->name('Administrador.Validate') -> middleware('throttle:3,1');
 
 // Ruta para mostrar el dashboard o menú, protegido por el middleware
 Route::get('/Administrador/Menu', function () {
     return view('CreatePersonal');
-})->middleware('checkrol:Administrador')->name('Administrador.Dashboard');
+})->middleware('checkrol:Administrador') ->name('Administrador.Dashboard');
 
 // Ruta para cerrar sesion
 Route::post('/Administrador/Logout', [LoginAdministradorController::class, 'Logout'])->name('Administrador.Logout');
