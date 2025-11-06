@@ -205,7 +205,6 @@
                                     data-correo="{{ $empleado->correo }}"
                                     data-foto="{{ $empleado->fotografia }}"
                                 >Modificar</button>
-                                <button class="action-button delete-button">Eliminar</button>
                             </td>
                         </tr>
                     @empty
