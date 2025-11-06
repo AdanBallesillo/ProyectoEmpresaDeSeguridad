@@ -23,18 +23,18 @@ class RolesMiddleware
             return redirect ('Jefe.IndexLoginJefe') -> withErrors(['login_error' => 'Se debe de iniciar sesión primero']);
         }
 
-        // Primero versión para mostrar el error
-        // if (!in_array(Auth::user()->rol, $roles)){
-        //     // Cerramos la sesión
-        //     Auth::logout();
-        //     return back() -> withErrors(['login_error' => 'No tienes los permisos para iniciar sesión.']);
-        // }
-
-        // Segunda versión para mostrar el error
+        // Primera versión para mostrar el error
         if (!in_array(Auth::user()->rol, $roles)){
             // Cerramos la sesión
-            abort(403, 'No tienes los permisos para acceder a esta página.');
+            Auth::logout();
+            return back() -> withErrors(['login_error' => 'No tienes los permisos para iniciar sesión.']);
         }
+
+        // // Segunda versión para mostrar el error
+        // if (!in_array(Auth::user()->rol, $roles)){
+        //     // Cerramos la sesión
+        //     abort(403, 'No tienes los permisos para acceder a esta página.');
+        // }
 
         // Si su rol SÍ estaba en la lista, avanzamos.
         return $next($request);
