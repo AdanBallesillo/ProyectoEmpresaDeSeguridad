@@ -17,7 +17,17 @@ class EmployedController extends Controller
      */
     public function index()
     {
-        //
+        try {
+        // Obtener todos los empleados de la tabla 'empleados'
+        $empleados = Employed::all();
+
+        // Retornar la vista y enviar los datos
+        return view('Jefe.IndexPersonal', compact('empleados'));
+
+        } catch (\Exception $e) {
+            \Log::error('Error al obtener la lista de empleados: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Ocurrió un error al cargar la lista de empleados.');
+        }
     }
 
     /**
@@ -25,7 +35,7 @@ class EmployedController extends Controller
      */
     public function create()
     {
-        return view('crearempleado');
+        // return view('crearempleado');
     }
 
     /**
@@ -125,7 +135,7 @@ class EmployedController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return redirect()->route('mostrarempleados');
     }
 
     /**
@@ -133,7 +143,22 @@ class EmployedController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        try {
+            // Buscar el empleado por su ID o lanzar excepción si no existe
+            $empleado = Employed::findOrFail($id);
+
+            // Retornar la vista de edición y enviar los datos del empleado
+            return view('Jefe.EditUsuarios', compact('empleado'));
+
+        } catch (\Exception $e) {
+            // Registrar error en el log de Laravel
+            \Log::error('Error al cargar empleado para edición: ' . $e->getMessage());
+
+            // Retornar al listado con un mensaje de error
+            return redirect()
+                ->route('mostrarempleados')
+                ->with('error', 'No se pudo cargar la información del empleado.');
+        }
     }
 
     /**
@@ -141,7 +166,89 @@ class EmployedController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // Diccionario de mensajes personalizados
+            $errorMessages = [
+                'CURP.unique' => 'Error: esta CURP ya está registrada en la base de datos.',
+                'RFC.unique' => 'Error: este RFC ya está registrado en la base de datos.',
+                'correo.unique' => 'Error: este correo ya está registrado en la base de datos.',
+                'required' => 'El campo :attribute es obligatorio.',
+                'email' => 'El formato del correo electrónico no es válido.',
+                'max' => 'El campo :attribute no puede tener más de :max caracteres.',
+                'image' => 'El archivo subido debe ser una imagen válida (jpg, png, gif, etc).',
+                'mimes' => 'El formato de la imagen debe ser jpg, jpeg, png o gif.',
+            ];
+
+
+        try {
+            $empleado = Employed::findOrFail($id);
+
+            // Validar los datos del formulario
+                $validated = $request->validate([
+                    'nombres' => 'string|max:100',
+                    'apellidos' => 'string|max:100',
+                    'CURP' => 'string|max:18|unique:empleados,CURP,' . $id . ',id_empleado',
+                    'RFC' => 'string|max:13|unique:empleados,RFC,' . $id . ',id_empleado',
+                    'telefono' => 'string|max:15',
+                    'rol' => 'string|max:100',
+                    'correo' => 'email|max:150|unique:empleados,correo,' . $id . ',id_empleado',
+                    'status' => 'in:activo,inactivo'
+                    ],  $errorMessages
+                );
+
+            // Actualizar campos generales
+            $empleado->fill($validated);
+
+            // // Guardar fotografía si se sube
+            // if ($request->hasFile('fotografia')) {
+            //     $image = $request->file('fotografia');
+
+            //     // Generar nombre único
+            //     $imageName = time() . '_' . $image->getClientOriginalName();
+
+            //     // Guardar en storage/app/public/fotos la imagen
+            //     $path = $image->storeAs('fotos', $imageName, 'public');
+
+            //     // Guardar ruta accesible públicamente en public/storage/fotos con ayuda del link simbólico
+            //     $personal->fotografia = 'storage/' . $path;
+            // }
+
+        // Generar nuevo número de control si se selecciona
+        if ($request->has('generar_no_control')) {
+            $nuevoNumero = rand(100000, 999999);
+            $empleado->no_empleado = $nuevoNumero;
+            $credenciales['no_empleado'] = $nuevoNumero;
+        }
+
+        // Generar nueva contraseña si se selecciona
+        if ($request->has('generar_password')) {
+            $nuevaPass = Str::random(8);
+            $empleado->password = Hash::make($nuevaPass);
+            $credenciales['password'] = $nuevaPass;
+        }
+
+        $empleado->status = $request->estado;
+
+        $empleado->save();
+
+        // Mensaje base
+        $mensaje = 'Empleado actualizado correctamente.';
+
+        // Si se generaron credenciales nuevas, añadimos detalle al mensaje
+        if (!empty($credenciales)) {
+            $mensaje .= "\n\nNuevas credenciales generadas:";
+        }
+
+        // Retornar con los datos correctos
+        return redirect()->back()->with([
+            'success' => $mensaje,
+            'no_empleado' => $credenciales['no_empleado'] ?? null,
+            'password' => $credenciales['password'] ?? null,
+        ]);
+
+        } catch (\Exception $e) {
+            \Log::error('Error al actualizar empleado: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'No se pudo actualizar el empleado.');
+        }
     }
 
     /**

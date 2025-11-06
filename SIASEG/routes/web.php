@@ -6,6 +6,7 @@ use App\Http\Controllers\LoginAdministradorController;
 use App\Http\Controllers\LoginSecretariaController;
 use App\Http\Controllers\LoginTransportistaController;
 use App\Http\Controllers\LoginEmpleadoController;
+use App\Http\Controllers\TransporteController;
 
 
 
@@ -23,16 +24,33 @@ RUTAS PARA EL CRUD DE USUARIOS
 --------------------------------------------------
 */
 
+// Rutas para crear usuarios
 Route::get('/Nuevo-Empleado', function () {
     return view('CreatePersonal');
 })->name('crearempleado');
 
 Route::post(
-    '/empleados',
+    '/Registrar-Empleado',
     [EmployedController::class, 'store']
 )->name('employed.store');
 
 
+// Rutas para mostrar los usuarios
+Route::get('/Empleados',
+    [EmployedController::class, 'index']
+)->name('mostrarempleados');
+
+
+// Rutas para modificar usuarios como jefe
+Route::get('/empleados/{id}/edit',
+    [EmployedController::class, 'edit']
+)->name('modificarempleadojefe');
+
+
+Route::put(
+    '/Editar-Empleado/{id}',
+    [EmployedController::class, 'update']
+)->name('employed.update');
 /*------------------------------------------------
 RUTAS PARA EL MENÚ DE LOS LOGIN
 --------------------------------------------------
@@ -68,7 +86,8 @@ Route::post('/Administrador/Validate', [LoginAdministradorController::class, 'Va
 // Ruta para mostrar el dashboard o menú, protegido por el middleware
 Route::get('/Administrador/Menu', function () {
     return view('CreatePersonal');
-})->middleware('checkrol:Administrador') ->name('Administrador.Dashboard');
+}) ->middleware('checkrol:Administrador')->name('Administrador.Dashboard');;
+
 
 // Ruta para cerrar sesion
 Route::post('/Administrador/Logout', [LoginAdministradorController::class, 'Logout'])->name('Administrador.Logout');
@@ -130,3 +149,12 @@ Route::get('/Empleado/Menu', function () {
 
 // Ruta para cerrar sesion
 Route::post('/Empleado/Logout', [LoginEmpleadoController::class, 'Logout']) -> name('Empleado.Logout');
+
+
+/*--------------------------------------------
+RUTAS PARA TRASNPORTE
+--------------------------------------------*/
+
+
+Route::get('/nuevasunidades', [TransporteController::class, 'create'])->name('nuevasunidades');
+Route::post('/nuevasunidades', [TransporteController::class, 'store'])->name('unidades.store');

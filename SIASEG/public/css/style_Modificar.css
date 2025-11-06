@@ -1,0 +1,302 @@
+/* Variables CSS */
+:root {
+    --primary-blue: #0A2647;
+    --dark-blue: #142F4B;
+    --light-grey: #F0F2F5;
+    --medium-grey: #CCCCCC;
+    --input-bg-grey: #EDEDED;
+    --text-color: #333;
+    --white: #FFFFFF;
+    --orange: #FF8C00; 
+}
+
+/* Reset completo */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--white);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+/* ========== HEADER PRINCIPAL ========== */
+.header-container {
+    background-color: #0d284e;
+    color: white;
+    font-family: Arial, sans-serif;
+    padding: 20px 20px;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin: 0;
+}
+
+.logo-and-text {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo-placeholder {
+    width: 60px;
+    height: 60px;
+    background-color: white;
+    border-radius: 50%;
+}
+
+.text-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.main-title {
+    font-size: 26px;
+    margin: 0;
+    font-weight: bold;
+}
+
+.subtitle {
+    font-size: 15px;
+    margin: 0;
+    opacity: 0.8;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-role {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.user-icon {
+    width: 50px;
+    height: 50px;
+    background-color: #f7a831;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.user-icon::before {
+    content: '';
+    position: absolute;
+    bottom: 9px;
+    width: 20px;
+    height: 15px;
+    background-color: white;
+    border-radius: 50% 50% 0 0;
+    transform: scaleX(1.4);
+}
+
+.user-icon::after {
+    content: '';
+    position: absolute;
+    top: 9px;
+    width: 15px;
+    height: 15px;
+    background-color: white;
+    border-radius: 50%;
+}
+
+/* ========== SUBHEADER ========== */
+.sub-header {
+    background-color: white;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 15px 0;
+}
+
+.sub-header h2 {
+    margin-left: 0;
+    padding-left: 0;
+    font-size: 32px;
+    color: #001F3E;
+}
+
+/* Contenedor formulario */
+main {
+    padding: 0;
+    width: 100%;
+}
+
+.form-container {
+    background: #ffffff;
+    padding: 20px;
+    width: 100%;
+    max-width: 100%;
+}
+
+/* Fila de formulario */
+.row {
+    display: grid;
+    grid-template-columns: 150px 1fr 150px 1fr;
+    gap: 15px;
+    margin-bottom: 15px;
+    align-items: center;
+}
+
+.row label {
+    font-weight: bold;
+    font-size: 14px;
+    color: var(--dark-blue);
+}
+
+.row input,
+.row select {
+    padding: 8px;
+    border: 1px solid var(--medium-grey);
+    border-radius: 4px;
+    background-color: var(--input-bg-grey);
+    font-size: 14px;
+    width: 100%;
+}
+
+.row input:focus,
+.row select:focus {
+    border-color: var(--dark-blue);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(20, 47, 75, 0.3);
+    background-color: var(--white);
+}
+
+/* ===== Estado (radio buttons) ===== */
+.estado-options {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.estado-options label {
+    font-weight: normal;
+    color: var(--text-color);
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.estado-options input[type="radio"] {
+    accent-color: var(--dark-blue); /* Color del radio */
+    transform: scale(1.1);
+}
+
+/* Sección */
+.seccion {
+    background-color: var(--dark-blue);
+    color: white;
+    padding: 8px 15px;
+    margin: 20px 0 10px 0;
+    font-size: 16px;
+    border-radius: 4px;
+}
+
+/* Botones */
+.botones {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.botones button {
+    padding: 10px 25px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    min-width: 120px;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+}
+
+.guardar {
+    background-color: var(--orange);
+}
+
+.guardar:hover {
+    background-color: #e67e00;
+}
+
+.cancelar {
+    background-color: var(--dark-blue);
+}
+
+.cancelar:hover {
+    background-color: #0d2238;
+}
+
+.limpiar {
+    background-color: var(--medium-grey);
+    color: var(--text-color);
+}
+
+.limpiar:hover {
+    background-color: #b0b0b0;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .logo-and-text {
+        margin-bottom: 10px;
+    }
+
+    .user-info {
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    .row {
+        grid-template-columns: 1fr;
+    }
+
+    .row label {
+        margin-top: 10px;
+    }
+
+    .estado-options {
+        flex-direction: row;
+        justify-content: flex-start;
+        gap: 10px;
+    }
+
+    .botones {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .botones button {
+        width: 100%;
+    }
+    
+    .sub-header h2 {
+        padding-left: 20px;
+    }
+}
