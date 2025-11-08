@@ -174,6 +174,19 @@
         </div>
 
         <div class="table-container">
+
+            <!-- Barra de búsqueda -->
+            <div class="search-bar" style="margin-bottom: 20px;">
+                <form action="{{ route('mostrarempleados') }}" method="GET">
+                    <input type="text" name="busqueda" placeholder="Buscar empleado..."
+                        value="{{ request('busqueda') }}"
+                        style="padding: 8px; width: 250px; border-radius: 5px; border: 1px solid #ccc;">
+                    <button type="submit" style="padding: 8px 15px; border: none; background: #FF8B00; color: white; border-radius: 5px;">
+                        Buscar
+                    </button>
+                </form>
+            </div>
+
             <table class="personnel-table">
                 <thead>
                     <tr>
@@ -214,6 +227,16 @@
                     @endforelse
                 </tbody>
             </table>
+            {{-- Paginación --}}
+            <div class="pagination-container" style="margin-top: 15px; text-align:center; margin-bottom: 10px;">
+                <div style="margin-bottom: 5px; margin-left: 5px; font-size: 14px; color: #555;">
+                    Mostrando página {{ $empleados->currentPage() }} de {{ $empleados->lastPage() }}
+                    ( Total: {{ $empleados->total() }} registros )
+                </div>
+
+                {{ $empleados->onEachSide(1)->links('pagination::simple-tailwind') }}
+            </div>
+
         </div>
     </div>
 

@@ -15,14 +15,31 @@ class EmployedController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         try {
-        // Obtener todos los empleados de la tabla 'empleados'
-        $empleados = Employed::all();
+            $query = Employed::query();
 
-        // Retornar la vista y enviar los datos
-        return view('Jefe.IndexPersonal', compact('empleados'));
+            // Si viene algo en la barra de búsqueda
+            if ($request->filled('busqueda')) {
+                $busqueda = $request->busqueda;
+
+                // indicamos las columnas donde se realizará la búsqueda
+                $query->where(function($q) use ($busqueda) {
+                    $q->where('nombres', 'like', "%{$busqueda}%")
+                    ->orWhere('apellidos', 'like', "%{$busqueda}%")
+                    ->orWhere('RFC', 'like', "%{$busqueda}%")
+                    ->orWhere('CURP', 'like', "%{$busqueda}%")
+                    ->orWhere('correo', 'like', "%{$busqueda}%")
+                    ->orWhere('telefono', 'like', "%{$busqueda}%");
+                });
+            }
+
+            // Paginamos los resultados
+            // el numero es la cantidad de resultados por página
+            $empleados = $query->paginate(5);
+
+            return view('Jefe.IndexPersonal', compact('empleados'));
 
         } catch (\Exception $e) {
             \Log::error('Error al obtener la lista de empleados: ' . $e->getMessage());
