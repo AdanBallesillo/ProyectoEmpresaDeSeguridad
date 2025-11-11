@@ -1,26 +1,48 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Menú Hamburguesa</title>
-    <link rel="stylesheet" href="../Estilos/style_Menu.css" />
-  </head>
-  <body>
-    <!-- Transición entre páginas -->
-    <div id="page-transition"></div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control de Asistencia</title>
+    <link rel="stylesheet" href="../Estilos/style_Asistencia.css">
+    <link rel="stylesheet" href="../Estilos/style_Menu.css">
+</head>
+<body>
+    <header class="header-container">
+        <div class="header-content">
+            <div class="logo-and-text">
+                <div class="logo-placeholder"></div>
+                <div class="text-group">
+                    <h1 class="main-title">Sistema integral de gestion</h1>
+                    <p class="subtitle">Control de Personal y Asistencia</p>
+                </div>
+            </div>
+            <div class="user-info">
+                <span class="user-role">Admin Usuario</span>
+                <div class="user-icon"></div>
+            </div>
+        </div>
+    </header>
 
-    <!-- Botón hamburguesa -->
-    <button class="menu-btn" id="menuBtn">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
+        <!-- SUBHEADER -->
+    <div class="sub-header">
+      <button class="menu-btn" id="menuBtn">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+
+    <!-- OVERLAY -->
+    <div class="overlay" id="overlay"></div>
+
+        <!-- Transición entre páginas -->
+    <div id="page-transition"></div>
 
     <!-- Fondo oscuro del menú -->
     <div class="overlay" id="overlay"></div>
 
-    <!-- Contenedor del menú -->
+    <!-- MENÚ HAMBURGUESA -->
     <div class="menu-container" id="menuContainer">
       <div class="menu-header">
         <div class="arrow" id="closeMenu">→</div>
@@ -140,6 +162,57 @@
       <button class="logout-btn" id="logoutBtn">Cerrar Sesión</button>
     </div>
 
+    <main class="main-content">
+        <h1 class="page-title">Control de Asistencia</h1>
+        <p class="page-subtitle">Registro de Asistencia del personal</p>
+
+        <section class="dashboard-grid">
+            <div class="attendance-table-container card">
+                <h2 class="section-title">Asistencia</h2>
+                <div class="attendance-table">
+                    <div class="table-header">
+                        <span class="header-item">Empleado</span>
+                        <span class="header-item">Estación</span>
+                        <span class="header-item">Hora</span>
+                        <span class="header-item">Asistencia</span>
+                    </div>
+                    <div class="table-row">
+                        <span class="row-item">Osvaldo Flaco Gallegos</span>
+                        <span class="row-item">Central</span>
+                        <span class="row-item">07:55</span>
+                        <span class="row-item status-punctual">Puntual</span>
+                    </div>
+                    <div class="table-row">
+                        <span class="row-item">Emiliano Villa Hernandez Martinez</span>
+                        <span class="row-item">Central</span>
+                        <span class="row-item">08:10</span>
+                        <span class="row-item status-absent">Retardo</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="top-lists-container">
+                <div class="top-list card">
+                    <h2 class="section-title">TOP 10 Asistencia</h2>
+                    <div class="list-item">
+                        <div class="ranking-number rank-1">1</div>
+                        <div class="user-avatar user-1"></div>
+                        <span class="user-name">Osvaldo Flaco</span>
+                    </div>
+                </div>
+
+                <div class="top-list card">
+                    <h2 class="section-title">TOP 10 Inasistencia</h2>
+                    <div class="list-item">
+                        <div class="ranking-number rank-red-1">1</div>
+                        <div class="user-avatar user-4"></div>
+                        <span class="user-name">Pancracio Villa</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
     <script src="../Java/Anim_Menu.js"></script>
-  </body>
+</body>
 </html>

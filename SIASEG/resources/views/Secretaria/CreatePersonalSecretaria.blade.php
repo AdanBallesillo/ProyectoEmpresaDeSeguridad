@@ -4,36 +4,30 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sistema Integral de Gestión</title>
-  <link rel="stylesheet" href="{{ asset('css/style_Agregar.css') }}">
+  <link rel="stylesheet" href="../Estilos/style_Agregar.css">
 </head>
 <body>
-
-    <!-- HEADER PRINCIPAL -->
-    <header class="header-container">
-      <div class="header-content">
-        <div class="logo-and-text">
-          <div class="logo-placeholder"></div>
-          <div class="text-group">
-            <h1 class="main-title">Sistema integral de gestion</h1>
-            <p class="subtitle">ComadrejasCorp</p>
-          </div>
-        </div>
-        <div class="user-info">
-          <span class="user-role">Admin Usuario</span>
-          <div class="user-icon"></div>
+  <!-- HEADER PRINCIPAL -->
+  <header class="header-container">
+    <div class="header-content">
+      <div class="logo-and-text">
+        <div class="logo-placeholder"></div>
+        <div class="text-group">
+          <h1 class="main-title">Sistema integral de gestión</h1>
+          <p class="subtitle">Control de Personal y Asistencia</p>
         </div>
       </div>
-    </header>
-
-    <!-- SUBHEADER -->
-    <div class="sub-header">
-      <h2>Nuevo Empleado</h2>
-      <button class="menu-btn" id="menuBtn">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
+      <div class="user-info">
+        <span class="user-role">Admin Usuario</span>
+        <div class="user-icon"></div>
+      </div>
     </div>
+  </header>
+
+  <!-- SUBHEADER -->
+  <div class="sub-header">
+    <h2>Nuevo Usuario</h2>
+  </div>
 
   <!-- Contenedor principal -->
   <main>
@@ -42,32 +36,30 @@
         <!-- Fila 1 -->
         <div class="row">
           <label for="nombre">Nombre(s):</label>
-          <input type="text" id="nombre" name="nombres" placeholder="Ingresa el nombre completo">
+          <input type="text" id="nombre" placeholder="Ingresa el nombre completo">
 
           <label for="apellidos">Apellidos:</label>
-          <input type="text" id="apellidos" name="apellidos" placeholder="Ingresa los apellidos">
+          <input type="text" id="apellidos" placeholder="Ingresa los apellidos">
         </div>
 
         <!-- Fila 2 -->
         <div class="row">
           <label for="curp">CURP:</label>
-          <input type="text" id="curp" name="CURP" placeholder="Ingresa el CURP">
+          <input type="text" id="curp" placeholder="Ingresa el CURP">
 
           <label for="rfc">RFC:</label>
-          <input type="text" id="rfc" name="RFC" placeholder="Ingresa el RFC">
+          <input type="text" id="rfc" placeholder="Ingresa el RFC">
         </div>
 
         <!-- Fila 3 -->
         <div class="row">
           <label for="foto">FOTO:</label>
-          <input type="file" id="foto" name="fotografia">
+          <input type="file" id="foto">
 
           <label for="rol">Rol:</label>
-          <select id="rol" name="rol">
-            <option value="Administrador"> Administrador </option>
-            <option value="Empleado"> Empleado </option>
-            <option value="Secretaria"> Secretaria </option>
-            <option value="Transportista"> Transportista </option>
+          <select id="rol">
+            <option value="admin">Administrador</option>
+            <option value="empleado">Empleado</option>
           </select>
         </div>
 
@@ -77,10 +69,10 @@
         <!-- Fila 4 -->
         <div class="row">
           <label for="correo">Correo Electrónico:</label>
-          <input type="email" id="correo" name="correo" placeholder="Ingresa el Correo Electrónico">
+          <input type="email" id="correo" placeholder="Ingresa el Correo Electrónico">
 
           <label for="telefono">Número (Tel):</label>
-          <input type="tel" id="telefono" name="telefono" placeholder="Ingresa el Número">
+          <input type="tel" id="telefono" placeholder="Ingresa el Número">
         </div>
 
         <!-- Botones -->
