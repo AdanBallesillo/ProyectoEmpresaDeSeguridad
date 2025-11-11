@@ -14,10 +14,10 @@
     <header class="menu-bar">
         <nav class="menu-buttons">
             {{-- Modificación de rutas al menú  --}}
-            <a href="{{ route('Ruta.LoginAdmin')}}" class="menu-btn">Jefe</a>
+            {{-- <a href="{{ route('Ruta.LoginAdmin')}}" class="menu-btn">Jefe</a>
             <a href="{{ route('Ruta.LoginSecretaria') }}" class="menu-btn">Secretaría</a>
             <a href="{{ route('Ruta.LoginEmpleado') }}" class="menu-btn">Empleado</a>
-            <a href="{{ route('Ruta.LoginTranspo') }}" class="menu-btn">Transportistas</a>
+            <a href="{{ route('Ruta.LoginTranspo') }}" class="menu-btn">Transportistas</a> --}}
     </header>
 
     <div class="login-container">
