@@ -478,11 +478,21 @@ body {
 }
 
 /* Paginacion */
+.pagination-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
 .pagination-container {
-    display: inline-flex;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     gap: 5px;
     list-style: none;
     padding: 0;
+    width: 100%;
 }
 
 .pagination-container li {
@@ -509,3 +519,4 @@ body {
     color: white;
     border-color: #FF8B00;
 }
+

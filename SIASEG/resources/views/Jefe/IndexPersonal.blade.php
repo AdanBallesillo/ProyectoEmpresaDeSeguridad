@@ -176,12 +176,12 @@
         <div class="table-container">
 
             <!-- Barra de búsqueda -->
-            <div class="search-bar" style="margin-bottom: 20px;">
-                <form action="{{ route('mostrarempleados') }}" method="GET">
+            <div class="search-bar" style="margin-bottom: 20px; display: flex; justify-content: center; width: 100%; ">
+                <form action="{{ route('mostrarempleados') }}" method="GET" style="display: flex; width: 100%; max width: 700px; gap: 10px;">
                     <input type="text" name="busqueda" placeholder="Buscar empleado..."
                         value="{{ request('busqueda') }}"
-                        style="padding: 8px; width: 250px; border-radius: 5px; border: 1px solid #ccc;">
-                    <button type="submit" style="padding: 8px 15px; border: none; background: #FF8B00; color: white; border-radius: 5px;">
+                        style="flex: 1; padding: 10px; border-radius: 5px; border: 1px solid #ccc;">
+                    <button type="submit" style="padding: 10px 20px; border: none; background: #FF8B00; color: white; border-radius: 5px;">
                         Buscar
                     </button>
                 </form>
@@ -228,13 +228,15 @@
                 </tbody>
             </table>
             {{-- Paginación --}}
-            <div class="pagination-container" style="margin-top: 15px; text-align:center; margin-bottom: 10px;">
-                <div style="margin-bottom: 5px; margin-left: 5px; font-size: 14px; color: #555;">
+            <div class="pagination-container" style="margin-top: 15px; margin-bottom: 10px;">
+                <div style="margin-bottom: 5px; font-size: 14px; color: #555; text-align: center;">
                     Mostrando página {{ $empleados->currentPage() }} de {{ $empleados->lastPage() }}
                     ( Total: {{ $empleados->total() }} registros )
                 </div>
 
-                {{ $empleados->onEachSide(1)->links('pagination::simple-tailwind') }}
+                <div class="pagination-container">
+                    {{ $empleados->onEachSide(1)->links('pagination::simple-tailwind') }}
+                </div>
             </div>
 
         </div>
