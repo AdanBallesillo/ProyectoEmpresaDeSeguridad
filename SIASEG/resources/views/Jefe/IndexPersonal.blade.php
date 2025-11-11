@@ -9,7 +9,7 @@
 </head>
 <body>
     <!-- Encabezado -->
-    <header class="header-container">
+    <header class="header-container" style="position: relative">
         <div class="header-content">
             <div class="logo-and-text">
                 <div class="logo-placeholder"></div>
@@ -22,16 +22,26 @@
                 <span class="user-role">Admin Usuario</span>
                 <div class="user-icon"></div>
             </div>
+
+            <!-- SUBHEADER -->
+            <div class="sub-header">
+                <button class="menu-btn" id="menuBtn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
         </div>
     </header>
 
+    {{-- En caso de errores, descomentar el siguiente codigo y quitar el que esta arriba --}}
     <!-- SUBHEADER -->
     <div class="sub-header">
-      <button class="menu-btn" id="menuBtn">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
+        <button class="menu-btn" id="menuBtn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
     </div>
 
     <!-- OVERLAY -->

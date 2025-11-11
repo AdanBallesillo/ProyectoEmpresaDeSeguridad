@@ -11,9 +11,11 @@ body {
 
 /* --- BOTÓN HAMBURGUESA --- */
 .menu-btn {
-  position: fixed;
-  top: 120px; /* 🔹 antes 20px — bajado más */
-  right: 25px;
+    /* Se comento esta parte ya que el boton hamburguesa interferia con boton nuevo empleado */
+
+  /* position: fixed; */
+  /* top: 120px;
+  right: 25px; */
   width: 55px;
   height: 55px;
   background-color: #001F3E;
