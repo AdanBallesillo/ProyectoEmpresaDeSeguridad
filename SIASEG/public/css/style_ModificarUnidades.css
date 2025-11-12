@@ -314,3 +314,15 @@ h2 {
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     }
 }
+
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+  padding: 10px 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  text-align: center;
+  font-weight: 500;
+  transition: opacity 1s ease;
+}

@@ -156,5 +156,22 @@ RUTAS PARA TRASNPORTE
 --------------------------------------------*/
 
 
-Route::get('/nuevasunidades', [TransporteController::class, 'create'])->name('nuevasunidades');
-Route::post('/nuevasunidades', [TransporteController::class, 'store'])->name('unidades.store');
+// Listado
+Route::get('/unidades', [TransporteController::class, 'index'])
+    ->name('mostrartodasunidades');
+
+// Formulario crear
+Route::get('/nuevasunidades', [TransporteController::class, 'create'])
+    ->name('nuevasunidades');
+
+// Guardar nueva
+Route::post('/nuevasunidades', [TransporteController::class, 'store'])
+    ->name('unidades.store');
+
+// Formulario editar
+Route::get('/unidades/{id}/editar', [TransporteController::class, 'edit'])
+    ->name('unidades.edit');
+
+// Actualizar
+Route::put('/unidades/{id}/actualizar', [TransporteController::class, 'update'])
+    ->name('unidades.update');

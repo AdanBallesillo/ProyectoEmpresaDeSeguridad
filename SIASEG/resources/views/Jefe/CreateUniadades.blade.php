@@ -34,6 +34,20 @@
         <h3>Información de las Unidades</h3>
       </div>
       <div class="card-body">
+
+@if(session('success'))
+    <div id="successMessage" class="alert-success">
+        {{ session('success') }}
+    </div>
+@endif
+
+@if(session('error'))
+    <div class="alert-error">
+        {{ session('error') }}
+    </div>
+@endif
+
+
         <form action="{{ route('unidades.store') }}" method="POST">
           @csrf
           <div class="form-grid">
@@ -94,19 +108,37 @@
 
           <div class="form-actions">
             <button type="submit" class="btn btn-primary">Guardar</button>
-            <button type="button" class="btn btn-secondary" onclick="window.location.reload()">Cancelar</button>
+            <a href="{{ route('mostrartodasunidades') }}" class="btn btn-secondary" >Cancelar</a>
             <button type="reset" class="btn btn-tertiary">Limpiar</button>
           </div>
         </form>
       </div>
     </div>
 
-    @if(session('success'))
-      <script>alert("{{ session('success') }}");</script>
-    @endif
-
+    
     @if(session('error'))
       <script>alert("{{ session('error') }}");</script>
     @endif
+
+
+    <script>
+document.addEventListener("DOMContentLoaded", function() {
+    const successMessage = document.getElementById('successMessage');
+    if (successMessage) {
+        // Desvanece el mensaje después de 3 segundos
+        setTimeout(() => {
+            successMessage.style.opacity = '0';
+            setTimeout(() => successMessage.remove(), 1000);
+        }, 3000);
+
+        // Limpia los campos del formulario
+        const form = document.querySelector('form');
+        if (form) {
+            form.reset();
+        }
+    }
+});
+</script>
+
   </body>
 </html>
