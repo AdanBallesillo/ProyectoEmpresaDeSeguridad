@@ -13,7 +13,7 @@
         <div class="logo-and-text">
           <div class="logo-placeholder"></div>
           <div class="text-group">
-            <h1 class="main-title">Sistema integral de gestión</h1>
+            <h1 class="main-title">Sistema integral de gestion</h1>
             <p class="subtitle">Control de Personal y Asistencia</p>
           </div>
         </div>
@@ -31,13 +31,18 @@
 
     <!-- Tarjeta (card) que contiene todo el formulario -->
     <div class="card">
+      <!-- Encabezado dentro de la tarjeta -->
       <div class="card-header">
         <h3>Información de las Unidades</h3>
       </div>
 
+      <!-- Cuerpo de la tarjeta -->
       <div class="card-body">
+        <!-- Formulario para capturar los datos -->
         <form>
+          <!-- Estructura en forma de cuadrícula -->
           <div class="form-grid">
+            <!-- Cada "form-group" representa un campo con su etiqueta e input -->
             <div class="form-group">
               <label for="modelo">Modelo:</label>
               <input type="text" id="modelo" value="" />
@@ -55,39 +60,20 @@
               <input type="text" id="niv" value="" />
             </div>
             <div class="form-group">
-              <label for="marca">Marca:</label>
-              <input type="text" id="marca" value="" />
-            </div>
-            <div class="form-group">
-              <label for="tipo">Tipo:</label>
-              <input type="text" id="tipo" value="" />
-            </div>
-            <div class="form-group">
-              <label for="capacidad">Capacidad de carga:</label>
-              <input type="text" id="capacidad" value="" />
-            </div>
-            <br><br><br>
-            <div class="form-group">
-              <label for="fechaAdquisicion">Fecha de adquisición:</label>
-              <input type="date" id="fechaAdquisicion" class="input-date" />
-            </div>
-            <div class="form-group">
-              <label>Status:</label>
-              <div class="radio-group">
-                <label><input type="radio" name="status" value="Activo" /> Activo</label>
-                <label><input type="radio" name="status" value="Mantenimiento" /> Mantenimiento</label>
-                <label><input type="radio" name="status" value="Baja" /> Baja</label>
-              </div>
-            </div>
-            <div class="form-group full-width">
-              <label for="comentarios">Comentarios:</label>
-              <input type="text" id="comentarios" value="" />
+              <label for="color">Color:</label>
+              <input type="text" id="color" value="" />
             </div>
           </div>
 
+          <!-- Sección inferior del formulario con los botones -->
           <div class="form-actions">
+            <!-- Botón principal (naranja) -->
             <button type="submit" class="btn btn-primary">Guardar</button>
+
+            <!-- Botón secundario (azul oscuro) -->
             <button type="button" class="btn btn-secondary">Cancelar</button>
+
+            <!-- Botón terciario (azul oscuro, usado para limpiar) -->
             <button type="button" class="btn btn-tertiary">Limpiar</button>
           </div>
         </form>

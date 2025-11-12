@@ -1,0 +1,216 @@
+/* Colores de la paleta */
+:root {
+    --color-dark-blue: #0d284e;
+    --color-white: #ffffff;
+    --color-light-gray: #f0f2f5;
+    --color-medium-gray: #e6eef6;
+    --color-orange: #ff8b00;
+    --color-dark-text: #333;
+    --color-light-text: #888;
+}
+
+.route-card-wrapper {
+    background-color: var(--color-white);
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    padding: 30px;
+    max-width: 700px;
+    width: 90%;
+    margin: 220px auto; /* Centra la tarjeta si no es un modal flotante */
+    font-family: Arial, sans-serif;
+}
+
+.route-header-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end; /* Alinea el título con la fecha/hora */
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+.route-title-card {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--color-dark-blue);
+    margin: 0;
+}
+
+.route-header-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    font-size: 1rem;
+    line-height: 1.2;
+}
+
+.date-card {
+    font-weight: 500;
+    color: var(--color-light-text);
+}
+
+.time-card {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: var(--color-dark-text);
+}
+
+.route-progress-container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    background-color: var(--color-light-gray); /* Fondo gris claro */
+    border-radius: 10px;
+    padding: 20px 30px;
+    margin-bottom: 30px;
+}
+
+.route-point-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 35%; /* Ocupa un tercio del espacio */
+}
+
+.point-label-card {
+    font-size: 0.9rem;
+    color: var(--color-dark-text);
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.point-details {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 5px;
+}
+
+.location-icon-card {
+    font-size: 1.5rem;
+    color: var(--color-orange);
+    line-height: 1;
+}
+
+.point-name-card {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--color-dark-text);
+    margin: 0;
+}
+
+.point-time-card {
+    font-size: 0.9rem;
+    color: var(--color-light-text);
+    margin: 0;
+}
+
+/* ------------------------------------- */
+/* Dirección y Flecha */
+/* ------------------------------------- */
+.route-direction-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    padding: 0 15px;
+    margin-top: 25px; /* Ajusta la posición vertical del bus y la flecha */
+}
+
+.bus-icon-card {
+    font-size: 2rem;
+    color: var(--color-orange);
+    margin-bottom: 5px;
+}
+
+.arrow-line {
+    width: 100%;
+    margin-top: -5px; /* Mueve la flecha hacia arriba para que quede debajo del bus */
+}
+
+/* Estilo para que la línea y la punta de la flecha sean oscuras */
+.arrow-line svg line, .arrow-line svg polygon {
+    stroke: var(--color-dark-text);
+    fill: var(--color-dark-text);
+}
+
+/* ------------------------------------- */
+/* Botones de Acción */
+/* ------------------------------------- */
+.route-actions-card {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.action-btn-card {
+    padding: 12px 40px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    width: 40%;
+    max-width: 150px;
+}
+
+.start-btn-card, .finish-btn-card {
+    background-color: var(--color-orange);
+    color: var(--color-white);
+}
+
+.start-btn-card:hover, .finish-btn-card:hover {
+    background-color: #e67a00;
+}
+
+/* ------------------------------------- */
+/* Responsive */
+/* ------------------------------------- */
+@media (max-width: 500px) {
+    .route-header-card {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .route-header-info {
+        align-items: flex-start;
+        margin-top: 10px;
+    }
+    .route-title-card {
+        font-size: 2rem;
+    }
+    .route-progress-container {
+        flex-direction: column;
+        padding: 20px 15px;
+    }
+    .route-point-card {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+    .route-direction-card {
+        padding: 10px 0;
+    }
+    .route-actions-card {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .action-btn-card {
+        width: 100%;
+        max-width: none;
+    }
+}
+
+/* --- ESTILOS PARA TRANSICIÓN DE PÁGINAS (FADE IN/OUT) --- */
+
+/* 1. Estado inicial del cuerpo: Opacidad 0. 
+      La transición suave ocurre cuando se carga la página y se remueve 'fade-out' en JS. */
+body {
+    opacity: 1; /* Valor inicial visible */
+    transition: opacity 0.4s ease-in-out; /* Transición suave de 0.4 segundos */
+    
+}
+
+.fade-out {
+    opacity: 0 !important; /* Fuerza la opacidad a cero al salir de la página */
+}
