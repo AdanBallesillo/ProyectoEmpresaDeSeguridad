@@ -1,0 +1,143 @@
+/* 🔹 Ajuste general del body */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    height: 100vh; /* Ocupa todo el alto visible */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 🔹 Contenedor principal del login */
+.login-container {
+    display: flex;
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    width: 700px;
+    max-width: 90%;
+    gap: 20px;
+    margin-top: 60px; /* Deja espacio para la barra fija */
+}
+
+/* Lado izquierdo - Logo */
+.login-icon {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #a9b1bb;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.logo {
+    max-width: 120px;
+    max-height: 120px;
+}
+
+/* Lado derecho - Formulario */
+.login-form {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.login-form h2 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.login-form p {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.login-form label {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.login-form input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+.login-form button {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #ffa733;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.login-form button:hover {
+    background-color: #ff8c00;
+}
+
+/* 🔹 Responsivo */
+@media (max-width: 768px) {
+    .menu-bar {
+        justify-content: center;
+        height: auto;
+        padding: 10px;
+    }
+
+    .menu-buttons {
+        margin-right: 0;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .login-container {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+        margin-top: 80px;
+        height: auto;
+    }
+
+    .login-form {
+        align-items: center;
+    }
+
+    .login-form input {
+        width: 90%;
+    }
+
+    .login-form button {
+        width: 90%;
+    }
+}
+
+@media (max-width: 480px) {
+    .menu-buttons {
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .menu-btn {
+        width: 90%;
+        text-align: center;
+    }
+
+    .login-container {
+        width: 90%;
+        margin-top: 90px;
+        padding: 15px;
+    }
+}
