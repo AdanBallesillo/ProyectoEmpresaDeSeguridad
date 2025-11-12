@@ -36,13 +36,13 @@
 
     {{-- En caso de errores, descomentar el siguiente codigo y quitar el que esta arriba --}}
     <!-- SUBHEADER -->
-    <div class="sub-header">
+    {{-- <div class="sub-header">
         <button class="menu-btn" id="menuBtn">
             <span></span>
             <span></span>
             <span></span>
         </button>
-    </div>
+    </div> --}}
 
     <!-- OVERLAY -->
     <div class="overlay" id="overlay"></div>

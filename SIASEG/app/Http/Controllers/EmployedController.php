@@ -9,6 +9,9 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Database\QueryException;
+use App\Http\Controllers\MailController;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\CredencialesEmpleadoMail;
 
 class EmployedController extends Controller
 {
@@ -117,6 +120,9 @@ class EmployedController extends Controller
 
             // Guardar registro en la base de datos
             $personal->save();
+
+            // Mandamos llamar al metodo para enviar las credenciales por correo
+            $this->enviarCredencialesEmpleado($personal, $passwordPlain);
 
             // Retornar con datos útiles
             return redirect()->route('crearempleado')->with([
@@ -229,6 +235,9 @@ class EmployedController extends Controller
             //     $personal->fotografia = 'storage/' . $path;
             // }
 
+        // init
+        $credenciales = [];
+
         // Generar nuevo número de control si se selecciona
         if ($request->has('generar_no_control')) {
             $nuevoNumero = rand(100000, 999999);
@@ -244,8 +253,13 @@ class EmployedController extends Controller
         }
 
         $empleado->status = $request->estado;
-
         $empleado->save();
+
+        // enviar correo solo si se generaron credenciales nuevas
+        if (!empty($credenciales)) {
+            // enviar: nombre, correo, no_empleado, password (password puede ser null)
+            $this->enviarCredencialesEmpleado($empleado, $credenciales['password'] ?? null);
+        }
 
         // Mensaje base
         $mensaje = 'Empleado actualizado correctamente.';
@@ -274,5 +288,20 @@ class EmployedController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    /**
+     * Enviar correo con credenciales del empleado.
+     */
+    private function enviarCredencialesEmpleado(Employed $empleado, ?string $passwordPlain)
+    {
+        try {
+            Mail::to($empleado->correo)
+                ->send(new CredencialesEmpleadoMail($empleado->nombres, $empleado->no_empleado, $passwordPlain));
+            return true;
+        } catch (\Exception $e) {
+            Log::error('Error al enviar credenciales por correo: ' . $e->getMessage());
+            return false;
+        }
     }
 }

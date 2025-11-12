@@ -7,6 +7,7 @@ use App\Http\Controllers\LoginSecretariaController;
 use App\Http\Controllers\LoginTransportistaController;
 use App\Http\Controllers\LoginEmpleadoController;
 use App\Http\Controllers\TransporteController;
+use App\Http\Controllers\MailController;
 
 
 
@@ -158,3 +159,10 @@ RUTAS PARA TRASNPORTE
 
 Route::get('/nuevasunidades', [TransporteController::class, 'create'])->name('nuevasunidades');
 Route::post('/nuevasunidades', [TransporteController::class, 'store'])->name('unidades.store');
+
+
+/*--------------------------------------------
+RUTAS PARA MAILS
+--------------------------------------------*/
+// Prueba de envío de correo
+Route::get('/test-mail', [MailController::class, 'testMail'])->name('testMail');
