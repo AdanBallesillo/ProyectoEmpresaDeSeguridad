@@ -10,7 +10,7 @@
 <body>
 
     <!-- HEADER -->
-    <header class="header-container">
+    <header class="header-container" style="position: relative;">
         <div class="header-content">
             <div class="logo-and-text">
                 <div class="logo-placeholder"></div>
@@ -23,18 +23,23 @@
                 <span class="user-role">Admin Usuario</span>
                 <div class="user-icon"></div>
             </div>
+
+
+
         </div>
+
+        
     </header>
 
-    <!-- SUBHEADER -->
-    <div class="sub-header">
-        <button class="menu-btn" id="menuBtn">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-    </div>
-
+    
+<!-- SUBHEADER -->
+            <div class="sub-header" style="display: flex; justify-content: right; padding: 1rem;">
+                <button class="menu-btn" id="menuBtn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
     {{-- @include('menu') --}}
 
     <!-- CONTENIDO PRINCIPAL -->
@@ -49,14 +54,15 @@
             <button class="new-employee-button" id="btnNuevaUnidad">Nueva Unidad</button>
         </div>
 
+        
+
         <!-- Barra de búsqueda -->
-        <div class="search-bar" style="margin-bottom: 20px;">
-            <form action="{{ route('mostrartodasunidades') }}" method="GET">
+        <div class="search-bar" style="margin-bottom: 20px;  display: flex; justify-content: center; width: 100%; ">
+            <form action="{{ route('mostrartodasunidades') }}" method="GET" style="display: flex; width: 100%; max-width: 700px; gap: 10px;">
                 <input type="text" name="busqueda" placeholder="Buscar unidad..."
                     value="{{ request('busqueda') }}"
-                    style="padding: 8px; width: 250px; border-radius: 5px; border: 1px solid #ccc;">
-                <button type="submit"
-                    style="padding: 8px 15px; border: none; background: #FF8B00; color: white; border-radius: 5px;">
+                    style="flex: 1; padding: 10px; border-radius: 5px; border: 1px solid #ccc;">
+                <button type="submit" style="padding: 10px 20px; border: none; background: #FF8B00; color: white; border-radius: 5px;">
                     Buscar
                 </button>
             </form>
