@@ -2,16 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Transporte;
 
 class UnidadesController extends Controller
 {
-    /**
-     * Mostrar la vista de Gestión de Unidades (Jefe).
-     */
     public function index()
     {
-        // resources/views/Jefe/IndexUnidades.blade.php
-        return view('Jefe.IndexUnidades');
+        // Contar las unidades por estado
+        $activos = Transporte::where('status', 'Activo')->count();
+        $mantenimientos = Transporte::where('status', 'En mantenimiento')->count();
+
+        // Total (solo activos + mantenimiento)
+        $total = $activos + $mantenimientos;
+
+        // Últimas unidades registradas para mostrar actividad
+        $unidades = Transporte::orderBy('fecha_actualizacion', 'desc')->take(10)->get();
+
+        return view('Jefe.IndexUnidades', compact('activos', 'mantenimientos', 'total', 'unidades'));
     }
 }

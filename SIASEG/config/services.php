@@ -35,4 +35,8 @@ return [
         ],
     ],
 
+    'google' => [
+        // cambiar el nombre aquí
+        'maps_js_key' => env('GOOGLE_MAPS_JS_KEY'),
+    ],
 ];

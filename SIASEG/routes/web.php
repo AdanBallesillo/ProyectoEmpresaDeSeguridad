@@ -169,6 +169,4 @@ RUTA PARA UNIDADES
 
 use App\Http\Controllers\UnidadesController;
 
-// --- Jefe: Gestión de Unidades
-Route::get('/jefe/unidades', [UnidadesController::class, 'index'])
-    ->name('jefe.unidades');
+Route::get('/jefe/unidades', [UnidadesController::class, 'index'])->name('jefe.unidades');
