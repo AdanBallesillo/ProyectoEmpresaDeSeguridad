@@ -7,7 +7,6 @@ use App\Http\Controllers\LoginSecretariaController;
 use App\Http\Controllers\LoginTransportistaController;
 use App\Http\Controllers\LoginEmpleadoController;
 use App\Http\Controllers\TransporteController;
-use App\Http\Controllers\MailController;
 
 
 
@@ -37,13 +36,15 @@ Route::post(
 
 
 // Rutas para mostrar los usuarios
-Route::get('/Empleados',
+Route::get(
+    '/Empleados',
     [EmployedController::class, 'index']
 )->name('mostrarempleados');
 
 
 // Rutas para modificar usuarios como jefe
-Route::get('/empleados/{id}/edit',
+Route::get(
+    '/empleados/{id}/edit',
     [EmployedController::class, 'edit']
 )->name('modificarempleadojefe');
 
@@ -56,19 +57,19 @@ Route::put(
 RUTAS PARA EL MENÚ DE LOS LOGIN
 --------------------------------------------------
 */
-Route::get('/Administrador', function () {
+Route::get('/LoginAdministrador/View', function () {
     return view('Jefe.IndexLoginJefe');
 })->name('Ruta.LoginAdmin');
 
-Route::get('/Empleado', function () {
+Route::get('/LoginEmpleados/View', function () {
     return view('Empleados.IndexLoginEmpleados');
 })->name('Ruta.LoginEmpleado');
 
-Route::get('/Secretaria', function () {
+Route::get('/LoginSecretaria/View', function () {
     return view('Secretaria.IndexLoginSecretaria');
 })->name('Ruta.LoginSecretaria');
 
-Route::get('/Transportista', function () {
+Route::get('/LoginTransportista/View', function () {
     return view('Transportistas.IndexLoginTransportistas');
 })->name('Ruta.LoginTranspo');
 
@@ -82,13 +83,13 @@ RUTAS PARA EL LOGIN DE ADMINISTRADOR
 Route::get('/LoginAdministrador', [LoginAdministradorController::class, 'Index'])->name('Administrador.Login');
 
 // Ruta para validar los datos
-Route::post('/Administrador/Validate', [LoginAdministradorController::class, 'Validate'])->name('Administrador.Validate') -> middleware('throttle:admin-login');
+Route::post('/Administrador/Validate', [LoginAdministradorController::class, 'Validate'])->name('Administrador.Validate');
 
 // Ruta para mostrar el dashboard o menú, protegido por el middleware
 Route::get('/Administrador/Menu', function () {
     return view('CreatePersonal');
-}) ->middleware('checkrol:Administrador')->name('Administrador.Dashboard');;
-
+});
+// ->middleware('checkrol:Administrador')->name('Administrador.Dashboard');
 
 // Ruta para cerrar sesion
 Route::post('/Administrador/Logout', [LoginAdministradorController::class, 'Logout'])->name('Administrador.Logout');
@@ -103,12 +104,12 @@ RUTAS PARA EL LOGIN DE TRANSPORTISTA
 Route::get('/LoginTransportista', [LoginTransportistaController::class, 'Index'])->name('Transportista.Login');
 
 // Ruta para validar los datos
-Route::post('/Transportista/Validate', [LoginTransportistaController::class, 'Validate'])->name('Transportista.Validate') -> middleware('throttle:transportista-login');
+Route::post('/Transportista/Validate', [LoginTransportistaController::class, 'Validate'])->name('Transportista.Validate');
 
 // Ruta para mostrar el dashboard o menú, protegido por el middleware
 Route::get('/Trasportista/Menu', function () {
     return view('IndexLoginEmpleados');
-})->middleware('checkrol:Transportista,Administrador')->name('Transportista.Menu');
+})->middleware('checkrol:Transportista')->name('Transportista.Menu');
 
 // Ruta para cerrar sesion
 Route::post('/Transportista/Logout', [LoginTransportistaController::class, 'Logout'])->name('Transportista.Logout');
@@ -123,12 +124,12 @@ RUTAS PARA EL LOGIN DE SECRETARIA
 Route::get('/LoginSecretaria', [LoginSecretariaController::class, 'Index'])->name('Secretaria.Login');
 
 // Ruta para validar los datos
-Route::post('/Secretaria/Validate', [LoginSecretariaController::class, 'Validate'])->name('Secretaria.Validate') -> middleware('throttle:secretaria-login');
+Route::post('/Secretaria/Validate', [LoginSecretariaController::class, 'Validate'])->name('Secretaria.Validate');
 
 // Ruta para mostrar el dashboard o menú, protegido por el middleware
 Route::get('/Secretaria/Menu', function () {
     return view('CreatePersonal');
-})->middleware('checkrol:Secretaria,Administrador')->name('Secretaria.Dashboard');
+})->middleware('checkrol:Secretaria')->name('Secretaria.Dashboard');
 
 // Ruta para cerrar sesion
 Route::post('/Secretaria/Logout', [LoginSecretariaController::class, 'Logout'])->name('Secretaria.Logout');
@@ -138,22 +139,22 @@ RUTAS PARA EL LOGIN DE EMPLEADOS
 --------------------------------------------------*/
 
 // Ruta para abrir el Login del Empleado
-Route::get('/LoginEmpleado', [LoginEmpleadoController::class, 'Index']) -> name('Empleado.Login');
+Route::get('/LoginEmpleado', [LoginEmpleadoController::class, 'Index'])->name('Empleado.Login');
 
 // Ruta para validar los datos
-Route::post('/Empleado/Validate', [LoginEmpleadoController::class, 'Validate']) -> name('Empleado.Validate') -> middleware('throttle:empleado-login');
+Route::post('/Empleado/Validate', [LoginEmpleadoController::class, 'Validate'])->name('Empleado.Validate');
 
 // Ruta para mostrar el dashboard o menú, protegido por el middleware
 Route::get('/Empleado/Menu', function () {
-    return view ('welcome');
-}) -> middleware('checkrol:Empleado,Administrador') -> name('Empleado.Menu');
+    return view('welcome');
+})->middleware('checkrol:Empleado')->name('Empleado.Menu');
 
 // Ruta para cerrar sesion
-Route::post('/Empleado/Logout', [LoginEmpleadoController::class, 'Logout']) -> name('Empleado.Logout');
+Route::post('/Empleado/Logout', [LoginEmpleadoController::class, 'Logout'])->name('Empleado.Logout');
 
 
 /*--------------------------------------------
-RUTAS PARA TRASNPORTE
+RUTAS PARA TRANSPORTE
 --------------------------------------------*/
 
 
@@ -165,6 +166,7 @@ Route::get('/unidades', [TransporteController::class, 'index'])
 Route::get('/nuevasunidades', [TransporteController::class, 'create'])
     ->name('nuevasunidades');
 
+<<<<<<< HEAD
 // Guardar nueva
 Route::post('/nuevasunidades', [TransporteController::class, 'store'])
     ->name('unidades.store');
@@ -175,4 +177,28 @@ Route::get('/unidades/{id}/editar', [TransporteController::class, 'edit'])
 
 // Actualizar
 Route::put('/unidades/{id}/actualizar', [TransporteController::class, 'update'])
+=======
+
+/*--------------------------------------------
+RUTAS PARA UNIDADES
+--------------------------------------------*/
+
+use App\Http\Controllers\UnidadesController;
+
+// DASHBOARD DEL JEFE (AQUÍ SE USA UnidadesController)
+Route::get('/jefe/unidades', [UnidadesController::class, 'index'])
+    ->name('jefe.unidades');
+
+
+// Listar todas las unidades (vista ShowUnidades)
+Route::get('/unidades/show', [TransporteController::class, 'showUnidades'])
+    ->name('mostrartodasunidades');
+
+// Formulario para editar UNA unidad
+Route::get('/unidades/{id}/editar', [TransporteController::class, 'edit'])
+    ->name('unidades.edit');
+
+// Guardar cambios de la unidad
+Route::put('/unidades/{id}', [TransporteController::class, 'update'])
+>>>>>>> Dashboard-Unidades
     ->name('unidades.update');

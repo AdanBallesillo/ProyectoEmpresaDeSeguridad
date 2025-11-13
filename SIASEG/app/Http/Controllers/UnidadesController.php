@@ -1,0 +1,23 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Transporte;
+
+class UnidadesController extends Controller
+{
+    public function index()
+    {
+        // Contar las unidades por estado
+        $activos = Transporte::where('status', 'Activo')->count();
+        $mantenimientos = Transporte::where('status', 'En mantenimiento')->count();
+
+        // Total (solo activos + mantenimiento)
+        $total = $activos + $mantenimientos;
+
+        // Últimas unidades registradas para mostrar actividad
+        $unidades = Transporte::orderBy('fecha_actualizacion', 'desc')->take(10)->get();
+
+        return view('Jefe.IndexUnidades', compact('activos', 'mantenimientos', 'total', 'unidades'));
+    }
+}

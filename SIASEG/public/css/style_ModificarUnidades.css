@@ -205,6 +205,43 @@ h2 {
     grid-column: 1 / -1; 
 }
 
+/* Input fecha */
+.input-date {
+    flex-grow: 1;
+    padding: 10px 12px;
+    border: 1px solid var(--medium-grey);
+    border-radius: 5px;
+    background-color: var(--input-bg-grey);
+    font-size: 1em;
+    color: var(--text-color);
+}
+
+.input-date:focus {
+    border-color: var(--dark-blue);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(20, 47, 75, 0.3);
+    background-color: var(--white);
+}
+
+/* Grupo radio buttons */
+.radio-group {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.radio-group label {
+    font-weight: normal;
+    cursor: pointer;
+    color: var(--text-color);
+}
+
+.radio-group input[type="radio"] {
+    accent-color: var(--orange);
+    transform: scale(1.1);
+}
+
 /* Acciones del formulario (botones) */
 .form-actions {
     display: flex;
@@ -275,20 +312,21 @@ h2 {
     .card-header h3 {
         font-size: 1em;
     }
-    
+
     .form-group {
         flex-direction: column; 
         align-items: flex-start; 
         gap: 5px;
     }
-    
+
     .form-group label {
         width: 100%; 
         text-align: left; 
     }
-    
+
     .form-group input[type="text"],
-    .form-group input[type="number"] {
+    .form-group input[type="number"],
+    .input-date {
         width: 100%; 
         max-width: 100%;
     }
@@ -296,7 +334,7 @@ h2 {
     .form-grid {
         grid-template-columns: 1fr; 
     }
-    
+
     .form-actions {
         justify-content: center; 
         flex-direction: column; 
@@ -307,6 +345,13 @@ h2 {
         width: 100%; 
         min-width: unset;
     }
+
+    /* Radio buttons apilados en móviles */
+    .radio-group {
+        flex-direction: column;
+        align-items: flex-start; 
+        gap: 8px;
+    }
 }
 
 @media (min-width: 769px) and (max-width: 1024px) {
@@ -314,6 +359,7 @@ h2 {
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     }
 }
+<<<<<<< HEAD
 
 .alert-success {
   background-color: #d4edda;
@@ -326,3 +372,5 @@ h2 {
   font-weight: 500;
   transition: opacity 1s ease;
 }
+=======
+>>>>>>> Dashboard-Unidades

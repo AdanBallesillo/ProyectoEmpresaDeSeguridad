@@ -1,0 +1,340 @@
+/* Estilos para eliminar espacios en blanco por defecto en el body */
+body {
+    margin: 0;
+    padding: 0;
+}
+
+/* ----------------------------------------------------- */
+/* Estilos del Encabezado Principal */
+/* ----------------------------------------------------- */
+.header-container {
+    background-color: #0d284e;
+    color: white;
+    font-family: Arial, sans-serif;
+    padding: 20px 20px;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1800px;
+    margin: 0 auto;
+}
+
+.logo-and-text {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo-placeholder {
+    width: 60px;
+    height: 60px;
+    background-color: white;
+    border-radius: 50%;
+}
+
+.text-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.main-title {
+    font-size: 26px;
+    margin: 0;
+    font-weight: bold;
+}
+
+.subtitle {
+    font-size: 15px;
+    margin: 0;
+    opacity: 0.8;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-role {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.user-icon {
+    width: 50px;
+    height: 50px;
+    background-color: #f7a831;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.user-icon::before {
+    content: '';
+    position: absolute;
+    bottom: 9px;
+    width: 20px;
+    height: 15px;
+    background-color: white;
+    border-radius: 50% 50% 0 0;
+    transform: scaleX(1.4);
+}
+
+.user-icon::after {
+    content: '';
+    position: absolute;
+    top: 9px;
+    width: 15px;
+    height: 15px;
+    background-color: white;
+    border-radius: 50%;
+}
+
+/* ----------------------------------------------------- */
+/* Estilos del encabezado de la página de reportes */
+/* ----------------------------------------------------- */
+.page-header {
+    background-color: white;
+    border-bottom: 1px solid #ddd;
+    padding: 20px 20px;
+    font-family: Arial, sans-serif;
+}
+
+.page-header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1800px;
+    margin: 0 auto;
+}
+
+.page-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #0d284e;
+    margin: 0;
+}
+
+.page-subtitle {
+    font-size: 14px;
+    color: #555;
+    margin: 5px 0 0 0;
+}
+
+.menu-icon {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 28px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.menu-icon .bar {
+    width: 100%;
+    height: 3px;
+    background-color: #0d284e;
+    border-radius: 2px;
+}
+
+/* ----------------------------------------------------- */
+/* Estilos del Contenedor del Dashboard */
+/* ----------------------------------------------------- */
+.dashboard-container {
+    display: flex;
+    font-family: Arial, sans-serif;
+    background-color: #f0f2f5;
+    padding: 20px;
+    gap: 20px;
+}
+
+/* Estilos de la barra lateral (sidebar) */
+.sidebar {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    min-width: 250px;
+    max-width: 300px;
+}
+
+.sidebar-section {
+    margin-bottom: 25px;
+}
+
+.section-title {
+    color: #444;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.report-option {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    transition: background-color 0.3s;
+}
+
+.report-option:hover {
+    background-color: #eee;
+}
+
+.report-option.active {
+    background-color: #fce5c6;
+    color: #f7a831;
+    font-weight: bold;
+}
+
+.icon-placeholder {
+    width: 20px;
+    height: 20px;
+    background-color: #777;
+    border-radius: 4px;
+}
+
+.report-option.active .icon-placeholder.orange {
+    background-color: #f7a831;
+}
+
+.report-option .icon-placeholder.dark {
+    background-color: #777;
+}
+
+.period-select-container {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+    padding: 5px;
+}
+
+.period-select {
+    width: 100%;
+    padding: 8px;
+    border: none;
+    background-color: transparent;
+    appearance: none;
+    cursor: pointer;
+}
+
+.sidebar-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.export-btn {
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.export-btn.pdf {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.export-btn.excel {
+    background-color: #27ae60;
+    color: white;
+}
+
+/* ----------------------------------------------------- */
+/* Estilos del contenido principal */
+/* ----------------------------------------------------- */
+.main-content {
+    flex-grow: 1;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.main-content-title {
+    font-size: 24px;
+    color: #0d284e;
+    margin-bottom: 20px;
+}
+
+.summary-cards {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.summary-card {
+    flex-grow: 1;
+    text-align: center;
+    background-color: #f0f2f5;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.card-value {
+    font-size: 30px;
+    font-weight: bold;
+    color: #0d284e;
+}
+
+.card-label {
+    font-size: 14px;
+    color: #555;
+}
+
+.employee-table-container {
+    overflow-x: auto;
+}
+
+.employee-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.employee-table th, .employee-table td {
+    padding: 15px;
+    text-align: left
+}
+
+/* Tipos de reporte como radio buttons */
+.report-option {
+    position: relative;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.report-option::before {
+    content: "";
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 2px solid #777;
+    background-color: #fff;
+    transition: all 0.3s ease;
+}
+
+.report-option.active::before {
+    border-color: #f7a831;
+    background-color: #f7a831;
+}
+
+.report-option span {
+    margin-left: 20px;
+}
