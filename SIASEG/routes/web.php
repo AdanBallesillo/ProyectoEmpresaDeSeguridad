@@ -25,15 +25,15 @@ RUTAS PARA EL CRUD DE USUARIOS
 */
 
 // Rutas para crear usuarios
+Route::get('/Empleados', [EmployedController::class, 'index'])->name('mostrarempleados');
+
+// formulario nuevo empleado
 Route::get('/Nuevo-Empleado', function () {
-    return view('CreatePersonal');
+    return view('Jefe.CreatePersonal');
 })->name('crearempleado');
 
-Route::post(
-    '/Registrar-Empleado',
-    [EmployedController::class, 'store']
-)->name('employed.store');
-
+// guardar empleado
+Route::post('/Nuevo-Empleado', [EmployedController::class, 'store'])->name('empleados.store');
 
 // Rutas para mostrar los usuarios
 Route::get(
@@ -89,7 +89,7 @@ Route::post('/Administrador/Validate', [LoginAdministradorController::class, 'Va
 Route::get('/Administrador/Menu', function () {
     return view('CreatePersonal');
 });
-// ->middleware('checkrol:Administrador')->name('Administrador.Dashboard');
+
 
 // Ruta para cerrar sesion
 Route::post('/Administrador/Logout', [LoginAdministradorController::class, 'Logout'])->name('Administrador.Logout');
@@ -107,9 +107,9 @@ Route::get('/LoginTransportista', [LoginTransportistaController::class, 'Index']
 Route::post('/Transportista/Validate', [LoginTransportistaController::class, 'Validate'])->name('Transportista.Validate');
 
 // Ruta para mostrar el dashboard o menú, protegido por el middleware
-Route::get('/Trasportista/Menu', function () {
-    return view('IndexLoginEmpleados');
-})->middleware('checkrol:Transportista')->name('Transportista.Menu');
+Route::get('/Transportistas/Huella', function () {
+    return view('Transportistas.IndexLoginTransportistas');
+})->middleware('checkrol:Transportista')->name('Transportistas.Menu');
 
 // Ruta para cerrar sesion
 Route::post('/Transportista/Logout', [LoginTransportistaController::class, 'Logout'])->name('Transportista.Logout');
@@ -127,9 +127,10 @@ Route::get('/LoginSecretaria', [LoginSecretariaController::class, 'Index'])->nam
 Route::post('/Secretaria/Validate', [LoginSecretariaController::class, 'Validate'])->name('Secretaria.Validate');
 
 // Ruta para mostrar el dashboard o menú, protegido por el middleware
-Route::get('/Secretaria/Menu', function () {
-    return view('CreatePersonal');
+Route::get('/Jefe/Menu', function () {
+    return view('Jefe.CreatePersonal');
 })->middleware('checkrol:Secretaria')->name('Secretaria.Dashboard');
+
 
 // Ruta para cerrar sesion
 Route::post('/Secretaria/Logout', [LoginSecretariaController::class, 'Logout'])->name('Secretaria.Logout');
@@ -158,9 +159,13 @@ RUTAS PARA TRANSPORTE
 --------------------------------------------*/
 
 
-Route::get('/nuevasunidades', [TransporteController::class, 'create'])->name('nuevasunidades');
-Route::post('/nuevasunidades', [TransporteController::class, 'store'])->name('unidades.store');
+// Listado
+Route::get('/unidades', [TransporteController::class, 'index'])
+    ->name('mostrartodasunidades');
 
+// Formulario crear
+Route::get('/nuevasunidades', [TransporteController::class, 'create'])
+    ->name('nuevasunidades');
 
 
 /*--------------------------------------------
@@ -169,12 +174,17 @@ RUTAS PARA UNIDADES
 
 use App\Http\Controllers\UnidadesController;
 
-// DASHBOARD DEL JEFE (AQUÍ SE USA UnidadesController)
+// DASHBOARD DEL JEFE
 Route::get('/jefe/unidades', [UnidadesController::class, 'index'])
     ->name('jefe.unidades');
 
+Route::get('/nuevasunidades', [TransporteController::class, 'create'])
+    ->name('nuevasunidades');
 
-// Listar todas las unidades (vista ShowUnidades)
+Route::post('/nuevasunidades', [TransporteController::class, 'store'])
+    ->name('unidades.store');
+
+// Listar todas las unidades
 Route::get('/unidades/show', [TransporteController::class, 'showUnidades'])
     ->name('mostrartodasunidades');
 
@@ -185,3 +195,22 @@ Route::get('/unidades/{id}/editar', [TransporteController::class, 'edit'])
 // Guardar cambios de la unidad
 Route::put('/unidades/{id}', [TransporteController::class, 'update'])
     ->name('unidades.update');
+
+
+
+///// Welcome ///////
+Route::get('/welcome', function () {
+    return view('welcome');
+})->name('welcome');
+
+use App\Mail\CredencialesEmpleadoMail;
+use Illuminate\Support\Facades\Mail;
+
+
+
+Route::get('/test-mail', function () {
+    Mail::to('nonatan_guerrero@hotmail.com')
+        ->send(new CredencialesEmpleadoMail('Prueba', '123456', 'abc12345'));
+
+    return 'Correo enviado (si no hay error en logs).';
+});

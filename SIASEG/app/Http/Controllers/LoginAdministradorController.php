@@ -9,40 +9,43 @@ use Illuminate\Support\Facades\Auth;
 class LoginAdministradorController extends Controller
 {
     // Función para mostrar el login de administrador
-    public function Index(){
-        return view ('Jefe.IndexLoginJefe');
+    public function Index()
+    {
+        return view('Jefe.IndexLoginJefe');
     }
 
     // Funcion para validar los datos
-    public function Validate(Request $request){
+    public function Validate(Request $request)
+    {
 
         //dd($request->all()); -> Sirve para ver como se estan mandando los datos
 
         // Hacemos la consulta a la base de datos y validamos
-        if(Auth::attempt([
-            'no_empleado' => $request -> no_empleado,
-            'password' => $request -> password
-        ])){
+        if (Auth::attempt([
+            'no_empleado' => $request->no_empleado,
+            'password' => $request->password
+        ])) {
             // Si son correctas las credenciales lo redireccionamos a su menú o dashboard
-            return redirect() -> route('Administrador.Dashboard');
-        }else{
+            return redirect()->route('jefe.unidades');
+        } else {
             // Si no, le mostramos este mensaje.
-            return back() -> withErrors([
+            return back()->withErrors([
                 'login_error' => 'Usuario o contraseña incorrectos'
             ]);
         }
     }
 
     // Funcion para cerrar la sesión
-    public function Logout(Request $request){
+    public function Logout(Request $request)
+    {
         // Cerramos la sesión
         Auth::logout();
 
         // Borramos los datos de la sesión.
-        $request -> session() -> invalidate();
+        $request->session()->invalidate();
         // Cambiamos el token del formulario
-        $request -> session() -> regenerateToken();
+        $request->session()->regenerateToken();
 
-        return redirect() -> route('Admin.Login');
+        return redirect()->route('Admin.Login');
     }
 }

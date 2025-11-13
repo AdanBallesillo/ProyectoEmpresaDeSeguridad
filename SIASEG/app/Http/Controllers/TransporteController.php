@@ -12,13 +12,14 @@ use Illuminate\Validation\Rule;
 class TransporteController extends Controller
 {
     /**
-     * Listado de unidades
+     * LISTADO / DETALLES DE UNIDADES (vista ShowUnidades)
      */
-    public function showUnidades(Request $request)
+    public function index(Request $request)
     {
         try {
             $query = Transporte::query();
 
+            // Búsqueda
             if ($request->filled('busqueda')) {
                 $busqueda = $request->busqueda;
 
@@ -32,53 +33,54 @@ class TransporteController extends Controller
                 });
             }
 
-            // Puedes usar paginate si quieres paginación
+            // Paginación
             $unidades = $query->paginate(8);
 
+            // 👀 Aquí usamos la vista de la tabla
             return view('Jefe.ShowUnidades', compact('unidades'));
         } catch (\Exception $e) {
             Log::error('Error al obtener unidades de transporte: ' . $e->getMessage());
-            return back()->with('error', 'Ocurrió un error al cargar la lista de unidades.');
+            return redirect()->back()->with(
+                'error',
+                'Ocurrió un error al cargar la lista de unidades.'
+            );
         }
     }
 
     /**
-     * FORMULARIO NUEVA UNIDAD
-     * Ruta: GET /nuevasunidades
+     * FORMULARIO "NUEVA UNIDAD"
      */
     public function create()
     {
-        // Asegúrate que el nombre coincide exactamente con tu vista:
-        // resources/views/Jefe/CreateUniadades.blade.php
-        return view('Jefe.CreateUniadades');
+        // Asegúrate de que el archivo sea resources/views/Jefe/CreateUnidades.blade.php
+        return view('Jefe.CreateUnidades');
     }
 
     /**
-     * GUARDAR nueva unidad
-     * Ruta: POST /nuevasunidades
+     * GUARDAR NUEVA UNIDAD
      */
     public function store(Request $request)
     {
         $mensajes = [
             'required' => 'El campo :attribute es obligatorio.',
-            'max' => 'El campo :attribute no puede tener más de :max caracteres.',
-            'numeric' => 'El campo :attribute debe ser numérico.',
-            'in' => 'El campo :attribute debe ser uno de los siguientes valores: :values.',
-            'unique' => 'El valor del campo :attribute ya existe en la base de datos.'
+            'max'      => 'El campo :attribute no puede tener más de :max caracteres.',
+            'numeric'  => 'El campo :attribute debe ser numérico.',
+            'in'       => 'El campo :attribute debe ser uno de los siguientes valores: :values.',
+            'unique'   => 'El valor del campo :attribute ya existe en la base de datos.',
         ];
 
         try {
             $validated = $request->validate([
-                'tipo'             => 'required|string|max:50',
-                'marca'            => 'required|string|max:50',
-                'modelo'           => 'required|string|max:50',
-                'anio'             => 'required|digits:4|integer',
-                'placas'           => 'required|string|max:15|unique:transportes,placas',
-                'numero_serie'     => 'required|string|max:50|unique:transportes,numero_serie',
-                'capacidad_carga'  => 'nullable|numeric',
+                'tipo'              => 'required|string|max:50',
+                'marca'             => 'required|string|max:50',
+                'modelo'            => 'required|string|max:50',
+                'anio'              => 'required|digits:4|integer',
+                'placas'            => 'required|string|max:15|unique:transportes,placas',
+                'numero_serie'      => 'required|string|max:50|unique:transportes,numero_serie',
+                'capacidad_carga'   => 'nullable|numeric',
                 'fecha_adquisicion' => 'nullable|date',
-                'status'           => 'nullable|in:Activo,En mantenimiento,Baja',
-                'comentarios'      => 'nullable|string|max:255'
+                'status'            => 'nullable|in:Activo,En mantenimiento,Baja',
+                'comentarios'       => 'nullable|string|max:255',
             ], $mensajes);
 
             $unidad = new Transporte();
@@ -87,18 +89,29 @@ class TransporteController extends Controller
             $unidad->fecha_actualizacion = now();
             $unidad->save();
 
-            return redirect()->route('jefe.unidades')
+            // 👉 Después de guardar, regresar al dashboard de unidades
+            return redirect()
+                ->route('jefe.unidades')   // esta es la ruta de tu IndexUnidades
                 ->with('success', 'Unidad registrada correctamente.');
         } catch (ValidationException $e) {
-            return back()->withErrors($e->validator)->withInput();
+            return redirect()->back()->withErrors($e->validator)->withInput();
         } catch (\Exception $e) {
-            Log::error('Error al guardar unidad: ' . $e->getMessage());
-            return back()->with('error', 'Ocurrió un error al guardar la unidad.')->withInput();
+            return redirect()->back()
+                ->with('error', 'Ocurrió un error al guardar la unidad.')
+                ->withInput();
         }
     }
 
     /**
-     * EDITAR una unidad
+     * REDIRECCIÓN show(id) → listado (opcional)
+     */
+    public function show($id)
+    {
+        return redirect()->route('mostrartodasunidades');
+    }
+
+    /**
+     * FORMULARIO EDITAR
      */
     public function edit($id)
     {
@@ -107,26 +120,26 @@ class TransporteController extends Controller
     }
 
     /**
-     * ACTUALIZAR una unidad
+     * ACTUALIZAR UNIDAD
      */
     public function update(Request $request, $id)
     {
         $mensajes = [
             'required' => 'El campo :attribute es obligatorio.',
-            'max' => 'El campo :attribute no puede tener más de :max caracteres.',
-            'numeric' => 'El campo :attribute debe ser numérico.',
-            'in' => 'El campo :attribute debe ser uno de los siguientes valores: :values.',
-            'unique' => 'El valor del campo :attribute ya existe en la base de datos.'
+            'max'      => 'El campo :attribute no puede tener más de :max caracteres.',
+            'numeric'  => 'El campo :attribute debe ser numérico.',
+            'in'       => 'El campo :attribute debe ser uno de los siguientes valores: :values.',
+            'unique'   => 'El valor del campo :attribute ya existe en la base de datos.',
         ];
 
         try {
             $unidad = Transporte::findOrFail($id);
 
             $validated = $request->validate([
-                'tipo' => 'string|max:50',
-                'marca' => 'string|max:50',
+                'tipo'   => 'string|max:50',
+                'marca'  => 'string|max:50',
                 'modelo' => 'string|max:50',
-                'anio' => 'digits:4|integer',
+                'anio'   => 'digits:4|integer',
 
                 'placas' => [
                     'string',
@@ -140,21 +153,22 @@ class TransporteController extends Controller
                     Rule::unique('transportes', 'numero_serie')->ignore($id, 'id_transporte'),
                 ],
 
-                'capacidad_carga'  => 'nullable|numeric',
+                'capacidad_carga'   => 'nullable|numeric',
                 'fecha_adquisicion' => 'nullable|date',
-                'status'           => 'in:Activo,En mantenimiento,Baja',
-                'comentarios'      => 'string|max:255',
+                'status'            => 'in:Activo,En mantenimiento,Baja',
+                'comentarios'       => 'string|max:255',
             ], $mensajes);
 
             $unidad->fill($validated);
             $unidad->fecha_actualizacion = now();
             $unidad->save();
 
+            // Después de editar, puedes regresar al listado
             return redirect()
-                ->route('unidades.edit', $id)
+                ->route('mostrartodasunidades')
                 ->with('success', 'Unidad actualizada correctamente.');
         } catch (ValidationException $e) {
-            return back()->withErrors($e->validator)->withInput();
+            return redirect()->back()->withErrors($e->validator)->withInput();
         }
     }
 }
