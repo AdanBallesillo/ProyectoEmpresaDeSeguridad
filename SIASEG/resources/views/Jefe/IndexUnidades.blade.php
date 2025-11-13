@@ -217,18 +217,49 @@
                 </div>
             </div>
 
+            @php
+            use App\Models\Transporte;
+
+            // Unidades SOLO para el mapa (todas las que no estén en baja)
+            $unidadesMapa = Transporte::where('status', '!=', 'Baja')->get();
+            @endphp
+
             <div class="ubicacion">
                 <h3>Ubicación de Unidades Aproximada</h3>
                 <div id="map" style="width:100%; height:420px; border-radius:12px; background:#eef2f7;"></div>
             </div>
 
             <script>
-                const UNIDADES = @json($unidades ?? []);
-                const CENTER = {
-                    lat: 20.6736,
-                    lng: -103.344
-                };
-                const RADIUS_M = 3500;
+                // ========= Unidades desde BD (todas las NO baja) =========
+                const RAW_UNIDADES = @json($unidadesMapa ?? []);
+
+                // Filtro extra de seguridad por si en un futuro cambias la consulta
+                const UNIDADES = (RAW_UNIDADES || []).filter(u => {
+                    const s = String(u.status || '').toLowerCase();
+                    return !s.includes('baja');
+                });
+
+                // ========= Centros cercanos (no solo uno) =========
+                // Puedes agregar más puntos si quieres
+                const CENTERS = [{
+                        lat: 21.3564,
+                        lng: -101.9399
+                    }, // Lagos de Moreno centro
+                    {
+                        lat: 21.3605,
+                        lng: -101.9300
+                    }, // zona cercana 1
+                    {
+                        lat: 21.3500,
+                        lng: -101.9500
+                    }, // zona cercana 2
+                    {
+                        lat: 21.3700,
+                        lng: -101.9450
+                    }, // zona cercana 3
+                ];
+
+                const RADIUS_M = 2500; // radio alrededor de cada centro (metros)
 
                 function metersToLat(m) {
                     return m / 111320;
@@ -249,6 +280,12 @@
                     };
                 }
 
+                // Elige un centro aleatorio cercano (no siempre el mismo)
+                function randomCenter() {
+                    const idx = Math.floor(Math.random() * CENTERS.length);
+                    return CENTERS[idx];
+                }
+
                 function jitter(pos) {
                     const step = 60;
                     const dLat = metersToLat((Math.random() - 0.5) * step * 2);
@@ -265,17 +302,19 @@
                     return '#e74c3c';
                 }
 
-                // 👇 OJO: la cuelgo de window para que sea GLOBAL
                 window.initMap = function() {
+                    // Centro inicial: primer centro de la lista
                     const map = new google.maps.Map(document.getElementById('map'), {
-                        center: CENTER,
-                        zoom: 12,
+                        center: CENTERS[0],
+                        zoom: 13,
                     });
 
                     const markers = [];
 
                     (UNIDADES || []).forEach(u => {
-                        const pos = randomAround(CENTER);
+                        // Para cada unidad elegimos un centro cercano distinto
+                        const baseCenter = randomCenter();
+                        const pos = randomAround(baseCenter);
 
                         const svgMarker = {
                             path: "M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z",
@@ -308,22 +347,27 @@
                             anchor: marker,
                             map
                         }));
-                        markers.push(marker);
 
+                        // Simulación de movimiento
                         setInterval(() => {
                             const next = jitter(marker.getPosition().toJSON());
                             marker.setPosition(next);
                         }, 3000);
+
+                        markers.push(marker);
                     });
 
                     if (markers.length === 0) {
                         new google.maps.InfoWindow({
-                            content: '<div style="font-family:Arial">Sin unidades para mostrar.</div>',
-                            position: CENTER
+                            content: '<div style="font-family:Arial">Sin unidades para mostrar (todas están en baja).</div>',
+                            position: CENTERS[0]
                         }).open(map);
                     }
                 };
             </script>
+
+
+
 
 
             <script
