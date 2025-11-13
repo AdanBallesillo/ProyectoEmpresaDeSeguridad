@@ -28,13 +28,13 @@ class EmployedController extends Controller
                 $busqueda = $request->busqueda;
 
                 // indicamos las columnas donde se realizará la búsqueda
-                $query->where(function($q) use ($busqueda) {
+                $query->where(function ($q) use ($busqueda) {
                     $q->where('nombres', 'like', "%{$busqueda}%")
-                    ->orWhere('apellidos', 'like', "%{$busqueda}%")
-                    ->orWhere('RFC', 'like', "%{$busqueda}%")
-                    ->orWhere('CURP', 'like', "%{$busqueda}%")
-                    ->orWhere('correo', 'like', "%{$busqueda}%")
-                    ->orWhere('telefono', 'like', "%{$busqueda}%");
+                        ->orWhere('apellidos', 'like', "%{$busqueda}%")
+                        ->orWhere('RFC', 'like', "%{$busqueda}%")
+                        ->orWhere('CURP', 'like', "%{$busqueda}%")
+                        ->orWhere('correo', 'like', "%{$busqueda}%")
+                        ->orWhere('telefono', 'like', "%{$busqueda}%");
                 });
             }
 
@@ -43,7 +43,6 @@ class EmployedController extends Controller
             $empleados = $query->paginate(5);
 
             return view('Jefe.IndexPersonal', compact('empleados'));
-
         } catch (\Exception $e) {
             \Log::error('Error al obtener la lista de empleados: ' . $e->getMessage());
             return redirect()->back()->with('error', 'Ocurrió un error al cargar la lista de empleados.');
@@ -75,18 +74,20 @@ class EmployedController extends Controller
             'mimes' => 'El formato de la imagen debe ser jpg, jpeg, png o gif.',
         ];
 
-        try{
+        try {
             // Validar los datos del formulario
-            $validated = $request->validate([
-                'nombres' => 'required|string|max:100',
-                'apellidos' => 'required|string|max:100',
-                'CURP' => 'required|string|max:18|unique:empleados,CURP',
-                'RFC' => 'required|string|max:13|unique:empleados,RFC',
-                'telefono' => 'required|string|max:15',
-                'fotografia' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
-                'rol' => 'required|string|max:100',
-                'correo' => 'required|email|max:150|unique:empleados,correo'
-            ],  $errorMessages
+            $validated = $request->validate(
+                [
+                    'nombres' => 'required|string|max:100',
+                    'apellidos' => 'required|string|max:100',
+                    'CURP' => 'required|string|max:18|unique:empleados,CURP',
+                    'RFC' => 'required|string|max:13|unique:empleados,RFC',
+                    'telefono' => 'required|string|max:15',
+                    'fotografia' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
+                    'rol' => 'required|string|max:100',
+                    'correo' => 'required|email|max:150|unique:empleados,correo'
+                ],
+                $errorMessages
             );
 
             // Generar num_control único
@@ -135,14 +136,12 @@ class EmployedController extends Controller
             return redirect()->back()
                 ->withErrors($e->validator)
                 ->withInput();
-
         } catch (QueryException $e) {
             // Error en base de datos
             Log::error('Error al guardar empleado: ' . $e->getMessage());
             return redirect()->back()
                 ->with('error', 'Ocurrió un error al guardar los datos del empleado. Intenta de nuevo.')
                 ->withInput();
-
         } catch (\Exception $e) {
             // Error general
             Log::error('Error inesperado: ' . $e->getMessage());
@@ -150,7 +149,6 @@ class EmployedController extends Controller
                 ->with('error', 'Ha ocurrido un error inesperado. Contacta al administrador.')
                 ->withInput();
         }
-
     }
 
     /**
@@ -172,7 +170,6 @@ class EmployedController extends Controller
 
             // Retornar la vista de edición y enviar los datos del empleado
             return view('Jefe.EditUsuarios', compact('empleado'));
-
         } catch (\Exception $e) {
             // Registrar error en el log de Laravel
             \Log::error('Error al cargar empleado para edición: ' . $e->getMessage());
@@ -190,23 +187,24 @@ class EmployedController extends Controller
     public function update(Request $request, string $id)
     {
         // Diccionario de mensajes personalizados
-            $errorMessages = [
-                'CURP.unique' => 'Error: esta CURP ya está registrada en la base de datos.',
-                'RFC.unique' => 'Error: este RFC ya está registrado en la base de datos.',
-                'correo.unique' => 'Error: este correo ya está registrado en la base de datos.',
-                'required' => 'El campo :attribute es obligatorio.',
-                'email' => 'El formato del correo electrónico no es válido.',
-                'max' => 'El campo :attribute no puede tener más de :max caracteres.',
-                'image' => 'El archivo subido debe ser una imagen válida (jpg, png, gif, etc).',
-                'mimes' => 'El formato de la imagen debe ser jpg, jpeg, png o gif.',
-            ];
+        $errorMessages = [
+            'CURP.unique' => 'Error: esta CURP ya está registrada en la base de datos.',
+            'RFC.unique' => 'Error: este RFC ya está registrado en la base de datos.',
+            'correo.unique' => 'Error: este correo ya está registrado en la base de datos.',
+            'required' => 'El campo :attribute es obligatorio.',
+            'email' => 'El formato del correo electrónico no es válido.',
+            'max' => 'El campo :attribute no puede tener más de :max caracteres.',
+            'image' => 'El archivo subido debe ser una imagen válida (jpg, png, gif, etc).',
+            'mimes' => 'El formato de la imagen debe ser jpg, jpeg, png o gif.',
+        ];
 
 
         try {
             $empleado = Employed::findOrFail($id);
 
             // Validar los datos del formulario
-                $validated = $request->validate([
+            $validated = $request->validate(
+                [
                     'nombres' => 'string|max:100',
                     'apellidos' => 'string|max:100',
                     'CURP' => 'string|max:18|unique:empleados,CURP,' . $id . ',id_empleado',
@@ -215,8 +213,9 @@ class EmployedController extends Controller
                     'rol' => 'string|max:100',
                     'correo' => 'email|max:150|unique:empleados,correo,' . $id . ',id_empleado',
                     'status' => 'in:activo,inactivo'
-                    ],  $errorMessages
-                );
+                ],
+                $errorMessages
+            );
 
             // Actualizar campos generales
             $empleado->fill($validated);
@@ -235,47 +234,46 @@ class EmployedController extends Controller
             //     $personal->fotografia = 'storage/' . $path;
             // }
 
-        // init
-        $credenciales = [];
+            // init
+            $credenciales = [];
 
-        // Generar nuevo número de control si se selecciona
-        if ($request->has('generar_no_control')) {
-            $nuevoNumero = rand(100000, 999999);
-            $empleado->no_empleado = $nuevoNumero;
-            $credenciales['no_empleado'] = $nuevoNumero;
-        }
+            // Generar nuevo número de control si se selecciona
+            if ($request->has('generar_no_control')) {
+                $nuevoNumero = rand(100000, 999999);
+                $empleado->no_empleado = $nuevoNumero;
+                $credenciales['no_empleado'] = $nuevoNumero;
+            }
 
-        // Generar nueva contraseña si se selecciona
-        if ($request->has('generar_password')) {
-            $nuevaPass = Str::random(8);
-            $empleado->password = Hash::make($nuevaPass);
-            $credenciales['password'] = $nuevaPass;
-        }
+            // Generar nueva contraseña si se selecciona
+            if ($request->has('generar_password')) {
+                $nuevaPass = Str::random(8);
+                $empleado->password = Hash::make($nuevaPass);
+                $credenciales['password'] = $nuevaPass;
+            }
 
-        $empleado->status = $request->estado;
-        $empleado->save();
+            $empleado->status = $request->estado;
+            $empleado->save();
 
-        // enviar correo solo si se generaron credenciales nuevas
-        if (!empty($credenciales)) {
-            // enviar: nombre, correo, no_empleado, password (password puede ser null)
-            $this->enviarCredencialesEmpleado($empleado, $credenciales['password'] ?? null);
-        }
+            // enviar correo solo si se generaron credenciales nuevas
+            if (!empty($credenciales)) {
+                // enviar: nombre, correo, no_empleado, password (password puede ser null)
+                $this->enviarCredencialesEmpleado($empleado, $credenciales['password'] ?? null);
+            }
 
-        // Mensaje base
-        $mensaje = 'Empleado actualizado correctamente.';
+            // Mensaje base
+            $mensaje = 'Empleado actualizado correctamente.';
 
-        // Si se generaron credenciales nuevas, añadimos detalle al mensaje
-        if (!empty($credenciales)) {
-            $mensaje .= "\n\nNuevas credenciales generadas:";
-        }
+            // Si se generaron credenciales nuevas, añadimos detalle al mensaje
+            if (!empty($credenciales)) {
+                $mensaje .= "\n\nNuevas credenciales generadas:";
+            }
 
-        // Retornar con los datos correctos
-        return redirect()->back()->with([
-            'success' => $mensaje,
-            'no_empleado' => $credenciales['no_empleado'] ?? null,
-            'password' => $credenciales['password'] ?? null,
-        ]);
-
+            // Retornar con los datos correctos
+            return redirect()->back()->with([
+                'success' => $mensaje,
+                'no_empleado' => $credenciales['no_empleado'] ?? null,
+                'password' => $credenciales['password'] ?? null,
+            ]);
         } catch (\Exception $e) {
             \Log::error('Error al actualizar empleado: ' . $e->getMessage());
             return redirect()->back()->with('error', 'No se pudo actualizar el empleado.');

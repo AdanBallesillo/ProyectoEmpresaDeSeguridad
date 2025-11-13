@@ -118,7 +118,6 @@
                     <button type="button" class="cancelar" onclick="window.location.href='{{ route('mostrarempleados') }}'">
                         Cancelar
                     </button>
-
                     <button type="button" class="limpiar">Limpiar</button>
                 </div>
             </form>
@@ -129,16 +128,11 @@
     <script>
         const form = document.getElementById('modificarForm');
 
-        // // Botón Guardar
-        // form.addEventListener('submit', function(e) {
-        //   e.preventDefault(); // Evita el envío real
-        //   alert('¡Datos guardados correctamente!');
-        // });
 
-        // Botón Cancelar
         document.querySelector('.cancelar').addEventListener('click', function() {
-            window.location.href = "Frm_VistaPersonal.php"; // Redirige al listado
+            window.location.href = "{{ route('mostrarempleados') }}";
         });
+
 
         // Botón Limpiar
         document.querySelector('.limpiar').addEventListener('click', function() {
