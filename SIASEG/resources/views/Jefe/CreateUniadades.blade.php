@@ -47,37 +47,9 @@
     </div>
 
     <div class="card">
-<<<<<<< HEAD
-      <div class="card-header">
-        <h3>Información de las Unidades</h3>
-      </div>
-      <div class="card-body">
-
-@if(session('success'))
-    <div id="successMessage" class="alert-success">
-        {{ session('success') }}
-    </div>
-@endif
-
-@if(session('error'))
-    <div class="alert-error">
-        {{ session('error') }}
-    </div>
-@endif
-
-
-        <form action="{{ route('unidades.store') }}" method="POST">
-          @csrf
-          <div class="form-grid">
-            <div class="form-group">
-              <label for="modelo">Modelo:</label>
-              <input type="text" id="modelo" name="modelo" required maxlength="50" minlength="2"/>
-            </div>
-=======
         <div class="card-header">
             <h3>Información de las Unidades</h3>
         </div>
->>>>>>> Dashboard-Unidades
 
         @if ($errors->any())
         <div style="background:#fde8e8;color:#991b1b;padding:10px 14px;border-radius:8px;margin:14px;">
@@ -129,18 +101,6 @@
                         <input type="text" id="capacidad" name="capacidad_carga" value="{{ old('capacidad_carga') }}" />
                     </div>
 
-<<<<<<< HEAD
-          <div class="form-actions">
-            <button type="submit" class="btn btn-primary">Guardar</button>
-            <a href="{{ route('mostrartodasunidades') }}" class="btn btn-secondary" >Cancelar</a>
-            <button type="reset" class="btn btn-tertiary">Limpiar</button>
-          </div>
-        </form>
-      </div>
-    </div>
-
-    
-=======
                     <div class="form-group">
                         <label for="fechaAdquisicion">Fecha de adquisición:</label>
                         <input type="date" id="fechaAdquisicion" class="input-date" name="fecha_adquisicion" value="{{ old('fecha_adquisicion') }}" />
@@ -177,38 +137,11 @@
     </script>
     @endif
 
->>>>>>> Dashboard-Unidades
     @if(session('error'))
     <script>
         alert("{{ session('error') }}");
     </script>
     @endif
-<<<<<<< HEAD
-
-
-    <script>
-document.addEventListener("DOMContentLoaded", function() {
-    const successMessage = document.getElementById('successMessage');
-    if (successMessage) {
-        // Desvanece el mensaje después de 3 segundos
-        setTimeout(() => {
-            successMessage.style.opacity = '0';
-            setTimeout(() => successMessage.remove(), 1000);
-        }, 3000);
-
-        // Limpia los campos del formulario
-        const form = document.querySelector('form');
-        if (form) {
-            form.reset();
-        }
-    }
-});
-</script>
-
-  </body>
-</html>
-=======
 </body>
 
 </html>
->>>>>>> Dashboard-Unidades
