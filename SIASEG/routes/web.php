@@ -164,9 +164,24 @@ Route::post('/nuevasunidades', [TransporteController::class, 'store'])->name('un
 
 
 /*--------------------------------------------
-RUTA PARA UNIDADES
+RUTAS PARA UNIDADES
 --------------------------------------------*/
 
 use App\Http\Controllers\UnidadesController;
 
-Route::get('/jefe/unidades', [UnidadesController::class, 'index'])->name('jefe.unidades');
+// DASHBOARD DEL JEFE (AQUÍ SE USA UnidadesController)
+Route::get('/jefe/unidades', [UnidadesController::class, 'index'])
+    ->name('jefe.unidades');
+
+
+// Listar todas las unidades (vista ShowUnidades)
+Route::get('/unidades/show', [TransporteController::class, 'showUnidades'])
+    ->name('mostrartodasunidades');
+
+// Formulario para editar UNA unidad
+Route::get('/unidades/{id}/editar', [TransporteController::class, 'edit'])
+    ->name('unidades.edit');
+
+// Guardar cambios de la unidad
+Route::put('/unidades/{id}', [TransporteController::class, 'update'])
+    ->name('unidades.update');
