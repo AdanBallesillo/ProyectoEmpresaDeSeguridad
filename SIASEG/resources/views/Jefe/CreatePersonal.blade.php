@@ -5,18 +5,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema Integral de Gestión</title>
-    <link rel="stylesheet" href="{{ asset('css/style_Agregar.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/style_Agregar.css') }}">
 </head>
 
 <body>
+
     <!-- HEADER PRINCIPAL -->
     <header class="header-container">
         <div class="header-content">
             <div class="logo-and-text">
                 <div class="logo-placeholder"></div>
                 <div class="text-group">
-                    <h1 class="main-title">Sistema integral de gestión</h1>
-                    <p class="subtitle">Control de Personal y Asistencia</p>
+                    <h1 class="main-title">Sistema integral de gestion</h1>
+                    <p class="subtitle">ComadrejasCorp</p>
                 </div>
             </div>
             <div class="user-info">
@@ -28,102 +29,58 @@
 
     <!-- SUBHEADER -->
     <div class="sub-header">
-        <h2>Nuevo Usuario</h2>
+        <h2>Nuevo Empleado</h2>
+        <button class="menu-btn" id="menuBtn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
     </div>
 
     <!-- Contenedor principal -->
     <main>
         <div class="form-container">
-
-            {{-- MENSAJES --}}
-            @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}<br>
-                @if (session('no_empleado'))
-                <strong>No. Empleado:</strong> {{ session('no_empleado') }}<br>
-                @endif
-                @if (session('password'))
-                <strong>Contraseña temporal:</strong> {{ session('password') }}
-                @endif
-            </div>
-            @endif
-
-            @if (session('error'))
-            <div class="alert alert-danger">
-                {{ session('error') }}
-            </div>
-            @endif
-
-            @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $err)
-                    <li>{{ $err }}</li>
-                    @endforeach
-                </ul>
-            </div>
-            @endif
-
-            {{-- FORMULARIO REAL DE LARAVEL --}}
-            <form id="formEmpleado"
-                action="{{ route('empleados.store') }}"
-                method="POST"
-                enctype="multipart/form-data">
+            <form id="formEmpleado" action="{{ route('empleados.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
+                {{-- Mostrar las credenciales del usuario de manera provicional en lo que se compra el dominio, favor de guardarlas o tomar captura --}}
+                @if(session('success'))
+                <div class="alert success">
+                    {{ session('success') }}
+                    <br>
+                    Número de control: {{ session('no_empleado') }} <br>
+                    Contraseña temporal: {{ session('password') }}
+                </div>
+                @endif
                 <!-- Fila 1 -->
                 <div class="row">
-                    <label for="nombres">Nombre(s):</label>
-                    <input type="text"
-                        id="nombres"
-                        name="nombres"
-                        value="{{ old('nombres') }}"
-                        placeholder="Ingresa el nombre completo"
-                        required>
+                    <label for="nombre">Nombre(s):</label>
+                    <input type="text" id="nombre" name="nombres" placeholder="Ingresa el nombre completo" required>
 
                     <label for="apellidos">Apellidos:</label>
-                    <input type="text"
-                        id="apellidos"
-                        name="apellidos"
-                        value="{{ old('apellidos') }}"
-                        placeholder="Ingresa los apellidos"
-                        required>
+                    <input type="text" id="apellidos" name="apellidos" placeholder="Ingresa los apellidos" required>
                 </div>
 
                 <!-- Fila 2 -->
                 <div class="row">
-                    <label for="CURP">CURP:</label>
-                    <input type="text"
-                        id="CURP"
-                        name="CURP"
-                        value="{{ old('CURP') }}"
-                        placeholder="Ingresa el CURP"
-                        required>
+                    <label for="curp">CURP:</label>
+                    <input type="text" id="curp" name="CURP" placeholder="Ingresa el CURP" required maxlength="18" minlength="18">
 
-                    <label for="RFC">RFC:</label>
-                    <input type="text"
-                        id="RFC"
-                        name="RFC"
-                        value="{{ old('RFC') }}"
-                        placeholder="Ingresa el RFC"
-                        required>
+                    <label for="rfc">RFC:</label>
+                    <input type="text" id="rfc" name="RFC" placeholder="Ingresa el RFC" required maxlength="13" minlength="12">
                 </div>
 
                 <!-- Fila 3 -->
                 <div class="row">
-                    <label for="fotografia">FOTO:</label>
-                    <input type="file"
-                        id="fotografia"
-                        name="fotografia"
-                        accept="image/*">
+                    <label for="foto">FOTO:</label>
+                    <input type="file" id="foto" name="fotografia" required>
 
                     <label for="rol">Rol:</label>
-                    <select id="rol" name="rol" required>
-                        <option value="">Seleccione un rol</option>
-                        <option value="Empleado" {{ old('rol') == 'Empleado' ? 'selected' : '' }}>Empleado</option>
-                        <option value="Secretaria" {{ old('rol') == 'Secretaria' ? 'selected' : '' }}>Secretaria</option>
-                        <option value="Transportista" {{ old('rol') == 'Transportista' ? 'selected' : '' }}>Transportista</option>
-                        <option value="Administrador" {{ old('rol') == 'Administrador' ? 'selected' : '' }}>Administrador</option>
+                    <select id="rol" name="rol">
+                        <option value="Administrador"> Administrador </option>
+                        <option value="Empleado"> Empleado </option>
+                        <option value="Secretaria"> Secretaria </option>
+                        <option value="Transportista"> Transportista </option>
                     </select>
                 </div>
 
@@ -133,43 +90,50 @@
                 <!-- Fila 4 -->
                 <div class="row">
                     <label for="correo">Correo Electrónico:</label>
-                    <input type="email"
-                        id="correo"
-                        name="correo"
-                        value="{{ old('correo') }}"
-                        placeholder="Ingresa el Correo Electrónico"
-                        required>
+                    <input type="email" id="correo" name="correo" placeholder="Ingresa el Correo Electrónico" required>
 
                     <label for="telefono">Número (Tel):</label>
-                    <input type="tel"
-                        id="telefono"
-                        name="telefono"
-                        value="{{ old('telefono') }}"
-                        placeholder="Ingresa el Número"
-                        required>
+                    <input type="tel" id="telefono" name="telefono" placeholder="Ingresa el Número" required maxlength="10" minlength="10" inputmode="numeric">
                 </div>
 
                 <!-- Botones -->
                 <div class="botones">
-                    <button type="submit" class="btn btn-primary guardar">Guardar</button>
-
-                    <!-- BOTÓN CANCELAR CORREGIDO -->
-                    <button type="button"
-                        class="btn btn-secondary cancelar"
-                        onclick="window.location.href='{{ route('mostrarempleados') }}'">
-                        Cancelar
-                    </button>
-
-
-
-
-                    <button type="button" class="btn btn-tertiary limpiar">Limpiar</button>
+                    <button type="submit" class="guardar">Guardar</button>
+                    <button type="button" class="cancelar">Cancelar</button>
+                    <button type="button" class="limpiar">Limpiar</button>
                 </div>
-
             </form>
         </div>
     </main>
 
+    <script>
+        // Guardar: mostrar mensaje emergente
+        // document.getElementById('formEmpleado').addEventListener('submit', function(e) {
+        //   e.preventDefault(); // Evita el envío real del formulario
+        //   alert('¡Empleado guardado correctamente!');
+        // });
+
+        // Cancelar: regresar a Frm_VistaPersonal.php
+        document.querySelector('.cancelar').addEventListener('click', function() {
+            window.location.href = "../Formularios/Frm_VistaPersonal.php";
+        });
+
+        // Limpiar: borrar todos los campos
+        document.querySelector('.limpiar').addEventListener('click', function() {
+            document.getElementById('formEmpleado').reset();
+        });
+    </script>
 </body>
 
 </html>
+
+@if ($errors->any())
+<div style="background:#fdecea;color:#611a15;padding:10px;margin:10px 0">
+    <b>Errores al guardar:</b>
+    <ul>
+        @foreach ($errors->all() as $e)
+        <li>{{ $e }}</li>
+        @endforeach
+    </ul>
+</div>
+@endif

@@ -51,7 +51,7 @@ Route::get(
 Route::put(
     '/Editar-Empleado/{id}',
     [EmployedController::class, 'update']
-)->name('employed.update');
+)->name('empleados.update');
 
 /*------------------------------------------------
 RUTAS PARA EL MENÚ DE LOS LOGIN
@@ -87,7 +87,7 @@ Route::post('/Administrador/Validate', [LoginAdministradorController::class, 'Va
 
 // Ruta para mostrar el dashboard o menú, protegido por el middleware
 Route::get('/Administrador/Menu', function () {
-    return view('CreatePersonal');
+    return view('Jefe.CreatePersonal');
 });
 
 

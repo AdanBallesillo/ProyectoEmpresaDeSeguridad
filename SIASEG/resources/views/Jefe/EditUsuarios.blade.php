@@ -34,7 +34,7 @@
     <!-- Contenedor principal -->
     <main>
         <div class="form-container">
-            <form id="modificarForm" action="{{ route('employed.update', $empleado->id_empleado) }}" method="POST" enctype="multipart/form-data">
+            <form id="modificarForm" action="{{ route('empleados.update', $empleado->id_empleado) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 
