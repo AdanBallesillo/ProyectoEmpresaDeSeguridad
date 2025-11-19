@@ -20,9 +20,8 @@ return new class extends Migration
       $table->string('calle', 100);
       $table->integer('n_exterior');
       $table->integer('p_requerido');
-      $table->string('codigo_estacion', 10)->nullable();
       $table->decimal('latitud', 17, 15);   // 2 enteros + 15 decimales
-      $table->decimal('longitud', 18, 15);  // 3 enteros + 15 decimales
+      $table->decimal('longitud', 18, 15);  // 3 enteros + 15 decimales  .
       $table->enum('tipo', ['Estacion', 'Zona'])->nullable();
       $table->text('descripcion')->nullable();
       $table->dateTime('fecha_creacion')->nullable()->useCurrent();
