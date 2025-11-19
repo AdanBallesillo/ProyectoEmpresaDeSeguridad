@@ -114,11 +114,11 @@ Route::get('/Transportistas/Huella', function () {
 // Ruta para cerrar sesion
 Route::post('/Transportista/Logout', [LoginTransportistaController::class, 'Logout'])->name('Transportista.Logout');
 
+
 /*------------------------------------------------
 RUTAS PARA EL LOGIN DE SECRETARIA
 --------------------------------------------------
 */
-
 
 // Ruta para abrir el login de Secretaria
 Route::get('/LoginSecretaria', [LoginSecretariaController::class, 'Index'])->name('Secretaria.Login');
@@ -134,6 +134,7 @@ Route::get('/Jefe/Menu', function () {
 
 // Ruta para cerrar sesion
 Route::post('/Secretaria/Logout', [LoginSecretariaController::class, 'Logout'])->name('Secretaria.Logout');
+
 
 /*------------------------------------------------
 RUTAS PARA EL LOGIN DE EMPLEADOS
@@ -157,7 +158,6 @@ Route::post('/Empleado/Logout', [LoginEmpleadoController::class, 'Logout'])->nam
 /*--------------------------------------------
 RUTAS PARA TRANSPORTE
 --------------------------------------------*/
-
 
 // Listado
 Route::get('/unidades', [TransporteController::class, 'index'])
@@ -195,6 +195,14 @@ Route::get('/unidades/{id}/editar', [TransporteController::class, 'edit'])
 // Guardar cambios de la unidad
 Route::put('/unidades/{id}', [TransporteController::class, 'update'])
     ->name('unidades.update');
+
+
+/*--------------------------------------------
+RUTAS PARA ESTACIONES
+--------------------------------------------*/
+Route::get('/estaciones', function() {
+    return view('Jefe.EditEstacion');})
+    ->name('mostrarestaciones');
 
 
 

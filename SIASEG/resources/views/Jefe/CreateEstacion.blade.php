@@ -9,7 +9,7 @@
     <title>Nueva Estación - Sistema Integral de Gestión</title>
 
     <!-- Enlace al archivo CSS externo donde está el diseño -->
-    <link rel="stylesheet" href="../Estilos/style_NuevaEstacion.css" />
+    <link rel="stylesheet" href="{{ asset('css/style_NuevaEstacion.css') }}" />
   </head>
 
   <body>
