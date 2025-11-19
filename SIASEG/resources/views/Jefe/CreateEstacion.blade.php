@@ -79,6 +79,11 @@
                 <input type="text" id="numero-exterior" name="numero-exterior"/>
               </div>
 
+              <div class="form-group">
+                <label for="coordenadas">Coordenadas:</label>
+                <input type="text" id="coordenadas" name="coordenadas"/>
+              </div>
+
               <!-- Campo que ocupa todo el ancho del formulario -->
               <div class="form-group full-width">
                 <label for="personal-requerido">Personal Requerido:</label>

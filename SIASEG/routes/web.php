@@ -200,8 +200,14 @@ Route::put('/unidades/{id}', [TransporteController::class, 'update'])
 /*--------------------------------------------
 RUTAS PARA ESTACIONES
 --------------------------------------------*/
-Route::get('/estaciones', function() {
-    return view('Jefe.EditEstacion');})
+// Ruta para mostrar las estaciones
+// Route::get('/estaciones', function() {
+//     return view('Jefe.IndexEstaciones');})
+//     ->name('mostrarestaciones');
+//
+// Ruta para el formulario de nueva estación
+Route::get('/Nueva-Estacion', function() {
+    return view('Jefe.CreateEstacion');})
     ->name('mostrarestaciones');
 
 
