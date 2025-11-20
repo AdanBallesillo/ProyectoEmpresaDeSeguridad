@@ -13,7 +13,8 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         // Registramos el middleware que vamos a usar
         $middleware -> alias ([
-            'checkrol' => \App\Http\Middleware\RolesMiddleware::class
+            'checkrol' => \App\Http\Middleware\RolesMiddleware::class,
+            'cambiar.pass' => \App\Http\Middleware\CambiarPassword::class
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

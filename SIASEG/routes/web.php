@@ -7,7 +7,7 @@ use App\Http\Controllers\LoginSecretariaController;
 use App\Http\Controllers\LoginTransportistaController;
 use App\Http\Controllers\LoginEmpleadoController;
 use App\Http\Controllers\TransporteController;
-
+use App\Http\Controllers\PasswordController;
 
 
 /*------------------------------------------------
@@ -185,6 +185,7 @@ Route::post('/nuevasunidades', [TransporteController::class, 'store'])
     ->name('unidades.store');
 
 // Listar todas las unidades
+// Esta ruta al parecer no sirve
 Route::get('/unidades/show', [TransporteController::class, 'showUnidades'])
     ->name('mostrartodasunidades');
 
@@ -214,3 +215,5 @@ Route::get('/test-mail', function () {
 
     return 'Correo enviado (si no hay error en logs).';
 });
+
+// Rutas para el cambio de contraseña
