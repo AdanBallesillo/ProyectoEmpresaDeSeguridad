@@ -28,7 +28,7 @@
             </div>
         @endif
 
-        <form action="{{ route('first-login.update') }}" method="POST">
+        <form action="{{ route('primer-login.update') }}" method="POST">
             @csrf <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
                     Nueva Contraseña

@@ -109,7 +109,7 @@ Route::post('/Transportista/Validate', [LoginTransportistaController::class, 'Va
 // Ruta para mostrar el dashboard o menú, protegido por el middleware
 Route::get('/Transportistas/Huella', function () {
     return view('Transportistas.IndexLoginTransportistas');
-})->middleware('checkrol:Transportista')->name('Transportistas.Menu');
+})->middleware('checkrol:Transportista, Administrador')->name('Transportistas.Menu');
 
 // Ruta para cerrar sesion
 Route::post('/Transportista/Logout', [LoginTransportistaController::class, 'Logout'])->name('Transportista.Logout');
@@ -129,7 +129,7 @@ Route::post('/Secretaria/Validate', [LoginSecretariaController::class, 'Validate
 // Ruta para mostrar el dashboard o menú, protegido por el middleware
 Route::get('/Jefe/Menu', function () {
     return view('Jefe.CreatePersonal');
-})->middleware('checkrol:Secretaria')->name('Secretaria.Dashboard');
+})->middleware('checkrol:Secretaria, Administrador')->name('Secretaria.Dashboard');
 
 
 // Ruta para cerrar sesion
@@ -148,7 +148,7 @@ Route::post('/Empleado/Validate', [LoginEmpleadoController::class, 'Validate'])-
 // Ruta para mostrar el dashboard o menú, protegido por el middleware
 Route::get('/Empleado/Menu', function () {
     return view('welcome');
-})->middleware('checkrol:Empleado')->name('Empleado.Menu');
+})->middleware('checkrol:Administrador,Empleado', 'cambiar.pass') ->name('Empleado.Menu');
 
 // Ruta para cerrar sesion
 Route::post('/Empleado/Logout', [LoginEmpleadoController::class, 'Logout'])->name('Empleado.Logout');
@@ -217,3 +217,9 @@ Route::get('/test-mail', function () {
 });
 
 // Rutas para el cambio de contraseña
+Route::get('/cambiarPassword', [PasswordController::class, 'index'])
+    -> name ('primer-login.index') -> middleware('auth');
+
+Route::post('/cambiarPassword', [PasswordController::class, 'ActualizarPassword'])
+    -> name ('primer-login.update') -> middleware('auth');
+
