@@ -7,6 +7,8 @@ use App\Http\Controllers\LoginSecretariaController;
 use App\Http\Controllers\LoginTransportistaController;
 use App\Http\Controllers\LoginEmpleadoController;
 use App\Http\Controllers\TransporteController;
+use App\Http\Controllers\UnidadesController;
+use App\Http\Controllers\EstacionController;
 
 
 
@@ -172,8 +174,6 @@ Route::get('/nuevasunidades', [TransporteController::class, 'create'])
 RUTAS PARA UNIDADES
 --------------------------------------------*/
 
-use App\Http\Controllers\UnidadesController;
-
 // DASHBOARD DEL JEFE
 Route::get('/jefe/unidades', [UnidadesController::class, 'index'])
     ->name('jefe.unidades');
@@ -200,15 +200,21 @@ Route::put('/unidades/{id}', [TransporteController::class, 'update'])
 /*--------------------------------------------
 RUTAS PARA ESTACIONES
 --------------------------------------------*/
-// Ruta para mostrar las estaciones
-// Route::get('/estaciones', function() {
-//     return view('Jefe.IndexEstaciones');})
-//     ->name('mostrarestaciones');
-//
-// Ruta para el formulario de nueva estación
-Route::get('/Nueva-Estacion', function() {
-    return view('Jefe.CreateEstacion');})
-    ->name('mostrarestaciones');
+
+// Listado de estaciones
+Route::get('/estaciones', [EstacionController::class, 'index'])->name('estaciones.index');
+
+// Formulario para crear estación
+Route::get('/estaciones/create', [EstacionController::class, 'create'])->name('estaciones.create');
+
+// Guardar nueva estación (POST)
+Route::post('/estaciones', [EstacionController::class, 'store'])->name('estaciones.store');
+
+// Editar estación
+Route::get('/estaciones/{id}/edit', [EstacionController::class, 'edit'])->name('estaciones.edit');
+
+// Actualizar estación
+Route::put('/estaciones/{id}', [EstacionController::class, 'update'])->name('estaciones.update');
 
 
 
