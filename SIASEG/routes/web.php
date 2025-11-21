@@ -108,8 +108,8 @@ Route::post('/Transportista/Validate', [LoginTransportistaController::class, 'Va
 
 // Ruta para mostrar el dashboard o menú, protegido por el middleware
 Route::get('/Transportistas/Huella', function () {
-    return view('Transportistas.IndexTransportista');
-})->middleware('checkrol:Transportista, Administrador', 'cambiar.pass')->name('Transportistas.Menu');
+    return view('Transportistas.IndexLoginTransportistas');
+})->middleware('checkrol:Transportista, Administrador')->name('Transportistas.Menu');
 
 // Ruta para cerrar sesion
 Route::post('/Transportista/Logout', [LoginTransportistaController::class, 'Logout'])->name('Transportista.Logout');
@@ -128,7 +128,7 @@ Route::post('/Secretaria/Validate', [LoginSecretariaController::class, 'Validate
 
 // Ruta para mostrar el dashboard o menú, protegido por el middleware
 Route::get('/Jefe/Menu', function () {
-    return view('Secretaria.IndexDashboardSecretaria');
+    return view('Jefe.CreatePersonal');
 })->middleware('checkrol:Secretaria, Administrador')->name('Secretaria.Dashboard');
 
 
@@ -147,8 +147,8 @@ Route::post('/Empleado/Validate', [LoginEmpleadoController::class, 'Validate'])-
 
 // Ruta para mostrar el dashboard o menú, protegido por el middleware
 Route::get('/Empleado/Menu', function () {
-    return view('Empleados.IndexEmpleados');
-})->middleware('checkrol:Empleado', 'cambiar.pass') ->name('Empleado.Menu');
+    return view('welcome');
+})->middleware('checkrol:Administrador,Empleado', 'cambiar.pass') ->name('Empleado.Menu');
 
 // Ruta para cerrar sesion
 Route::post('/Empleado/Logout', [LoginEmpleadoController::class, 'Logout'])->name('Empleado.Logout');
@@ -176,7 +176,7 @@ use App\Http\Controllers\UnidadesController;
 
 // DASHBOARD DEL JEFE
 Route::get('/jefe/unidades', [UnidadesController::class, 'index'])
-    ->name('jefe.unidades') -> middleware('checkrol:Administrador', 'cambiar.pass');
+    ->name('jefe.unidades') -> middleware('checkrol: Administrador', 'cambiar.pass');
 
 Route::get('/nuevasunidades', [TransporteController::class, 'create'])
     ->name('nuevasunidades');
