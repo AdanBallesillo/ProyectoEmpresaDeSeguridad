@@ -8,36 +8,55 @@ use Illuminate\Support\Facades\Hash;
 
 class PasswordController extends Controller
 {
+
+    // Funcion para mandar a la vista donde se va a cambiar la contraseña
     public function index () {
         return view('Empleados.CambiarPassword');
     }
 
-    // Procesa el cambio (POST)
+
+    // Funcion que va a validar y cambiar la contraseña
     public function ActualizarPassword(Request $request)
     {
-        // 1. Validamos que la contraseña sea segura y coincida con la confirmación
+        // Primero validamos la contraseña
         $request->validate([
-            'password' => 'required|confirmed|min:6',
+            'password' => 'required|confirmed|min:8',
             // 'confirmed' busca un campo llamado password_confirmation
         ]);
 
-        // 2. Obtenemos al empleado actual
+        // Obtenemos que esta ha iniciado sesion
         $empleado = Auth::user();
 
-        // 3. ACTUALIZAMOS LOS DATOS
-        // Aquí es donde ocurre la magia:
-        $empleado->password = Hash::make($request->password); // Encriptamos la nueva
-        $empleado->cambiar_pass = 0; // <--- ¡AQUÍ ESTÁ LO QUE DECÍAS! (Quitamos la bandera)
+        // Recibimos la contraseña y la encriptamos y ponemos en 0 la columna de cambiar_pass
+        $empleado->password = Hash::make($request->password);
+        $empleado->cambiar_pass = 0;
 
-        // 4. Guardamos en la base de datos
+        // Guardamos los datos
         $empleado->save();
 
-        // 5. Redirigimos al Dashboard (o a donde deba ir según su rol)
-        // Como ya pusimos cambiar_pass en 0, el middleware ahora sí lo dejará pasar.
+        // Dependiendo el rol lo mandamos hacia donde corresponde el rol
+        switch ($empleado -> rol) {
 
-        // Ojo: Redirige a la ruta que corresponda a su rol.
-        // Si es jefe a su dashboard, si es empleado al suyo.
-        return redirect()->route('Empleado.Menu')
-            ->with('success', '¡Contraseña actualizada correctamente!');
+            case 'Administrador':
+                return redirect() -> route('jefe.unidades')
+                    ->with('success', '¡Contraseña actualizada correctamente!');
+                break;
+
+            case 'Empleado':
+                return redirect() -> route('Empleado.Menu')
+                    ->with('success', '¡Contraseña actualizada correctamente!');
+                break;
+            case 'Secretaria':
+                return redirect() -> route('Secretaria.Dashboard')
+                    ->with('success', '¡Contraseña actualizada correctamente!');
+                break;
+            case 'Transportista':
+                return redirect() -> route('Transportistas.Menu')
+                    ->with('success', '¡Contraseña actualizada correctamente!');
+                break;
+            default:
+                return with('Error', 'A ocurrido un error');
+                break;
+        }
     }
 }

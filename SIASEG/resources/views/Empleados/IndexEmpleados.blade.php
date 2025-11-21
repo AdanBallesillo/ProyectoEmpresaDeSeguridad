@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio de Empleado</title>
-    <link rel="stylesheet" href="../Estilos/style_Empleados.css">
+    <link rel="stylesheet" href="{{ asset('css/style_Empleados.css') }}">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
@@ -33,7 +33,7 @@
                     <div class="progress-circle end"></div>
                 </div>
             </section>
-    
+
             <section class="personal-data-section">
                 <h2 class="section-title">Datos personales</h2>
                 <div class="data-table">
@@ -54,7 +54,7 @@
                     </div>
                 </div>
             </section>
-    
+
             <section class="info-cards-section">
             <div class="card card-gray">
                 <div class="card-header">

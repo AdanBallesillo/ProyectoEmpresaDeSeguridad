@@ -26,7 +26,7 @@ class LoginTransportistaController extends Controller
             'password' => $request->password
         ])) {
             // Si son correctas las credenciales lo redireccionamos a su menú o dashboard
-            return redirect()->route('welcome');
+            return redirect()->route('Transportistas.Menu');
         } else {
             // Si no, le mostramos este mensaje.
             return back()->withErrors([
