@@ -16,21 +16,22 @@ class CambiarPassword
      */
     public function handle(Request $request, Closure $next): Response
     {
+
+        // Primero se tiene que obtener el usuario logeado en el sistema
         $empleado = Auth::user();
 
-        // 1. CORREGIDO: Usamos 'cambiar_pass' que es el nombre real que salió en el debug
-        if ($empleado && $empleado->cambiar_pass) {
+        // Luego tenemos que consultar la columna de cambiar_pass
+        if ($empleado && $empleado -> cambiar_pass) {
 
-            // 2. IMPORTANTE: Asegúrate que estos nombres ('primer-login.index')
-            // sean EXACTAMENTE los que pusiste en tu archivo web.php en ->name(...)
+            // Despues si se cumple la condicion lo mandamos al formulario para que cambie la contraseña
             if ($request->routeIs(['primer-login.index', 'primer-login.update'])) {
                 return $next($request);
             }
-
+            // Por seguridad si se quiere saltar la validacion lo mandamos otra vez para donde mismo
             return redirect()->route('primer-login.index')
                 ->with('warning', 'Por seguridad, debes cambiar la contraseña.');
         }
-
+        // Y pos si no se cumple ninguna condicion lo dejamos pasar
         return $next($request);
     }
 }
