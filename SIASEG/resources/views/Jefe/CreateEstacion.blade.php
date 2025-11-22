@@ -81,6 +81,11 @@
               </div>
 
               <div class="form-group">
+                <label for="numero-exterior">Codigo Postal:</label>
+                <input type="text" id="numero-exterior" name="codigo_estacion"/>
+              </div>
+
+              <div class="form-group">
                 <label for="coordenadas">Coordenadas:</label>
                 <input type="text" id="coordenadas" name="coordenadas"/>
               </div>
@@ -89,7 +94,6 @@
                 <label for="descripcion">Descripcion:</label>
                 <input type="text" id="descripcion" name="descripcion"/>
               </div>
-
 
               <div class="form-group">
                 <label for="tipo">Tipo:</label>
@@ -100,7 +104,7 @@
               </div>
 
               <!-- Campo que ocupa todo el ancho del formulario -->
-              <div class="form-group full-width">
+              <div class="form-group">
                 <label for="personal-requerido">Personal Requerido:</label>
                 <input type="number" id="personal-requerido" name="p_requerido"/>
               </div>

@@ -18,6 +18,7 @@ class Estacion extends Model
         'calle',
         'n_exterior',
         'p_requerido',
+        'codigo_estacion',
         'latitud',
         'longitud',
         'tipo',

@@ -39,10 +39,9 @@ Route::post('/Nuevo-Empleado', [EmployedController::class, 'store'])->name('empl
 
 // Rutas para mostrar los usuarios
 Route::get(
-    '/Empleados',
+    '/empleados/show',
     [EmployedController::class, 'index']
 )->name('mostrarempleados');
-
 
 // Rutas para modificar usuarios como jefe
 Route::get(
@@ -202,7 +201,7 @@ RUTAS PARA ESTACIONES
 --------------------------------------------*/
 
 // Listado de estaciones
-Route::get('/estaciones', [EstacionController::class, 'index'])->name('estaciones.index');
+Route::get('/estaciones/show', [EstacionController::class, 'index'])->name('estaciones.index');
 
 // Formulario para crear estación
 Route::get('/estaciones/create', [EstacionController::class, 'create'])->name('estaciones.create');
@@ -215,7 +214,6 @@ Route::get('/estaciones/{id}/edit', [EstacionController::class, 'edit'])->name('
 
 // Actualizar estación
 Route::put('/estaciones/{id}', [EstacionController::class, 'update'])->name('estaciones.update');
-
 
 
 ///// Welcome ///////

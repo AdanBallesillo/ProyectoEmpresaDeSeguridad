@@ -29,8 +29,7 @@ class EstacionController extends Controller
             }
 
             $estaciones = $query->paginate(5);
-            // descomentar la siguiente linea cuando se tenga la vista
-            // return view('Estaciones.Index', compact('estaciones'));
+            return view('Jefe.IndexEstaciones', compact('estaciones'));
         } catch (\Exception $e) {
             Log::error('Error al obtener estaciones: ' . $e->getMessage());
             return redirect()->back()->with('error', 'Error al cargar estaciones.');
@@ -67,6 +66,7 @@ class EstacionController extends Controller
                 'calle' => 'required|string|max:150',
                 'n_exterior' => 'required|string|max:20',
                 'p_requerido' => 'required|numeric|min:0',
+                'codigo_estacion' => 'required|string|max:6|unique:estaciones,codigo_estacion',
                 'tipo' => 'required|in:Estacion,Zona',
                 'descripcion' => 'nullable|string|max:250',
                 'coordenadas' => ['required', 'regex:/^-?\d{1,3}\.\d+,\s*-?\d{1,3}\.\d+$/']
@@ -140,7 +140,7 @@ class EstacionController extends Controller
                 'calle' => 'string|max:150',
                 'n_exterior' => 'string|max:20',
                 'p_requerido' => 'numeric|min:0',
-                'codigo_estacion' => 'string|max:50|unique:estaciones,codigo_estacion,' . $id . ',id_estacion',
+                'codigo_estacion' => 'string|max:6|unique:estaciones,codigo_estacion,' . $id . ',id_estacion',
                 'tipo' => 'in:Estacion,Zona',
                 'descripcion' => 'nullable|string|max:250',
                 'coordenadas' => ['regex:/^-?\d{1,3}\.\d+,\s*-?\d{1,3}\.\d+$/']
