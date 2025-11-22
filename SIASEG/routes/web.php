@@ -17,7 +17,7 @@ RUTA RAIZ PARA QUE INICIEN LOS LOGIN
 
 Route::get('/', function () {
     return view('Empleados.IndexLoginEmpleados');
-});
+}) -> name('login');
 
 /*------------------------------------------------
 RUTAS PARA EL CRUD DE USUARIOS
@@ -108,7 +108,7 @@ Route::post('/Transportista/Validate', [LoginTransportistaController::class, 'Va
 
 // Ruta para mostrar el dashboard o menú, protegido por el middleware
 Route::get('/Transportistas/Huella', function () {
-    return view('Transportistas.IndexLoginTransportistas');
+    return view('Transportistas.IndexTransportista');
 })->middleware('checkrol:Transportista, Administrador')->name('Transportistas.Menu');
 
 // Ruta para cerrar sesion
@@ -128,7 +128,7 @@ Route::post('/Secretaria/Validate', [LoginSecretariaController::class, 'Validate
 
 // Ruta para mostrar el dashboard o menú, protegido por el middleware
 Route::get('/Jefe/Menu', function () {
-    return view('Jefe.CreatePersonal');
+    return view('Secretaria.IndexDashboardSecretaria');
 })->middleware('checkrol:Secretaria, Administrador')->name('Secretaria.Dashboard');
 
 
@@ -147,7 +147,7 @@ Route::post('/Empleado/Validate', [LoginEmpleadoController::class, 'Validate'])-
 
 // Ruta para mostrar el dashboard o menú, protegido por el middleware
 Route::get('/Empleado/Menu', function () {
-    return view('welcome');
+    return view('Empleados.IndexEmpleados');
 })->middleware('checkrol:Administrador,Empleado', 'cambiar.pass') ->name('Empleado.Menu');
 
 // Ruta para cerrar sesion
@@ -176,7 +176,7 @@ use App\Http\Controllers\UnidadesController;
 
 // DASHBOARD DEL JEFE
 Route::get('/jefe/unidades', [UnidadesController::class, 'index'])
-    ->name('jefe.unidades') -> middleware('checkrol: Administrador', 'cambiar.pass');
+    ->name('jefe.unidades') -> middleware('checkrol:Administrador', 'cambiar.pass');
 
 Route::get('/nuevasunidades', [TransporteController::class, 'create'])
     ->name('nuevasunidades');
