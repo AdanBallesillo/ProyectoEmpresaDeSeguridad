@@ -209,6 +209,7 @@
                         <th>Codigo Postal</th>
                         <th>Tipo</th>
                         <th>Descripcion</th>
+                        <th>Status</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -225,6 +226,7 @@
                             <td>{{ $estacion->codigo_estacion}}</td>
                             <td>{{ $estacion->tipo}}</td>
                             <td>{{ $estacion->descripcion}}</td>
+                            <td>{{ $estacion->status}}</td>
                             <td class="actions-cell">
                                 <button class="action-button modify-button"
                                     data-id="{{ $estacion->id_estacion }}"
@@ -238,6 +240,7 @@
                                     data-codigo_postal="{{ $estacion->codigo_estacion }}"
                                     data-tipo="{{ $estacion->tipo }}"
                                     data-descripcion="{{ $estacion->descripcion }}"
+                                    data-status="{{ $estacion->status }}"
                                 >Modificar</button>
                             </td>
                         </tr>

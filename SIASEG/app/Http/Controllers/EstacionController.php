@@ -130,6 +130,9 @@ class EstacionController extends Controller
         ];
 
         try {
+            // para saber que se recibe la info correcta
+            \Log::info('ESTACION - Update request all', $request->all());
+
             $estacion = Estacion::findOrFail($id);
 
             $validated = $request->validate([
@@ -143,7 +146,8 @@ class EstacionController extends Controller
                 'codigo_estacion' => 'string|max:6|unique:estaciones,codigo_estacion,' . $id . ',id_estacion',
                 'tipo' => 'in:Estacion,Zona',
                 'descripcion' => 'nullable|string|max:250',
-                'coordenadas' => ['regex:/^-?\d{1,3}\.\d+,\s*-?\d{1,3}\.\d+$/']
+                'coordenadas' => ['regex:/^-?\d{1,3}\.\d+,\s*-?\d{1,3}\.\d+$/'],
+                'status' => 'in:activo,inactivo'
             ], $errorMessages);
 
             if (isset($validated['coordenadas'])) {
@@ -152,8 +156,15 @@ class EstacionController extends Controller
                 $estacion->longitud = $lng;
             }
 
+            // para saber que se validó correctamente
+            \Log::info('ESTACION - Validated', $validated);
             $estacion->fill($validated);
+
+            // para saber como queda el modelo antes de guardar
+            \Log::info('ESTACION - before save', $estacion->toArray());
             $estacion->save();
+            // para saber como queda el modelo despues de guardar
+            \Log::info('ESTACION - after save', $estacion->fresh()->toArray());
 
             return redirect()->back()->with('success', 'Estación actualizada correctamente.');
         } catch (ValidationException $e) {
