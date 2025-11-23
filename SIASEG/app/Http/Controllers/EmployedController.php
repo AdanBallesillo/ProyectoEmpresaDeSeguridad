@@ -83,7 +83,7 @@ class EmployedController extends Controller
                     'CURP' => 'required|string|max:18|unique:empleados,CURP',
                     'RFC' => 'required|string|max:13|unique:empleados,RFC',
                     'telefono' => 'required|string|max:15',
-                    'fotografia' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
+                    'fotografia' => 'nullable|image|mimes:jpg,jpeg,png,gif',
                     'rol' => 'required|string|max:100',
                     'correo' => 'required|email|max:150|unique:empleados,correo'
                 ],

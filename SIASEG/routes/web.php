@@ -8,6 +8,10 @@ use App\Http\Controllers\LoginTransportistaController;
 use App\Http\Controllers\LoginEmpleadoController;
 use App\Http\Controllers\TransporteController;
 use App\Http\Controllers\PasswordController;
+use App\Http\Controllers\UnidadesController;
+use App\Http\Controllers\EstacionController;
+
+
 
 
 /*------------------------------------------------
@@ -37,10 +41,9 @@ Route::post('/Nuevo-Empleado', [EmployedController::class, 'store'])->name('empl
 
 // Rutas para mostrar los usuarios
 Route::get(
-    '/Empleados',
+    '/empleados/show',
     [EmployedController::class, 'index']
 )->name('mostrarempleados');
-
 
 // Rutas para modificar usuarios como jefe
 Route::get(
@@ -114,11 +117,11 @@ Route::get('/Transportistas/Huella', function () {
 // Ruta para cerrar sesion
 Route::post('/Transportista/Logout', [LoginTransportistaController::class, 'Logout'])->name('Transportista.Logout');
 
+
 /*------------------------------------------------
 RUTAS PARA EL LOGIN DE SECRETARIA
 --------------------------------------------------
 */
-
 
 // Ruta para abrir el login de Secretaria
 Route::get('/LoginSecretaria', [LoginSecretariaController::class, 'Index'])->name('Secretaria.Login');
@@ -134,6 +137,7 @@ Route::get('/Jefe/Menu', function () {
 
 // Ruta para cerrar sesion
 Route::post('/Secretaria/Logout', [LoginSecretariaController::class, 'Logout'])->name('Secretaria.Logout');
+
 
 /*------------------------------------------------
 RUTAS PARA EL LOGIN DE EMPLEADOS
@@ -158,7 +162,6 @@ Route::post('/Empleado/Logout', [LoginEmpleadoController::class, 'Logout'])->nam
 RUTAS PARA TRANSPORTE
 --------------------------------------------*/
 
-
 // Listado
 Route::get('/unidades', [TransporteController::class, 'index'])
     ->name('mostrartodasunidades');
@@ -171,8 +174,6 @@ Route::get('/nuevasunidades', [TransporteController::class, 'create'])
 /*--------------------------------------------
 RUTAS PARA UNIDADES
 --------------------------------------------*/
-
-use App\Http\Controllers\UnidadesController;
 
 // DASHBOARD DEL JEFE
 Route::get('/jefe/unidades', [UnidadesController::class, 'index'])
@@ -197,6 +198,25 @@ Route::get('/unidades/{id}/editar', [TransporteController::class, 'edit'])
 Route::put('/unidades/{id}', [TransporteController::class, 'update'])
     ->name('unidades.update');
 
+
+/*--------------------------------------------
+RUTAS PARA ESTACIONES
+--------------------------------------------*/
+
+// Listado de estaciones
+Route::get('/estaciones/show', [EstacionController::class, 'index'])->name('estaciones.index');
+
+// Formulario para crear estación
+Route::get('/estaciones/create', [EstacionController::class, 'create'])->name('estaciones.create');
+
+// Guardar nueva estación (POST)
+Route::post('/estaciones', [EstacionController::class, 'store'])->name('estaciones.store');
+
+// Editar estación
+Route::get('/estaciones/{id}/edit', [EstacionController::class, 'edit'])->name('estaciones.edit');
+
+// Actualizar estación
+Route::put('/estaciones/{id}', [EstacionController::class, 'update'])->name('estaciones.update');
 
 
 ///// Welcome ///////

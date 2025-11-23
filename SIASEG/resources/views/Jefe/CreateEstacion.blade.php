@@ -9,7 +9,7 @@
     <title>Nueva Estación - Sistema Integral de Gestión</title>
 
     <!-- Enlace al archivo CSS externo donde está el diseño -->
-    <link rel="stylesheet" href="../Estilos/style_NuevaEstacion.css" />
+    <link rel="stylesheet" href="{{ asset('css/style_NuevaEstacion.css') }}" />
   </head>
 
   <body>
@@ -45,44 +45,68 @@
         <!-- Cuerpo de la tarjeta -->
         <div class="card-body">
           <!-- Formulario para capturar los datos -->
-          <form>
+          <form method="POST" action="{{ route('estaciones.store') }}">
+            @csrf
             <!-- Estructura en forma de cuadrícula -->
             <div class="form-grid">
               <!-- Cada “form-group” representa un campo con su etiqueta e input -->
               <div class="form-group">
                 <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" />
+                <input type="text" id="nombre" name="nombre_estacion"/>
               </div>
 
               <div class="form-group">
                 <label for="estado">Estado:</label>
-                <input type="text" id="estado" />
+                <input type="text" id="estado" name="estado"/>
               </div>
 
               <div class="form-group">
                 <label for="ciudad">Ciudad:</label>
-                <input type="text" id="ciudad" />
+                <input type="text" id="ciudad" name="ciudad"/>
               </div>
 
               <div class="form-group">
                 <label for="colonia">Colonia:</label>
-                <input type="text" id="colonia" />
+                <input type="text" id="colonia" name="colonia"/>
               </div>
 
               <div class="form-group">
                 <label for="calle">Calle:</label>
-                <input type="text" id="calle" />
+                <input type="text" id="calle" name="calle"/>
               </div>
 
               <div class="form-group">
                 <label for="numero-exterior">Numero Exterior:</label>
-                <input type="text" id="numero-exterior" name="numero-exterior"/>
+                <input type="text" id="numero-exterior" name="n_exterior"/>
+              </div>
+
+              <div class="form-group">
+                <label for="numero-exterior">Codigo Postal:</label>
+                <input type="text" id="numero-exterior" name="codigo_estacion"/>
+              </div>
+
+              <div class="form-group">
+                <label for="coordenadas">Coordenadas:</label>
+                <input type="text" id="coordenadas" name="coordenadas"/>
+              </div>
+
+              <div class="form-group">
+                <label for="descripcion">Descripcion:</label>
+                <input type="text" id="descripcion" name="descripcion"/>
+              </div>
+
+              <div class="form-group">
+                <label for="tipo">Tipo:</label>
+                <select name="tipo" id="tipo">
+                    <option value="Estacion">Estacion</option>
+                    <option value="Zona">Zona</option>
+                </select>
               </div>
 
               <!-- Campo que ocupa todo el ancho del formulario -->
-              <div class="form-group full-width">
+              <div class="form-group">
                 <label for="personal-requerido">Personal Requerido:</label>
-                <input type="number" id="personal-requerido" />
+                <input type="number" id="personal-requerido" name="p_requerido"/>
               </div>
             </div>
 

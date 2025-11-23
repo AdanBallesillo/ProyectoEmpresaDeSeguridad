@@ -89,7 +89,7 @@
                 <div class="row">
                     <label>Estado:</label>
                     <div class="estado-options">
-                        <label><input type="radio" name="estado" value="activo" {{ $empleado->estado == 'activo' ? 'checked' : '' }} checked> Activo</label>
+                        <label><input type="radio" name="estado" value="activo" {{ $empleado->estado == 'activo' ? 'checked' : '' }}> Activo</label>
                         <label><input type="radio" name="estado" value="inactivo" {{ $empleado->estado == 'inactivo' ? 'checked' : '' }}> Inactivo</label>
                     </div>
 
