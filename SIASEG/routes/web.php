@@ -11,9 +11,6 @@ use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\UnidadesController;
 use App\Http\Controllers\EstacionController;
 
-
-
-
 /*------------------------------------------------
 RUTA RAIZ PARA QUE INICIEN LOS LOGIN
 --------------------------------------------------
@@ -60,19 +57,19 @@ Route::put(
 RUTAS PARA EL MENÚ DE LOS LOGIN
 --------------------------------------------------
 */
-Route::get('/LoginAdministrador/View', function () {
+Route::get('/Administrador', function () {
     return view('Jefe.IndexLoginJefe');
 })->name('Ruta.LoginAdmin');
 
-Route::get('/LoginEmpleados/View', function () {
+Route::get('/Empleados', function () {
     return view('Empleados.IndexLoginEmpleados');
 })->name('Ruta.LoginEmpleado');
 
-Route::get('/LoginSecretaria/View', function () {
+Route::get('/Secretaria', function () {
     return view('Secretaria.IndexLoginSecretaria');
 })->name('Ruta.LoginSecretaria');
 
-Route::get('/LoginTransportista/View', function () {
+Route::get('/Transportista', function () {
     return view('Transportistas.IndexLoginTransportistas');
 })->name('Ruta.LoginTranspo');
 
