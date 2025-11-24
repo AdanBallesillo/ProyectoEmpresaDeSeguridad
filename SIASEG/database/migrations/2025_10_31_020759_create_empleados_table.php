@@ -26,6 +26,8 @@ return new class extends Migration
             $table->dateTime('fecha_creacion')->nullable()->useCurrent();
             $table->dateTime('fecha_actualizacion')->useCurrentOnUpdate()->nullable()->useCurrent();
             $table->enum('status', ['Activo', 'Inactivo'])->nullable()->default('Activo');
+            // Nueva columna
+            $table->boolean('cambiar_pass')->nullable()->default(true);
         });
     }
 
