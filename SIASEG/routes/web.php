@@ -247,3 +247,4 @@ Route::get('/rutas/index', [RutasController::class, 'index']) -> name ('rutas.in
 Route::get('/rutas/create', [RutasController::class, 'create']) -> name ('rutas.create');
 Route::post('/rutas/store', [RutasController::class, 'store']) -> name ('rutas.store');
 Route::get('rutas/{id}/edit', [RutasController::class, 'edit']) -> name ('rutas.edit');
+Route::put('/rutas/{id}', [RutasController::class, 'update']) -> name ('rutas.update');

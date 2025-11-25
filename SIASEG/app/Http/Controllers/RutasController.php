@@ -46,11 +46,41 @@ class RutasController extends Controller
             'destino' => $request -> destino,
             'status' => 'Activo'
         ]);
+
+        return redirect() -> route('rutas.index');
     }
 
+
+    // Funcion para llevar los datos al formulario de editar rutas
     public function edit ($id_ruta) {
         $ruta = Ruta::find ($id_ruta);
 
         return view ('Jefe.EditRutas', compact ('ruta'));
     }
+
+    // Funcion para guardar la actualización de los datos
+    public function update (Request $request, $id_ruta) {
+        // Validamos los campos que llegan desde el formulario
+        $request -> validate ([
+            'nombre' => 'required|max:255',
+            'origen' => 'required|max:255',
+            'destino' => 'required|max:255',
+            'status' => 'required|in:Activo,Inactivo'
+        ]);
+
+        // Buscamos el registro que tenga ese id
+        $ruta = Ruta::find($id_ruta);
+
+        // Hacemos la actulización en la base de datos
+        $ruta -> update ([
+            'nombre' => $request -> nombre,
+            'origen' => $request -> origen,
+            'destino' => $request -> destino,
+            'status' => $request -> status
+        ]);
+
+        return redirect () -> route('rutas.index');
+    }
+
+
 }

@@ -35,12 +35,12 @@
         <div class="card">
 
             <div class="card-header">
-                <h3>✏️ Editar Información de la Ruta</h3>
+                <h3>Editar Información de la Ruta</h3>
             </div>
 
             <div class="card-body">
-                {{-- <form action="{{ route('rutas.update', $ruta->id_ruta) }}" method="POST">
-                    @csrf --}}
+                <form action="{{ route('rutas.update', $ruta->id_ruta) }}" method="POST">
+                    @csrf
                     @method('PUT')
 
                     <div class="form-grid">
@@ -67,13 +67,13 @@
                                 <label class="radio-label active-option">
                                     <input type="radio" name="status" value="Activo"
                                         {{ $ruta->status == 'Activo' ? 'checked' : '' }}>
-                                    <span>✅ Activo</span>
+                                    <span>Activo</span>
                                 </label>
 
                                 <label class="radio-label inactive-option">
                                     <input type="radio" name="status" value="Inactivo"
                                         {{ $ruta->status == 'Inactivo' ? 'checked' : '' }}>
-                                    <span>⛔ Inactivo</span>
+                                    <span>Inactivo</span>
                                 </label>
                             </div>
 

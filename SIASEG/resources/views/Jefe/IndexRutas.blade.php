@@ -72,7 +72,10 @@
                 <h2 class="page-title">Gestión de Rutas</h2>
                 <p class="page-subtitle">Administración de trayectos y distancias</p>
             </div>
-            <button class="new-employee-button" id="btnNuevaRuta">Nueva Ruta</button>
+            <td class="actions-cell">
+            <a href="{{ route('rutas.create') }}" class="action-button modify-button" style="text-decoration: none; display: inline-block; text-align: center;">
+                Nueva Ruta
+            </a>
         </div>
 
         <div class="table-container">
@@ -107,9 +110,9 @@
                             <td>{{ $ruta->origen }}</td>
                             <td>{{ $ruta->destino }}</td>
                             <td class="actions-cell">
-                                <button class="action-button modify-button"
-                                    data-id="{{ $ruta->id }}"
-                                >Modificar</button>
+                                <a href="{{ route('rutas.edit', $ruta->id_ruta) }}" class="action-button modify-button" style="text-decoration: none; display: inline-block; text-align: center;">
+                                    Modificar
+                                </a>
                             </td>
                         </tr>
                     @empty
