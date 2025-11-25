@@ -28,6 +28,8 @@ return new class extends Migration
             $table->enum('status', ['Activo', 'Inactivo'])->nullable()->default('Activo');
             // Nueva columna
             $table->boolean('cambiar_pass')->nullable()->default(true);
+            // Nueva columna para checar disponibilidad
+            $table->boolean('disponible')->nullable()->default(true);
         });
     }
 

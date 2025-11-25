@@ -25,6 +25,8 @@ return new class extends Migration
             $table->text('comentarios')->nullable();
             $table->dateTime('fecha_creacion')->nullable()->useCurrent();
             $table->dateTime('fecha_actualizacion')->useCurrentOnUpdate()->nullable()->useCurrent();
+            // Nueva columa para checar disponibilidad
+            $table->boolean('disponible')->nullable()->default(true);
         });
     }
 

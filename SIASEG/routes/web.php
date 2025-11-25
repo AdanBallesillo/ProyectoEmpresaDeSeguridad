@@ -10,6 +10,7 @@ use App\Http\Controllers\TransporteController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\UnidadesController;
 use App\Http\Controllers\EstacionController;
+use App\Http\Controllers\RutasController;
 
 /*------------------------------------------------
 RUTA RAIZ PARA QUE INICIEN LOS LOGIN
@@ -240,3 +241,9 @@ Route::get('/cambiarPassword', [PasswordController::class, 'index'])
 Route::post('/cambiarPassword', [PasswordController::class, 'ActualizarPassword'])
     -> name ('primer-login.update') -> middleware('auth');
 
+
+// Rutas para crear nuevas rutas de transporte
+Route::get('/rutas/index', [RutasController::class, 'index']) -> name ('rutas.index');
+Route::get('/rutas/create', [RutasController::class, 'create']) -> name ('rutas.create');
+Route::post('/rutas/store', [RutasController::class, 'store']) -> name ('rutas.store');
+Route::get('rutas/{id}/edit', [RutasController::class, 'edit']) -> name ('rutas.edit');
