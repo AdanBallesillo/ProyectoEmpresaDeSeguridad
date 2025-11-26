@@ -235,7 +235,11 @@ Route::get('/test-mail', function () {
     return 'Correo enviado (si no hay error en logs).';
 });
 
-// Rutas para el cambio de contraseña
+
+/*--------------------------------------------
+RUTAS PARA EL CAMBIO DE CONTRASEÑA
+--------------------------------------------*/
+
 Route::get('/cambiarPassword', [PasswordController::class, 'index'])
     -> name ('primer-login.index') -> middleware('auth');
 
@@ -243,16 +247,25 @@ Route::post('/cambiarPassword', [PasswordController::class, 'ActualizarPassword'
     -> name ('primer-login.update') -> middleware('auth');
 
 
-// Rutas para crear nuevas rutas de transporte
+/*--------------------------------------------
+RUTAS PARA LAS RUTAS DE TRANSPORTE
+--------------------------------------------*/
+
 Route::get('/rutas/index', [RutasController::class, 'index']) -> name ('rutas.index');
 Route::get('/rutas/create', [RutasController::class, 'create']) -> name ('rutas.create');
 Route::post('/rutas/store', [RutasController::class, 'store']) -> name ('rutas.store');
 Route::get('rutas/{id}/edit', [RutasController::class, 'edit']) -> name ('rutas.edit');
 Route::put('/rutas/{id}', [RutasController::class, 'update']) -> name ('rutas.update');
 
-// Rutas para crear viajes
+
+/*--------------------------------------------
+RUTAS PARA LOS VIAJES
+--------------------------------------------*/
+
 Route::get('/viajes/create', [ViajesController::class, 'create']) -> name ('viajes.create');
 Route::post('/viajes/store', [ViajesController::class, 'store']) -> name ('viajes.store');
 Route::get('/mi-ruta', [ViajesController::class, 'miRuta']) -> name ('viajes.iniciar');
 Route::post('/viajes/{id}/iniciar', [ViajesController::class, 'iniciarViaje']) -> name('viajes.inicio');
 Route::post('/viaje/{id}/terminar', [ViajesController::class, 'terminarViaje']) -> name('viajes.terminar');
+Route::get('/viajes/index', [ViajesController::class, 'index']) -> name ('viajes.index');
+

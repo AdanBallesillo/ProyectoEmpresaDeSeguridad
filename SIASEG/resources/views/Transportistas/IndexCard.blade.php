@@ -78,7 +78,7 @@
 
                     <form action="{{ route('viajes.terminar', $viaje->id_viaje) }}" method="POST" style="display: contents;">
                         @csrf
-                        <button type="submit" class="action-btn-card finish-btn-card" onclick="return confirm('¿Confirmas que has llegado al destino?')">Finalizar</button>
+                        <button type="submit" class="action-btn-card finish-btn-card">Finalizar</button>
                     </form>
 
                 {{-- CASO 3: FINALIZADO --}}

@@ -107,4 +107,24 @@ class ViajesController extends Controller
             });
         }
     }
+
+    // Funcion para mostrar todos los registros en el index
+    public function index (Request $request) {
+
+        $busqueda = $request -> get('busqueda');
+
+        $viajes = Viajes::with(['empleado', 'transporte', 'ruta'])
+            -> when($busqueda, function ($query) use ($busqueda) {
+                return $query -> whereHas('empleado', function ($q) use ($busqueda) {
+                    $q -> where ('nombres', 'like', "%$busqueda%")
+                        -> orWhere('apellidos', 'like', "%$busqueda%");
+                })
+                -> orWhereHas('ruta', function ($q) use ($busqueda) {
+                    $q -> where('nombre', 'like', "%$busqueda%");
+                });
+            })
+            -> orderBy('fecha_programada', 'desc')
+            -> paginate(10);
+        return view ('Jefe.indexViajes', compact('viajes'));
+    }
 }
