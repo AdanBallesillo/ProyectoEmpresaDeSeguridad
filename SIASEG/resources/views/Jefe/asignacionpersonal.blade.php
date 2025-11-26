@@ -96,31 +96,60 @@
                         <tr>
                             <th>Sel</th>
                             <th>Nombre</th>
+                            <th>Lugar</th>
                         </tr>
                     </thead>
 
                     <tbody>
-                        @foreach($users as $user)
+                        @foreach(
+                            $users->sortBy(function($u) use ($asignaciones, $estacionSeleccionada) {
+
+                                // buscar asignación del empleado
+                                $asig = $asignaciones->firstWhere('id_usuarioPK', $u->id_empleado);
+
+                                // 0 = disponible (queda arriba)
+                                // 1 = asignado a esta estación (queda en medio)
+                                // 2 = asignado a otra estación (abajo del todo)
+
+                                if (!$asig) return 0; // libre
+                                if ($asig->id_estacionPK == $estacionSeleccionada) return 1; // editable
+                                return 2; // asignado a otra estacion
+                            })
+                        as $user)
+
                             @php
-                                $yaAsignado = in_array($user->id_empleado, $asignados);
+                                $asig = $asignaciones->firstWhere('id_usuarioPK', $user->id_empleado);
+
+                                $lugar = $asig ? $asig->nombre_estacion : '—';
+
+                                $esDeEstaEstacion = $asig && $asig->id_estacionPK == $estacionSeleccionada;
+
+                                $asignadoOtra = $asig && $asig->id_estacionPK != $estacionSeleccionada;
                             @endphp
 
-                            <tr class="{{ $yaAsignado ? 'asignado' : '' }}">
+                            <tr class="{{ $asig ? 'asignado' : '' }}">
 
                                 <td>
-                                    @if(!$yaAsignado)
-                                        <input type="checkbox" name="empleados[]" value="{{ $user->id_empleado }}">
+                                    @if($asignadoOtra)
+                                        {{-- empleado ya asignado en otro lado --}}
+                                        <span style="opacity: .5;">Ocupado</span>
+
                                     @else
-                                        <span style="opacity: 0.6;">Asignado</span>
+                                        {{-- checkbox normal o marcado --}}
+                                        <input type="checkbox"
+                                            name="empleados[]"
+                                            value="{{ $user->id_empleado }}"
+                                            {{ $esDeEstaEstacion ? 'checked' : '' }}>
                                     @endif
                                 </td>
 
                                 <td>{{ $user->nombres }} {{ $user->apellidos }}</td>
+                                <td>{{ $lugar }}</td>
+
                             </tr>
 
                         @endforeach
                     </tbody>
-
                 </table>
 
                 <!-- PAGINACIÓN -->
@@ -129,7 +158,7 @@
                 </div>
 
                 <!-- BOTÓN -->
-                <button type="submit" style="margin-top: 20px;">
+                <button type="submit" style="margin-top: 20px; width:100%; " class="btn btn-submit">
                     Asignar
                 </button>
 

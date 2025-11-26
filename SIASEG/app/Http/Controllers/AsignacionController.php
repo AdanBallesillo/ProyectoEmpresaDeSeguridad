@@ -22,19 +22,37 @@ class AsignacionController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
         $estaciones = Estacion::orderBy('nombre_estacion')->get();
 
-    // paginación de empleados
-    $users = Employed::orderBy('nombres')->paginate(10);
+        // estacion seleccionada (para edición)
+        $estacionSeleccionada = $request->query('estacion_id');
 
-    // obtener empleados ya asignados (cualquier estación)
-    $asignados = DB::table('asignaciones')
-        ->pluck('id_usuarioPK')
-        ->toArray();
+        // turno seleccionado (opcional)
+        $turnoSeleccionado = $request->query('turno');
 
-    return view('Jefe.asignacionpersonal', compact('estaciones', 'users', 'asignados'));
+        // obtener asignaciones completas
+        $asignaciones = DB::table('asignaciones')
+            ->join('estaciones', 'asignaciones.id_estacionPK', '=', 'estaciones.id_estacion')
+            ->select(
+                'asignaciones.id_usuarioPK',
+                'asignaciones.id_estacionPK',
+                'asignaciones.turno',
+                'estaciones.nombre_estacion'
+            )
+            ->get();
+
+        // empleados con paginación
+        $users = Employed::orderBy('nombres')->paginate(10);
+
+        return view('Jefe.asignacionpersonal', compact(
+            'estaciones',
+            'users',
+            'asignaciones',
+            'estacionSeleccionada',
+            'turnoSeleccionado'
+        ));
     }
 
     /**
