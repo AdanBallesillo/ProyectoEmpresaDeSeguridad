@@ -75,6 +75,17 @@ class AsignacionController extends Controller
         $turno = $request->input('turno');
         $empleados = array_unique($request->input('empleados'));
 
+        $estacion = Estacion::findOrFail($request->estacion_id);
+        $limiteEmpleados = $estacion->p_requerido; // límite de empleados por asignación
+
+        // VALIDACIÓN DE LÍMITE
+        if (count($empleados) > $limiteEmpleados) {
+            return back()
+                ->with('error', "La estación '{$estacion->nombre_estacion}' solo requiere {$limiteEmpleados} empleados.")
+                ->withInput();
+        }
+
+
         DB::beginTransaction();
         try {
             // Obtener asignaciones ya existentes para no duplicar

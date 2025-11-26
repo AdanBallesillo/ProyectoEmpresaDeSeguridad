@@ -66,7 +66,7 @@ class EstacionController extends Controller
                 'calle' => 'required|string|max:150',
                 'n_exterior' => 'required|string|max:20',
                 'p_requerido' => 'required|numeric|min:0',
-                'codigo_postal' => 'required|string|max:6|unique:estaciones,codigo_postal',
+                'codigo_postal' => 'required|string|max:6',
                 'tipo' => 'required|in:Estacion,Zona',
                 'descripcion' => 'nullable|string|max:250',
                 'coordenadas' => ['required', 'regex:/^-?\d{1,3}\.\d+,\s*-?\d{1,3}\.\d+$/']
@@ -143,7 +143,7 @@ class EstacionController extends Controller
                 'calle' => 'string|max:150',
                 'n_exterior' => 'string|max:20',
                 'p_requerido' => 'numeric|min:0',
-                'codigo_postal' => 'string|max:6|unique:estaciones,codigo_postal,' . $id . ',id_estacion',
+                'codigo_postal' => 'string|max:6',
                 'tipo' => 'in:Estacion,Zona',
                 'descripcion' => 'nullable|string|max:250',
                 'coordenadas' => ['regex:/^-?\d{1,3}\.\d+,\s*-?\d{1,3}\.\d+$/'],

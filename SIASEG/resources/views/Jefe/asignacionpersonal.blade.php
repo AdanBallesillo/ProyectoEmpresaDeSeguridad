@@ -151,6 +151,8 @@
                         @endforeach
                     </tbody>
                 </table>
+                <p id="limite-aviso" style="color:red; font-weight:bold; margin-top:10px;"></p>
+
 
                 <!-- PAGINACIÓN -->
                 <div style="margin-top: 20px;">
@@ -167,5 +169,53 @@
         </div>
     </div>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            const selectEstacion = document.querySelector('select[name="estacion_id"]');
+            let limite = 0;
+
+            const checkboxes = document.querySelectorAll('input[type="checkbox"][name="empleados[]"]');
+
+            function actualizarLimite() {
+                const estacionId = selectEstacion.value;
+
+                const estaciones = @json($estaciones);
+
+                const estacion = estaciones.find(e => e.id_estacion == estacionId);
+
+                limite = estacion ? estacion.p_requerido : 0;
+
+                controlarSeleccion();
+            }
+
+            function controlarSeleccion() {
+                const seleccionados = document.querySelectorAll('input[name="empleados[]"]:checked').length;
+
+                checkboxes.forEach(cb => {
+                    if (!cb.checked) {
+                        cb.disabled = seleccionados >= limite;
+                    }
+                });
+
+                const aviso = document.getElementById('limite-aviso');
+                if (seleccionados >= limite) {
+                    aviso.innerHTML = `Límite alcanzado: ${limite} empleados requeridos.`;
+                } else {
+                    aviso.innerHTML = '';
+                }
+            }
+
+            // Evento: cambio de estación
+            selectEstacion.addEventListener('change', actualizarLimite);
+
+            // Evento: checkbox
+            checkboxes.forEach(cb => {
+                cb.addEventListener('change', controlarSeleccion);
+            });
+
+            actualizarLimite();
+        });
+    </script>
 </body>
 </html>
