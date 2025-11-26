@@ -2,14 +2,18 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-// Libreria para poder usar la autenticacion.
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Employed extends Authenticatable
 {
+    use Notifiable, HasFactory;
+
     protected $table = 'empleados';
     protected $primaryKey = 'id_empleado';
+    public $incrementing = true;
+    protected $keyType = 'int';
     public $timestamps = false;
 
     protected $fillable = [
@@ -21,19 +25,31 @@ class Employed extends Authenticatable
         'fotografia',
         'rol',
         'correo',
-        // Nuevas columnas
         'no_empleado',
-        'password'
+        'password',
+        'status'
     ];
 
-
-    // Le decimos a laravel que use el no_empleado para autenticar
-    public function getAuthIdentifierName() {
+    /**
+     * El campo que Laravel usará para login (username).
+     * Aquí indicamos "no_empleado".
+     */
+    public function getAuthIdentifierName()
+    {
         return 'no_empleado';
     }
 
-    // Ocultamos la contraseña
+    /**
+     * Ocultar campos sensibles.
+     */
     protected $hidden = [
         'password',
+    ];
+
+    /**
+     * Casts automáticos.
+     */
+    protected $casts = [
+        'password' => 'hashed',
     ];
 }

@@ -7,6 +7,7 @@
       <title>Inicio de Empleado</title>
       <link rel="stylesheet" href="../Estilos/style_Empleados_Conductores.css">
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <meta name="csrf-token" content="{{ csrf_token() }}">
     </head>
 
     <body>
@@ -85,7 +86,7 @@
                 <h3>Ruta asignada</h3>
               </div>
               <p>Calle 12</p>
-              <button class="start-route-btn" onclick="abrirModal()">Iniciar Ruta</button>
+              <button class="start-route-btn" onclick="abrirModal()" >Iniciar Ruta</button>
 
             </div>
           </section>

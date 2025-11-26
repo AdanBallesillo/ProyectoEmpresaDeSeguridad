@@ -5,27 +5,38 @@ const status = document.getElementById("status");
 let timer;
 
 fingerprint.addEventListener("mousedown", () => {
-  status.textContent = "Mantén presionado...";
-  pressAnimation.classList.add("active");
+    status.textContent = "Mantén presionado...";
+    pressAnimation.classList.add("active");
 
-  // Tiempo aleatorio de 1 a 3 segundos
-  const holdTime = Math.floor(Math.random() * 3) + 1;
+    const holdTime = Math.floor(Math.random() * 3) + 1;
 
-  timer = setTimeout(() => {
-    status.textContent = "Huella reconocida ✅";
-    fingerprint.style.filter = "hue-rotate(100deg)";
-    pressAnimation.classList.remove("active");
+    timer = setTimeout(() => {
+        status.textContent = "Huella reconocida ✅";
+        pressAnimation.classList.remove("active");
+        fingerprint.style.filter = "hue-rotate(100deg)";
 
-    // Redirigir después de 1s
-    setTimeout(() => {
-      window.location.href = "../Formularios/Frm_VistaEmpleados.php"; // Cambia al formulario que necesites
-    }, 0);
-  }, holdTime * 1000);
+        fetch("/asistencias/registrar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content
+            },
+            body: JSON.stringify({})
+        })
+        .then(response => response.json())
+        .then(data => {
+            status.textContent = data.mensaje;
+        })
+        .catch(() => {
+            status.textContent = "Error al registrar asistencia ❌";
+        });
+
+    }, holdTime * 1000);
 });
 
 fingerprint.addEventListener("mouseup", () => {
-  clearTimeout(timer);
-  pressAnimation.classList.remove("active");
-  fingerprint.style.filter = "none";
-  status.textContent = "Presión cancelada ❌";
+    clearTimeout(timer);
+    pressAnimation.classList.remove("active");
+    fingerprint.style.filter = "none";
+    status.textContent = "Presión cancelada ❌";
 });

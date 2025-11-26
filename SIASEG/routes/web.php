@@ -10,6 +10,8 @@ use App\Http\Controllers\TransporteController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\UnidadesController;
 use App\Http\Controllers\EstacionController;
+use App\Http\Controllers\AsistenciaController;
+
 
 /*------------------------------------------------
 RUTA RAIZ PARA QUE INICIEN LOS LOGIN
@@ -223,8 +225,7 @@ Route::get('/welcome', function () {
 
 use App\Mail\CredencialesEmpleadoMail;
 use Illuminate\Support\Facades\Mail;
-
-
+use Illuminate\View\View;
 
 Route::get('/test-mail', function () {
     Mail::to('nonatan_guerrero@hotmail.com')
@@ -240,3 +241,13 @@ Route::get('/cambiarPassword', [PasswordController::class, 'index'])
 Route::post('/cambiarPassword', [PasswordController::class, 'ActualizarPassword'])
     -> name ('primer-login.update') -> middleware('auth');
 
+
+
+//rutas assitencia
+
+Route::post('/asistencias/registrar', [AsistenciaController::class, 'registrar'])
+    ->middleware('auth');
+Route::get('/tomar-asistencia', function() { return view('Transportistas.IndexHuella'); })->middleware('auth') -> name('asis');
+route::get('/dashempleados', action: function (): View{return view('Empleados.IndexEmpleados');})-> name('dashempleados');
+
+Route::post('/asistencias/foto', [AsistenciaController::class, 'guardarFoto']);

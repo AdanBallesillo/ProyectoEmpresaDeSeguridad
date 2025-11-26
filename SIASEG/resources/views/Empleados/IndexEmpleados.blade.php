@@ -6,6 +6,7 @@
     <title>Inicio de Empleado</title>
     <link rel="stylesheet" href="{{ asset('css/style_Empleados.css') }}">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <body>
     <div class="top-bar"></div>
@@ -80,6 +81,7 @@
                 <p>5:30 P.M.</p>
             </div>
         </section>
+        <a href="{{ route('asis') }}"><button>SIIIIII</button></a>
         </div>
     </main>
 
