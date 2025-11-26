@@ -11,7 +11,7 @@ class Transporte extends Model
 
     protected $table = 'transportes';
     protected $primaryKey = 'id_transporte';
-    public $timestamps = false; 
+    public $timestamps = false;
 
     protected $fillable = [
         'id_transporte',
@@ -24,6 +24,8 @@ class Transporte extends Model
         'capacidad_carga',
         'fecha_adquisicion',
         'status',
-        'comentarios'
+        'comentarios',
+        // Modificacion
+        'disponible'
     ];
 }

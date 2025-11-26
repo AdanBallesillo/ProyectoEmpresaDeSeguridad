@@ -11,6 +11,7 @@ use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\UnidadesController;
 use App\Http\Controllers\EstacionController;
 use App\Http\Controllers\RutasController;
+use App\Http\Controllers\ViajesController;
 
 /*------------------------------------------------
 RUTA RAIZ PARA QUE INICIEN LOS LOGIN
@@ -248,3 +249,10 @@ Route::get('/rutas/create', [RutasController::class, 'create']) -> name ('rutas.
 Route::post('/rutas/store', [RutasController::class, 'store']) -> name ('rutas.store');
 Route::get('rutas/{id}/edit', [RutasController::class, 'edit']) -> name ('rutas.edit');
 Route::put('/rutas/{id}', [RutasController::class, 'update']) -> name ('rutas.update');
+
+// Rutas para crear viajes
+Route::get('/viajes/create', [ViajesController::class, 'create']) -> name ('viajes.create');
+Route::post('/viajes/store', [ViajesController::class, 'store']) -> name ('viajes.store');
+Route::get('/mi-ruta', [ViajesController::class, 'miRuta']) -> name ('viajes.iniciar');
+Route::post('/viajes/{id}/iniciar', [ViajesController::class, 'iniciarViaje']) -> name('viajes.inicio');
+Route::post('/viaje/{id}/terminar', [ViajesController::class, 'terminarViaje']) -> name('viajes.terminar');

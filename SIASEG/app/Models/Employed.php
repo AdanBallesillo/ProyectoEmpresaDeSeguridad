@@ -23,7 +23,9 @@ class Employed extends Authenticatable
         'correo',
         // Nuevas columnas
         'no_empleado',
-        'password'
+        'password',
+        // Modificacion
+        'disponible'
     ];
 
 

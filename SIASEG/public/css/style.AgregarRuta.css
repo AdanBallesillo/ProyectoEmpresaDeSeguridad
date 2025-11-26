@@ -283,3 +283,23 @@ body {
     margin: 5px 0 0 0;
     font-style: italic;
 }
+
+/* Busca esta parte en tu CSS y modifícala para incluir 'select' */
+
+.form-group input,
+.form-group select {   /* <--- AGREGADO: select */
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 15px;
+    transition: border-color 0.3s;
+    background-color: white; /* Asegura fondo blanco */
+    width: 100%; /* Asegura que ocupen el espacio completo */
+    box-sizing: border-box; /* Evita que el padding rompa el ancho */
+}
+
+.form-group input:focus,
+.form-group select:focus { /* <--- AGREGADO: select:focus */
+    outline: none;
+    border-color: #f7a831;
+}

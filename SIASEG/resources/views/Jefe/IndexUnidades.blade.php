@@ -143,38 +143,51 @@
 
 
         <div class="contenido">
-
-            <!-- Estático por ahora -->
             <div class="actividad-unidades">
-                <h3>Actividad de las Unidades</h3>
-                <div class="unidad">
-                    <div class="unidad-header">
-                        <p class="placa">ABC-123</p>
-                        <span class="activo">✓ Activo</span>
-                    </div>
-                    <small>Suburban(2020)</small>
-                    <small>Pancracio Díaz</small>
-                    <p class="ruta">Ruta 4</p>
-                </div>
-                <div class="unidad">
-                    <div class="unidad-header">
-                        <p class="placa">ABC-123</p>
-                        <span class="activo">✓ Activo</span>
-                    </div>
-                    <small>Suburban(2020)</small>
-                    <small>Alfredo Gonzales</small>
-                    <p class="ruta">Ruta 3</p>
-                </div>
-                <div class="unidad">
-                    <div class="unidad-header">
-                        <p class="placa">DEF-456</p>
-                        <span class="activo">✓ Activo</span>
-                    </div>
-                    <small>Suburban(2021)</small>
-                    <small>Eduardo Aguilar</small>
-                    <p class="ruta">Ruta 1</p>
-                </div>
+    <h3>Actividad de las Unidades</h3>
+
+    {{-- INICIO DEL CICLO: Repetimos por cada viaje encontrado --}}
+    @forelse($actividadUnidades as $viaje)
+
+        <div class="unidad">
+            <div class="unidad-header">
+                {{-- 1. PLACAS DEL VEHÍCULO --}}
+                <p class="placa">{{ $viaje->transporte->placas }}</p>
+
+                {{-- 2. ESTATUS (Cambia de color según el estado) --}}
+                @if($viaje->estado == 'en_curso')
+                    <span class="activo" style="background-color: #4CAF50; color: white; padding: 2px 8px; border-radius: 4px;">
+                        ✓ En Ruta
+                    </span>
+                @else
+                    <span class="activo" style="background-color: #FF9800; color: white; padding: 2px 8px; border-radius: 4px;">
+                        🕒 Pendiente
+                    </span>
+                @endif
             </div>
+
+            {{-- 3. DATOS DEL VEHÍCULO (Marca, Modelo, Año) --}}
+            <small>
+                {{ $viaje->transporte->marca }} {{ $viaje->transporte->modelo }} ({{ $viaje->transporte->anio }})
+            </small>
+
+            {{-- 4. NOMBRE DEL CHOFER --}}
+            <small>
+                {{ $viaje->empleado->nombres }} {{ $viaje->empleado->apellidos }}
+            </small>
+
+            {{-- 5. NOMBRE DE LA RUTA --}}
+            <p class="ruta">{{ $viaje->ruta->nombre }}</p>
+        </div>
+
+    @empty
+        {{-- Si no hay ningún viaje activo, mostramos esto --}}
+        <div class="unidad" style="justify-content: center; text-align: center; color: gray;">
+            <p>No hay unidades en ruta actualmente.</p>
+        </div>
+    @endforelse
+
+</div>
 
             <div class="estadisticas">
                 <div class="card">
