@@ -80,7 +80,7 @@
 
               <div class="form-group">
                 <label for="codigo_postal">Codigo Postal:</label>
-                <input type="text" id="codigo_postal" value="{{ $estacion->codigo_estacion }}" name="codigo_estacion" maxlength="6" minlength="5" required/>
+                <input type="text" id="codigo_postal" value="{{ $estacion->codigo_estacion }}" name="codigo_postal" maxlength="6" minlength="5" required/>
               </div>
 
               <div class="form-group">

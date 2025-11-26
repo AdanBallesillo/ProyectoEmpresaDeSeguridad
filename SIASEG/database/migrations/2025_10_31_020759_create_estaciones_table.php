@@ -19,6 +19,7 @@ return new class extends Migration
       $table->string('colonia', 100);
       $table->string('calle', 100);
       $table->integer('n_exterior');
+      $table->string('codigo_postal', 10);
       $table->integer('p_requerido');
       $table->decimal('latitud', 17, 15);   // 2 enteros + 15 decimales
       $table->decimal('longitud', 18, 15);  // 3 enteros + 15 decimales  .

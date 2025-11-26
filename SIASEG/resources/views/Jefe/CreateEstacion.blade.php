@@ -81,8 +81,8 @@
               </div>
 
               <div class="form-group">
-                <label for="numero-exterior">Codigo Postal:</label>
-                <input type="text" id="numero-exterior" name="codigo_estacion"/>
+                <label for="codigo_postal">Codigo Postal:</label>
+                <input type="text" id="codigo_postal" name="codigo_postal" maxlength="6" minlength="5"/>
               </div>
 
               <div class="form-group">

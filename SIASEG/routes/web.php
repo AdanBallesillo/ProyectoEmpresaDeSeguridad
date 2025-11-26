@@ -10,6 +10,7 @@ use App\Http\Controllers\TransporteController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\UnidadesController;
 use App\Http\Controllers\EstacionController;
+use App\Http\Controllers\AsignacionController;
 
 /*------------------------------------------------
 RUTA RAIZ PARA QUE INICIEN LOS LOGIN
@@ -214,6 +215,17 @@ Route::get('/estaciones/{id}/edit', [EstacionController::class, 'edit'])->name('
 
 // Actualizar estación
 Route::put('/estaciones/{id}', [EstacionController::class, 'update'])->name('estaciones.update');
+
+
+/*--------------------------------------------
+RUTAS PARA ASIGNACIONES DE PERSONAL A ESTACIONES
+--------------------------------------------*/
+
+// Ruta para crear nuevas asignaciones
+Route::get('asignaciones/create', [AsignacionController::class, 'create'])->name('asignaciones.create');
+
+// Ruta para almacenar las asignaciones
+Route::post('asignaciones', [AsignacionController::class, 'store'])->name('asignaciones.store');
 
 
 ///// Welcome ///////
