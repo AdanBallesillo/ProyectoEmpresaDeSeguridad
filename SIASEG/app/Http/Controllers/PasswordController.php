@@ -43,7 +43,7 @@ class PasswordController extends Controller
                 break;
 
             case 'Empleado':
-                return redirect() -> route('Empleado.Menu')
+                return redirect() -> route('asistencia.verificarE') 
                     ->with('success', '¡Contraseña actualizada correctamente!');
                 break;
             case 'Secretaria':
@@ -51,7 +51,7 @@ class PasswordController extends Controller
                     ->with('success', '¡Contraseña actualizada correctamente!');
                 break;
             case 'Transportista':
-                return redirect() -> route('Transportistas.Menu')
+                return redirect() -> route('asistencia.verificarT')
                     ->with('success', '¡Contraseña actualizada correctamente!');
                 break;
             default:

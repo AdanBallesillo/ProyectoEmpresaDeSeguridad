@@ -5,27 +5,60 @@ const status = document.getElementById("status");
 let timer;
 
 fingerprint.addEventListener("mousedown", () => {
-  status.textContent = "Mantén presionado...";
-  pressAnimation.classList.add("active");
 
-  // Tiempo aleatorio de 1 a 3 segundos
-  const holdTime = Math.floor(Math.random() * 3) + 1;
+    status.textContent = "Verificando...";
+    pressAnimation.classList.add("active");
 
-  timer = setTimeout(() => {
-    status.textContent = "Huella reconocida ✅";
-    fingerprint.style.filter = "hue-rotate(100deg)";
-    pressAnimation.classList.remove("active");
+    const holdTime = Math.floor(Math.random() * 3) + 1;
 
-    // Redirigir después de 1s
-    setTimeout(() => {
-      window.location.href = "../Formularios/Frm_VistaEmpleados.php"; // Cambia al formulario que necesites
-    }, 0);
-  }, holdTime * 1000);
+    timer = setTimeout(() => {
+
+        fetch("/asistencias/verificar", {
+    method: "POST",
+    headers: {
+        "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content
+    }
+})
+.then(r => r.json())
+.then(data => {
+
+    if (data.accion === "espera") {
+        Swal.fire({
+            icon: "info",
+            title: "Espera un momento",
+            text: `Debes esperar 3 minutos para registrar salida.`,
+            confirmButtonColor: "#1e40af"
+        });
+        return;
+    }
+
+    if (data.accion === "entrada") {
+        window.location.href = "/asistencias/camaraE?tipo=entrada";
+
+        return;
+    }
+
+    if (data.accion === "salida") {
+        window.location.href = "/asistencias/camaraE?tipo=salida";
+
+        return;
+    }
+
+    if (data.accion === "terminado") {
+        Swal.fire({
+            icon: "warning",
+            title: "Ya registraste asistencia",
+            text: "Hoy ya se registró entrada y salida.",
+            confirmButtonColor: "#1e40af"
+        });
+    }
+});
+
+
+    }, holdTime * 1000);
 });
 
 fingerprint.addEventListener("mouseup", () => {
-  clearTimeout(timer);
-  pressAnimation.classList.remove("active");
-  fingerprint.style.filter = "none";
-  status.textContent = "Presión cancelada ❌";
+    clearTimeout(timer);
+    pressAnimation.classList.remove("active");
 });
