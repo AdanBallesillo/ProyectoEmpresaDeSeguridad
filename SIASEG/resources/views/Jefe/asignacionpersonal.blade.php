@@ -25,6 +25,16 @@
         .tabla-empleados th {
             background: #eee;
         }
+
+        .asignado { /* asignado en otra estación */
+            background-color: #f8d7da !important;
+            color: #721c24 !important;
+        }
+
+        .asignado-esta { /* asignado en esta estación → VERDE */
+            background-color: #d4edda !important;
+            color: #155724 !important;
+        }
     </style>
 </head>
 
@@ -65,12 +75,12 @@
 
                 <!-- Estación + Turno -->
                 <div style="display: flex; gap: 30px; margin-bottom: 25px;">
-
                     <div>
                         <label><strong>Estación</strong></label><br>
-                        <select name="estacion_id" required>
+                        <select id="selectEstacion" name="estacion_id" required>
                             @foreach($estaciones as $est)
-                                <option value="{{ $est->id_estacion }}">
+                                <option value="{{ $est->id_estacion }}"
+                                    {{ (string)$estacionSeleccionada === (string)$est->id_estacion ? 'selected' : '' }}>
                                     {{ $est->nombre_estacion }}
                                 </option>
                             @endforeach
@@ -79,13 +89,13 @@
 
                     <div>
                         <label><strong>Turno</strong></label><br>
-                        <select name="turno" required>
-                            <option value="Matutino">Matutino</option>
-                            <option value="Vespertino">Vespertino</option>
-                            <option value="Nocturno">Nocturno</option>
+                        <select id="selectTurno" name="turno" required>
+                            <option value="">--Selecciona turno--</option>
+                            <option value="Matutino" {{ $turnoSeleccionado === 'Matutino' ? 'selected' : '' }}>Matutino</option>
+                            <option value="Vespertino" {{ $turnoSeleccionado === 'Vespertino' ? 'selected' : '' }}>Vespertino</option>
+                            <option value="Nocturno" {{ $turnoSeleccionado === 'Nocturno' ? 'selected' : '' }}>Nocturno</option>
                         </select>
                     </div>
-
                 </div>
 
                 <!-- TABLA DE EMPLEADOS -->
@@ -115,38 +125,30 @@
                                 if ($asig->id_estacionPK == $estacionSeleccionada) return 1; // editable
                                 return 2; // asignado a otra estacion
                             })
-                        as $user)
+                            as $user)
 
                             @php
                                 $asig = $asignaciones->firstWhere('id_usuarioPK', $user->id_empleado);
-
                                 $lugar = $asig ? $asig->nombre_estacion : '—';
-
-                                $esDeEstaEstacion = $asig && $asig->id_estacionPK == $estacionSeleccionada;
-
-                                $asignadoOtra = $asig && $asig->id_estacionPK != $estacionSeleccionada;
+                                $esDeEstaEstacion = $asig && (string)$asig->id_estacionPK === (string)$estacionSeleccionada;
+                                $asignadoOtra = $asig && (string)$asig->id_estacionPK !== (string)$estacionSeleccionada;
                             @endphp
 
-                            <tr class="{{ $asig ? 'asignado' : '' }}">
-
+                            <tr class="{{ $esDeEstaEstacion ? 'asignado-esta' : ($asignadoOtra ? 'asignado' : '') }}">
                                 <td>
                                     @if($asignadoOtra)
-                                        {{-- empleado ya asignado en otro lado --}}
                                         <span style="opacity: .5;">Ocupado</span>
-
                                     @else
-                                        {{-- checkbox normal o marcado --}}
                                         <input type="checkbox"
                                             name="empleados[]"
                                             value="{{ $user->id_empleado }}"
                                             {{ $esDeEstaEstacion ? 'checked' : '' }}>
                                     @endif
                                 </td>
-
                                 <td>{{ $user->nombres }} {{ $user->apellidos }}</td>
                                 <td>{{ $lugar }}</td>
-
                             </tr>
+
 
                         @endforeach
                     </tbody>
@@ -169,6 +171,7 @@
         </div>
     </div>
 
+    {{-- script para el limite de personal por estacion --}}
     <script>
         document.addEventListener('DOMContentLoaded', function () {
 
@@ -217,5 +220,29 @@
             actualizarLimite();
         });
     </script>
+
+{{-- script para mostrar en colores los usuarios (verde los que son de dicha estacion, rojo los que son de otra) --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const baseUrl = "{{ route('asignaciones.create') }}";
+            const selectEst = document.getElementById('selectEstacion');
+            const selectTurno = document.getElementById('selectTurno');
+
+            function redirectWithParams() {
+                const est = selectEst.value;
+                const turno = selectTurno.value || '';
+
+                const params = new URLSearchParams();
+                if (est) params.set('estacion_id', est);
+                if (turno) params.set('turno', turno);
+
+                window.location.href = baseUrl + '?' + params.toString();
+            }
+
+            selectEst.addEventListener('change', redirectWithParams);
+            selectTurno.addEventListener('change', redirectWithParams);
+        });
+    </script>
+
 </body>
 </html>

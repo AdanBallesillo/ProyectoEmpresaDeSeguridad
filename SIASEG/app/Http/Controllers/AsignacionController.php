@@ -26,22 +26,25 @@ class AsignacionController extends Controller
     {
         $estaciones = Estacion::orderBy('nombre_estacion')->get();
 
-        // estacion seleccionada (para edición)
-        $estacionSeleccionada = $request->query('estacion_id');
+        // estacion y turno seleccionados desde query string (pueden venir o no)
+        $estacionSeleccionada = $request->query('estacion_id', null);
+        $turnoSeleccionado = $request->query('turno', null);
 
-        // turno seleccionado (opcional)
-        $turnoSeleccionado = $request->query('turno');
-
-        // obtener asignaciones completas
-        $asignaciones = DB::table('asignaciones')
+        // obtener asignaciones completas; si viene turno, filtrar por turno
+        $asignacionesQuery = DB::table('asignaciones')
             ->join('estaciones', 'asignaciones.id_estacionPK', '=', 'estaciones.id_estacion')
             ->select(
                 'asignaciones.id_usuarioPK',
                 'asignaciones.id_estacionPK',
                 'asignaciones.turno',
                 'estaciones.nombre_estacion'
-            )
-            ->get();
+            );
+
+        if ($turnoSeleccionado) {
+            $asignacionesQuery->where('asignaciones.turno', $turnoSeleccionado);
+        }
+
+        $asignaciones = $asignacionesQuery->get();
 
         // empleados con paginación
         $users = Employed::orderBy('nombres')->paginate(10);
@@ -55,6 +58,7 @@ class AsignacionController extends Controller
         ));
     }
 
+
     /**
      * Store a newly created resource in storage.
      */
@@ -65,74 +69,80 @@ class AsignacionController extends Controller
             'empleados'    => 'required|array|min:1',
             'empleados.*'  => 'integer|exists:empleados,id_empleado',
             'turno'       => 'required|string|in:Matutino,Vespertino,Nocturno'
-        ], [
-            'estacion_id.required' => 'Selecciona una estación.',
-            'empleados.required' => 'Selecciona al menos un empleado.',
-            'turno.required' => 'Selecciona un turno.'
         ]);
 
         $estacionId = $request->input('estacion_id');
         $turno = $request->input('turno');
-        $empleados = array_unique($request->input('empleados'));
+        $empleadosSeleccionados = array_unique($request->input('empleados'));
 
-        $estacion = Estacion::findOrFail($request->estacion_id);
-        $limiteEmpleados = $estacion->p_requerido; // límite de empleados por asignación
+        $estacion = Estacion::findOrFail($estacionId);
+        $limiteEmpleados = $estacion->p_requerido;
 
-        // VALIDACIÓN DE LÍMITE
-        if (count($empleados) > $limiteEmpleados) {
-            return back()
-                ->with('error', "La estación '{$estacion->nombre_estacion}' solo requiere {$limiteEmpleados} empleados.")
-                ->withInput();
+        // VALIDAR LÍMITE
+        if (count($empleadosSeleccionados) > $limiteEmpleados) {
+            return back()->with('error', "La estación '{$estacion->nombre_estacion}' solo requiere {$limiteEmpleados} empleados.");
         }
-
 
         DB::beginTransaction();
         try {
-            // Obtener asignaciones ya existentes para no duplicar
-            $existing = DB::table('asignaciones')
+
+            // ========================
+            // OBTENER ASIGNACIONES ACTUALES
+            // ========================
+            $empleadosActualmente = DB::table('asignaciones')
                 ->where('id_estacionPK', $estacionId)
                 ->where('turno', $turno)
-                ->whereIn('id_usuarioPK', $empleados)
                 ->pluck('id_usuarioPK')
                 ->toArray();
 
-            $now = Carbon::now();
-            $toInsert = [];
+            // ========================
+            // DETERMINAR CAMBIOS
+            // ========================
+            $paraEliminar = array_diff($empleadosActualmente, $empleadosSeleccionados);
+            $paraInsertar = array_diff($empleadosSeleccionados, $empleadosActualmente);
 
-            foreach ($empleados as $userId) {
-                if (in_array($userId, $existing)) {
-                    // ya asignado -> skip
-                    continue;
-                }
-                $toInsert[] = [
-                    'id_estacionPK' => $estacionId,
-                    'id_usuarioPK'  => $userId,
-                    'turno'        => $turno,
-                    'created_at'  => $now,
-                    'updated_at'  => $now,
-                ];
+            // ========================
+            // ELIMINAR DESMARCADOS
+            // ========================
+            if (!empty($paraEliminar)) {
+                DB::table('asignaciones')
+                    ->where('id_estacionPK', $estacionId)
+                    ->where('turno', $turno)
+                    ->whereIn('id_usuarioPK', $paraEliminar)
+                    ->delete();
             }
 
-            if (!empty($toInsert)) {
+            // ========================
+            // INSERTAR NUEVOS
+            // ========================
+            if (!empty($paraInsertar)) {
+                $now = Carbon::now();
+                $toInsert = [];
+
+                foreach ($paraInsertar as $userId) {
+                    $toInsert[] = [
+                        'id_estacionPK' => $estacionId,
+                        'id_usuarioPK'  => $userId,
+                        'turno'        => $turno,
+                        'created_at'   => $now,
+                        'updated_at'   => $now,
+                    ];
+                }
+
                 DB::table('asignaciones')->insert($toInsert);
             }
 
             DB::commit();
 
-            $added   = count($toInsert);
-            $skipped = count($empleados) - $added;
-
-            return redirect()
-                ->route('asignaciones.create')
-                ->with(
-                    'success',
-                    "Asignaciones guardadas correctamente. Agregados: {$added}. Omitidos: {$skipped}."
-                );
+            return redirect()->route('asignaciones.create', [
+                'estacion_id' => $estacionId,
+                'turno'       => $turno
+            ])->with('success', 'Asignaciones actualizadas correctamente.');
 
         } catch (\Exception $e) {
             DB::rollBack();
             Log::error('Error al guardar asignaciones: ' . $e->getMessage());
-            return redirect()->back()->with('error', 'Ocurrió un error al guardar las asignaciones.');
+            return back()->with('error', 'Ocurrió un error al guardar las asignaciones.');
         }
 
     }
