@@ -40,7 +40,7 @@
         min-height: 24px;
     }
 
-    /* 🔥 Estilo del botón */
+    /*  Estilo del botón */
     .btn-menu {
         display: inline-block;
         margin-top: 25px;
@@ -72,7 +72,7 @@
 
     <p id="status">Presiona la huella…</p>
 
-    <!-- 🔥 Botón hacia el menú del empleado -->
+    <!--  Botón hacia el menú del empleado -->
     <a href="{{ route('Empleado.Menu') }}" class="btn-menu">
       Ir al menú
     </a>
