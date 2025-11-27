@@ -39,57 +39,79 @@
             </div>
 
             <div class="card-body">
-                <form action="{{ route('rutas.update', $ruta->id_ruta) }}" method="POST">
-                    @csrf
-                    @method('PUT')
+<form action="{{ route('rutas.update', $ruta->id_ruta) }}" method="POST">
+    @csrf
+    @method('PUT')
 
-                    <div class="form-grid">
+    <div class="form-grid">
 
-                        <div class="form-group full-width">
-                            <label for="nombre">Nombre de la Ruta:</label>
-                            <input type="text" id="nombre" name="nombre" value="{{ $ruta->nombre }}" required>
-                        </div>
+        <div class="form-group full-width">
+            <label for="nombre">Nombre de la Ruta:</label>
+            <input type="text" id="nombre" name="nombre" value="{{ $ruta->nombre }}" required>
+        </div>
 
-                        <div class="form-group">
-                            <label for="origen">Punto de Origen:</label>
-                            <input type="text" id="origen" name="origen" value="{{ $ruta->origen }}" required>
-                        </div>
+        <div class="form-group">
+            <label for="origen">Punto de Origen:</label>
+            <select id="origen" name="origen" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
 
-                        <div class="form-group">
-                            <label for="destino">Punto de Destino:</label>
-                            <input type="text" id="destino" name="destino" value="{{ $ruta->destino }}" required>
-                        </div>
+                @foreach($estaciones as $estacion)
+                    <option value="{{ $estacion->nombre_estacion }}"
+                        {{-- Lógica: Si el nombre guardado coincide con esta opción, ponle 'selected' --}}
+                        {{ $ruta->origen == $estacion->nombre_estacion ? 'selected' : '' }}>
 
-                        <div class="form-group full-width status-container">
-                            <label class="status-title">Estatus de la Ruta:</label>
+                        📍 {{ $estacion->nombre_estacion }}
+                    </option>
+                @endforeach
 
-                            <div class="radio-options">
-                                <label class="radio-label active-option">
-                                    <input type="radio" name="status" value="Activo"
-                                        {{ $ruta->status == 'Activo' ? 'checked' : '' }}>
-                                    <span>Activo</span>
-                                </label>
+            </select>
+        </div>
 
-                                <label class="radio-label inactive-option">
-                                    <input type="radio" name="status" value="Inactivo"
-                                        {{ $ruta->status == 'Inactivo' ? 'checked' : '' }}>
-                                    <span>Inactivo</span>
-                                </label>
-                            </div>
+        <div class="form-group">
+            <label for="destino">Punto de Destino:</label>
+            <select id="destino" name="destino" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
 
-                            <p class="helper-text">
-                                * Si marcas "Inactivo", esta ruta no aparecerá para asignar nuevos viajes.
-                            </p>
-                        </div>
+                @foreach($estaciones as $estacion)
+                    <option value="{{ $estacion->nombre_estacion }}"
+                        {{-- Lógica: Lo mismo para el destino --}}
+                        {{ $ruta->destino == $estacion->nombre_estacion ? 'selected' : '' }}>
 
-                    </div>
+                        🏁 {{ $estacion->nombre_estacion}}
+                    </option>
+                @endforeach
 
-                    <div class="form-actions">
-                        <button type="submit" class="btn btn-primary">Actualizar Ruta</button>
-                        <a href="{{ route('rutas.index') }}" class="btn btn-secondary">Cancelar</a>
-                    </div>
+            </select>
+        </div>
 
-                </form>
+        <div class="form-group full-width status-container">
+            <label class="status-title">Estatus de la Ruta:</label>
+
+            <div class="radio-options">
+                <label class="radio-label active-option">
+                    <input type="radio" name="status" value="Activo"
+                        {{ $ruta->status == 'Activo' ? 'checked' : '' }}>
+                    <span>Activo</span>
+                </label>
+
+                <label class="radio-label inactive-option">
+                    <input type="radio" name="status" value="Inactivo"
+                        {{ $ruta->status == 'Inactivo' ? 'checked' : '' }}>
+                    <span>Inactivo</span>
+                </label>
+            </div>
+
+            <p class="helper-text">
+                * Si marcas "Inactivo", esta ruta no aparecerá para asignar nuevos viajes.
+            </p>
+        </div>
+
+    </div>
+
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Actualizar Ruta</button>
+        <a href="{{ route('rutas.index') }}" class="btn btn-secondary">Cancelar</a>
+    </div>
+
+</form>
             </div>
         </div>
 

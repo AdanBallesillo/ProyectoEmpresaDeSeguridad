@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Ruta;
+// Nueva modificacion
+use App\Models\Estacion;
 
 class RutasController extends Controller
 {
@@ -26,7 +28,11 @@ class RutasController extends Controller
 
     // Funcion para mostrar el formulario para crear una ruta
     public function create () {
-        return view ('Jefe.CreateRutas');
+
+        // Para que carguen las rutas automaticamente vamos hacer una consulta
+        $estaciones = Estacion::all();
+        // Le pasamos la informacion al formulario
+        return view ('Jefe.CreateRutas', compact('estaciones'));
     }
 
     // Funcion para guardar la nueva ruta en la base de datos
@@ -54,8 +60,10 @@ class RutasController extends Controller
     // Funcion para llevar los datos al formulario de editar rutas
     public function edit ($id_ruta) {
         $ruta = Ruta::find ($id_ruta);
-
-        return view ('Jefe.EditRutas', compact ('ruta'));
+        // Para que carguen las rutas automaticamente vamos hacer una consulta
+        $estaciones = Estacion::all();
+        // Le pasamos la informacion al formulario
+        return view ('Jefe.EditRutas', compact ('ruta', 'estaciones'));
     }
 
     // Funcion para guardar la actualización de los datos

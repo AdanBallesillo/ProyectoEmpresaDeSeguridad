@@ -62,14 +62,11 @@
             </div>
 
             <a href="{{ route('viajes.create') }}">
-                <button class="new-station-button" id="btnNuevoViaje">
+                <button class="action-button modify-button" id="btnNuevoViaje">
                 Asignar Nuevo Viaje
             </button>
             </a>
         </div>
-
-        <div class="table-container">
-
             <div class="search-bar" style="margin-bottom: 20px; display: flex; justify-content: center; width: 100%;">
                 <form action="{{ route('viajes.index') }}" method="GET" style="display: flex; width: 100%; max-width: 800px; gap: 10px;">
                     <input type="text" name="busqueda" placeholder="🔍 Buscar por chofer o ruta..."
@@ -87,7 +84,7 @@
                     @endif
                 </form>
             </div>
-
+        <div class="table-container">
             <table class="personnel-table">
                 <thead>
                     <tr>

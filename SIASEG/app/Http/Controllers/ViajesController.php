@@ -107,6 +107,8 @@ class ViajesController extends Controller
                 }
 
             });
+
+            return redirect() -> route('viajes.iniciar');
         }
     }
 

@@ -5,7 +5,7 @@
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>Inicio de Empleado</title>
-      <link rel="stylesheet" href="../Estilos/style_Empleados_Conductores.css">
+      <link rel="stylesheet" href="{{ asset('css/style_Empleados_Conductores.css') }}">
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     </head>
 
@@ -129,13 +129,16 @@
       <!-- Modal para el formulario -->
       <div id="modalCard" class="modal">
         <div class="modal-content">
-          <span class="close" onclick="cerrarModal()">&times;</span>
-          <!-- Aquí inyectaremos el contenido de card.blade.php -->
-          <div id="modal-body"></div>
-        </div>
-      </div>
+        <span class="close" onclick="cerrarModal()">&times;</span>
 
-      <script src="../Java/Anim_Ruta.js"></script>
+        <div id="modal-body">
+            <iframe id="iframeRuta" src="" width="100%" height="600px" style="border: none;"></iframe>
+        </div>
+
+        </div>
+    </div>
+
+      <script src="{{ asset('js/Anim_Ruta_T.js') }}"></script>
       <script>
         // Funcionalidad para abrir/cerrar el panel de notificaciones
         const notificationIcon = document.getElementById('notification-icon');
@@ -156,6 +159,36 @@
           }
         });
       </script>
+      <script>
+    // CORRECCIÓN AQUÍ: Usamos la ruta de VER (GET), no la de INICIAR (POST)
+    const urlRuta = "{{ route('viajes.iniciar') }}";
+
+    function abrirModal() {
+        const modal = document.getElementById('modalCard');
+        const iframe = document.getElementById('iframeRuta'); // Ahora sí lo encontrará
+
+        // Cargamos la ruta
+        iframe.src = urlRuta;
+
+        // Mostramos el modal
+        modal.style.display = "block";
+    }
+
+    function cerrarModal() {
+        const modal = document.getElementById('modalCard');
+        const iframe = document.getElementById('iframeRuta');
+
+        modal.style.display = "none";
+        iframe.src = ""; // Limpiamos para que no se quede cargado
+    }
+
+    window.onclick = function(event) {
+        const modal = document.getElementById('modalCard');
+        if (event.target == modal) {
+            cerrarModal();
+        }
+    }
+</script>
     </body>
 
     </html>

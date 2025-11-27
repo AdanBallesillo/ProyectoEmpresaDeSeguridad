@@ -38,34 +38,51 @@
             </div>
 
             <div class="card-body">
-                <form action="{{ route('rutas.store') }}" method="POST">
-                    @csrf
+<form action="{{ route('rutas.store') }}" method="POST">
+    @csrf
 
-                    <div class="form-grid">
+    <div class="form-grid">
 
-                        <div class="form-group full-width">
-                            <label for="nombre">Nombre de la Ruta:</label>
-                            <input type="text" id="nombre" name="nombre" placeholder="Ej: Ruta 4 - Parque Industrial" required>
-                        </div>
+        <div class="form-group full-width">
+            <label for="nombre">Nombre de la Ruta:</label>
+            <input type="text" id="nombre" name="nombre" placeholder="Ej: Ruta 4 - Parque Industrial" required>
+        </div>
 
-                        <div class="form-group">
-                            <label for="origen">Punto de Origen:</label>
-                            <input type="text" id="origen" name="origen" placeholder="Ej: CEDIS Principal" required>
-                        </div>
+        <div class="form-group">
+            <label for="origen">Punto de Origen:</label>
+            <select id="origen" name="origen" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+                <option value="" disabled selected>-- Selecciona una estación --</option>
 
-                        <div class="form-group">
-                            <label for="destino">Punto de Destino:</label>
-                            <input type="text" id="destino" name="destino" placeholder="Ej: Planta Ford" required>
-                        </div>
+                @foreach($estaciones as $estacion)
+                    {{-- Guardamos el NOMBRE como valor para tu base de datos --}}
+                    <option value="{{ $estacion->nombre_estacion}}">
+                        📍 {{ $estacion->nombre_estacion}}
+                    </option>
+                @endforeach
+            </select>
+        </div>
 
-                        </div>
+        <div class="form-group">
+            <label for="destino">Punto de Destino:</label>
+            <select id="destino" name="destino" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+                <option value="" disabled selected>-- Selecciona una estación --</option>
 
-                    <div class="form-actions">
-                        <button type="submit" class="btn btn-primary">Guardar Ruta</button>
-                        <a href="{{ url()->previous() }}" class="btn btn-secondary">Cancelar</a>
-                    </div>
+                @foreach($estaciones as $estacion)
+                    <option value="{{ $estacion->nombre_estacion}}">
+                        🏁 {{ $estacion->nombre_estacion }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
 
-                </form>
+    </div>
+
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Guardar Ruta</button>
+        <a href="{{ url()->previous() }}" class="btn btn-secondary">Cancelar</a>
+    </div>
+
+</form>
             </div>
         </div>
 
