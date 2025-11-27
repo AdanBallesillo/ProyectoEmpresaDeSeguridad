@@ -135,10 +135,10 @@
 
                             <td class="actions-cell">
                                 @if(in_array($viaje->estado, ['pendiente', 'en_curso']))
-                                    {{-- <button class="action-button modify-button"
+                                    <button class="action-button modify-button"
                                             onclick="window.location.href='{{ route('viajes.edit', $viaje->id_viaje) }}'">
                                         Modificar
-                                    </button> --}}
+                                    </button>
                                 @else
                                     <span style="font-size: 12px; font-style: italic; color: #999; padding-left: 10px;">-- Cerrado --</span>
                                 @endif

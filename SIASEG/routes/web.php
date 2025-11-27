@@ -111,7 +111,7 @@ Route::post('/Transportista/Validate', [LoginTransportistaController::class, 'Va
 // Ruta para mostrar el dashboard o menú, protegido por el middleware
 Route::get('/Transportistas/Huella', function () {
     return view('Transportistas.IndexTransportista');
-})->middleware('checkrol:Transportista, Administrador')->name('Transportistas.Menu');
+})->middleware('checkrol:Transportista, Administrador', 'cambiar.pass')->name('Transportistas.Menu');
 
 // Ruta para cerrar sesion
 Route::post('/Transportista/Logout', [LoginTransportistaController::class, 'Logout'])->name('Transportista.Logout');
@@ -268,4 +268,5 @@ Route::get('/mi-ruta', [ViajesController::class, 'miRuta']) -> name ('viajes.ini
 Route::post('/viajes/{id}/iniciar', [ViajesController::class, 'iniciarViaje']) -> name('viajes.inicio');
 Route::post('/viaje/{id}/terminar', [ViajesController::class, 'terminarViaje']) -> name('viajes.terminar');
 Route::get('/viajes/index', [ViajesController::class, 'index']) -> name ('viajes.index');
-
+Route::get('/viajes/{id}/edit', [ViajesController::class, 'edit']) -> name ('viajes.edit');
+Route::put('/viajes/{id}', [ViajesController::class, 'update']) -> name ('viajes.update');

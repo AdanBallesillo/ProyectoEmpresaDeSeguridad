@@ -48,6 +48,7 @@ class ViajesController extends Controller
                 $unidad -> save();
             }
         });
+        return redirect() -> route('viajes.index');
     }
 
     // Funcion para traer toda la información de la ruta
@@ -78,6 +79,7 @@ class ViajesController extends Controller
             ]);
 
             // Falta poner los mensajes que no se te olvide wey
+            return redirect() -> route('viajes.iniciar');
         }
     }
 
@@ -127,4 +129,133 @@ class ViajesController extends Controller
             -> paginate(10);
         return view ('Jefe.indexViajes', compact('viajes'));
     }
+
+    public function edit ($id_viaje) {
+
+        // Traer toda la informacion usando el id
+        $viaje = Viajes::find($id_viaje);
+
+        // Vallidamos que no deje editar si esta finalizado el viaje
+        if ($viaje -> estado == 'finalizado') {
+            return back() -> with('error', 'No se puede editar un viaje ya finalizado');
+        }
+
+        // Cargar los choferes que estan disponibles o el actual
+        $choferes = Employed::where('disponible', 1)
+            -> where('status', 'Activo')
+            -> orWhere('id_empleado', $viaje -> empleado_id)
+            -> get();
+
+        // Cargar las unidades disponibles o la actual
+        $unidades = Transporte::where('disponible', 1)
+            -> where ('status', 'Activo')
+            -> orWhere('id_transporte', $viaje -> transportista_id)
+            -> get();
+
+        // Cargamos todas las rutas
+        $rutas = Ruta::where('status', 'Activo') -> get();
+
+        // Mandamos toda la informacion al formulario de editar
+        return view ('Jefe.EditViajes', compact ('viaje', 'choferes', 'unidades', 'rutas'));
+    }
+
+    public function update (Request $request, $id_viaje) {
+
+    // 1. Validaciones
+    $request->validate([
+        'id_empleado'      => 'required',
+        'id_transporte'    => 'required',
+        'id_ruta'          => 'required',
+        'fecha_programada' => 'required|date',
+        'estado'           => 'required'
+    ]);
+
+    $viaje = Viajes::find($id_viaje);
+
+    try {
+        DB::transaction(function () use ($request, $viaje) {
+
+            // =======================================================
+            // LÓGICA DE CAMBIO DE CHOFER
+            // =======================================================
+            if($request->id_empleado != $viaje->empleado_id) {
+
+                // 1. Liberar al chofer VIEJO
+                $choferViejo = Employed::find($viaje->empleado_id);
+                if ($choferViejo) {
+                    $choferViejo->disponible = 1; // Libre
+                    $choferViejo->save();
+                }
+
+                // 2. Ocupar al chofer NUEVO
+                // ¡CORRECCIÓN AQUÍ! Usamos $request->id_empleado
+                $choferNuevo = Employed::find($request->id_empleado);
+
+                // Validar disponibilidad
+                if ($choferNuevo->disponible == 0) {
+                    throw new \Exception("El chofer seleccionado ya no está disponible.");
+                }
+
+                $choferNuevo->disponible = 0; // Ocupado
+                $choferNuevo->save();
+            }
+
+            // =======================================================
+            // LÓGICA DE CAMBIO DE UNIDAD
+            // =======================================================
+            // Verifica si en tu modelo es 'transportista_id' o 'transporte_id'
+            if ($request->id_transporte != $viaje->transportista_id) {
+
+                // 1. Liberar unidad VIEJA
+                $unidadVieja = Transporte::find($viaje->transportista_id);
+
+                // ¡CORRECCIÓN AQUÍ! (Typo: $unidadVIeja -> $unidadVieja)
+                if ($unidadVieja) {
+                    $unidadVieja->disponible = 1;
+                    $unidadVieja->save();
+                }
+
+                // 2. Ocupar unidad NUEVA
+                $unidadNueva = Transporte::find($request->id_transporte);
+
+                if ($unidadNueva->disponible == 0) {
+                    throw new \Exception("La unidad seleccionada ya no está disponible.");
+                }
+
+                $unidadNueva->disponible = 0;
+                $unidadNueva->save();
+            }
+
+            // =======================================================
+            // LÓGICA DE CANCELACIÓN
+            // =======================================================
+            if ($request->estado == 'cancelado' && $viaje->estado != 'cancelado') {
+                // Forzamos la liberación de ambos
+                // Asegúrate que el modelo sea Transporte (singular)
+                $emp = Employed::find($request->id_empleado);
+                if($emp) { $emp->disponible = 1; $emp->save(); }
+
+                $trans = Transporte::find($request->id_transporte);
+                if($trans) { $trans->disponible = 1; $trans->save(); }
+            }
+
+            // =======================================================
+            // GUARDAR CAMBIOS EN EL VIAJE (Manual para seguridad)
+            // =======================================================
+            $viaje->empleado_id      = $request->id_empleado;
+            $viaje->transportista_id = $request->id_transporte; // Nombre exacto de la columna
+            $viaje->ruta_id          = $request->id_ruta;
+            $viaje->fecha_programada = $request->fecha_programada;
+            $viaje->estado           = $request->estado;
+
+            $viaje->save(); // ¡Guardar!
+        });
+
+        return redirect()->route('viajes.index')->with('success', 'Viaje actualizado correctamente');
+
+    } catch (\Throwable $th) {
+        // Este mensaje te dirá exactamente qué pasó si vuelve a fallar
+        return back()->with('error', 'Error: ' . $th->getMessage());
+    }
+}
 }
