@@ -36,7 +36,6 @@
                 <div class="logo-placeholder"></div>
                 <div class="text-group">
                     <h1 class="main-title">Sistema Integral de Gestión</h1>
-                    <p class="subtitle">Logística y Envíos</p>
                 </div>
             </div>
 
