@@ -18,7 +18,7 @@ RUTA RAIZ PARA QUE INICIEN LOS LOGIN
 
 Route::get('/', function () {
     return view('Empleados.IndexLoginEmpleados');
-}) -> name('login');
+})->name('login');
 
 /*------------------------------------------------
 RUTAS PARA EL CRUD DE USUARIOS
@@ -149,7 +149,7 @@ Route::post('/Empleado/Validate', [LoginEmpleadoController::class, 'Validate'])-
 // Ruta para mostrar el dashboard o menú, protegido por el middleware
 Route::get('/Empleado/Menu', function () {
     return view('Empleados.IndexEmpleados');
-})->middleware('checkrol:Administrador,Empleado', 'cambiar.pass') ->name('Empleado.Menu');
+})->middleware('checkrol:Administrador,Empleado', 'cambiar.pass')->name('Empleado.Menu');
 
 // Ruta para cerrar sesion
 Route::post('/Empleado/Logout', [LoginEmpleadoController::class, 'Logout'])->name('Empleado.Logout');
@@ -174,7 +174,7 @@ RUTAS PARA UNIDADES
 
 // DASHBOARD DEL JEFE
 Route::get('/jefe/unidades', [UnidadesController::class, 'index'])
-    ->name('jefe.unidades') -> middleware('checkrol:Administrador', 'cambiar.pass');
+    ->name('jefe.unidades');
 
 Route::get('/nuevasunidades', [TransporteController::class, 'create'])
     ->name('nuevasunidades');
@@ -235,8 +235,37 @@ Route::get('/test-mail', function () {
 
 // Rutas para el cambio de contraseña
 Route::get('/cambiarPassword', [PasswordController::class, 'index'])
-    -> name ('primer-login.index') -> middleware('auth');
+    ->name('primer-login.index')->middleware('auth');
 
 Route::post('/cambiarPassword', [PasswordController::class, 'ActualizarPassword'])
-    -> name ('primer-login.update') -> middleware('auth');
+    ->name('primer-login.update')->middleware('auth');
 
+
+//RUTAS DASHBOARD ESTACIONES
+// DASHBOARD ESTACIONES
+
+use App\Http\Controllers\DashboardEstacionesController;
+
+Route::get('/jefe/estaciones', [DashboardEstacionesController::class, 'index'])
+    ->name('jefe.estaciones.index');
+
+
+
+// Página para crear nueva estación
+Route::get('/jefe/estaciones/nueva', [EstacionController::class, 'create'])
+    ->name('jefe.estaciones.create');
+
+// Página para modificar estaciones
+Route::get('/jefe/estaciones/modificar', [EstacionController::class, 'edit'])
+    ->name('jefe.estaciones.edit');
+
+
+use App\Http\Controllers\AsignacionController;
+
+
+
+Route::get('/jefe/asignar/{estacion}', [AsignacionController::class, 'create'])
+    ->name('jefe.asignar.personal');
+
+Route::post('/jefe/asignar', [AsignacionController::class, 'store'])
+    ->name('asignaciones.store');

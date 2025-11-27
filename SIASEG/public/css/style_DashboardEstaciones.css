@@ -1,0 +1,525 @@
+/* ====== Reset básico ====== */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background-color: #f3f4f6;
+    color: #1f2933;
+    font-size: 16px; /* base cómodamente grande */
+}
+
+/* ====== Header ====== */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 40px;
+    background: linear-gradient(90deg, #0b3558, #123b6d);
+    color: #ffffff;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.3);
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.logo {
+    width: 46px;
+    height: 46px;
+    border-radius: 999px;
+    background: #ffffff;
+    opacity: 0.9;
+}
+
+.header-text h1 {
+    margin: 0;
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+.header-text p {
+    margin: 0;
+    font-size: 1rem;
+    opacity: 0.9;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 1rem;
+}
+
+.user-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    background: #fbbf24;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #1f2937;
+}
+
+/* ====== Main layout ====== */
+.main-content {
+    max-width: 1600px;          /* más ancho que antes */
+    margin: 0 auto;
+    padding: 28px 32px 40px;    /* más padding */
+}
+
+
+
+/* Title + buttons */
+.title-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+}
+
+.title-section h2 {
+    font-size: 2rem;            /* título grande */
+    margin: 0;
+}
+
+/* Buttons */
+.action-buttons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.action-buttons button {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    padding: 9px 18px;          /* un poco más grandes */
+    font-weight: 500;
+}
+
+.action-buttons svg {
+    width: 20px;
+    height: 20px;
+}
+
+.btn-modify {
+    background: #f59e0b;
+    color: #ffffff;
+}
+
+.btn-modify:hover {
+    background: #d97706;
+}
+
+.btn-new {
+    background: #f97316;
+    color: #ffffff;
+}
+
+.btn-new:hover {
+    background: #ea580c;
+}
+
+.menu-btn {
+    background: #e5e7eb;
+    color: #374151;
+}
+
+.menu-btn:hover {
+    background: #d1d5db;
+}
+
+/* ====== Content grid ====== */
+.content-grid {
+    display: grid;
+    grid-template-columns: 0.9fr 1.7fr 1.2fr; /* columna central un poco más ancha */
+    gap: 22px;
+    align-items: flex-start;
+}
+
+/* ====== Left column (stats) ====== */
+.left-column {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.stat-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 16px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.12);
+}
+
+.stat-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.stat-text {
+    font-size: 0.9rem;
+    color: #4b5563;
+}
+
+.stat-value {
+    font-size: 1.6rem;          /* más grande */
+    font-weight: 700;
+}
+
+.stat-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 999px;
+    background: #e5e7eb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #4b5563;
+}
+
+.stat-icon svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Colored variants */
+.stat-card.orange {
+    background: #fff7ed;
+}
+
+.orange-text {
+    color: #ea580c;
+}
+
+.orange-icon {
+    background: #fed7aa;
+    color: #9a3412;
+}
+
+.stat-card.green {
+    background: #ecfdf3;
+}
+
+.green-text {
+    color: #16a34a;
+}
+
+.green-icon {
+    background: #bbf7d0;
+    color: #166534;
+}
+
+.stat-card.red {
+    background: #fef2f2;
+}
+
+.red-text {
+    color: #dc2626;
+}
+
+.red-icon {
+    background: #fecaca;
+    color: #991b1b;
+}
+
+/* ====== Middle column (station list con scroll) ====== */
+.middle-column {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    max-height: 78vh;          /* área visible alta */
+    overflow-y: auto;          /* scroll SOLO aquí */
+    padding-right: 10px;
+}
+
+/* Scrollbar bonito */
+.middle-column::-webkit-scrollbar {
+    width: 8px;
+}
+
+.middle-column::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.middle-column::-webkit-scrollbar-thumb {
+    background: #cbd5f5;
+    border-radius: 4px;
+}
+
+.middle-column::-webkit-scrollbar-thumb:hover {
+    background: #9ca3af;
+}
+
+/* Station cards */
+.station-card {
+    background: #e5e7eb;
+    border-radius: 16px;
+    padding: 20px 22px;        /* más grandes */
+    box-shadow: 0 2px 5px rgba(15, 23, 42, 0.18);
+}
+
+.station-card h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.station-info {
+    margin-top: 8px;
+    font-size: 0.95rem;
+    color: #4b5563;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Progress bar */
+.progress-bar {
+    margin-top: 12px;
+    height: 7px;
+    border-radius: 999px;
+    background: #cbd5e1;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: #f59e0b;
+    border-radius: 999px;
+    width: 0%;
+    transition: width 0.4s ease;
+}
+
+.progress-fill.full {
+    background: #16a34a;
+}
+
+.progress-fill.overfill {
+    background: #dc2626;
+}
+
+/* Station details */
+.station-details {
+    margin-top: 16px;
+    padding: 13px 16px;
+    border-radius: 12px;
+    background: #4b6478;
+    color: #e5e7eb;
+    font-size: 0.95rem;
+}
+
+.station-details p {
+    margin: 0 0 6px;
+}
+
+.station-details p:last-child {
+    margin-bottom: 10px;
+}
+
+.btn-apply {
+    margin-top: 6px;
+    padding: 7px 16px;
+    border-radius: 999px;
+    border: none;
+    background: #0f172a;
+    color: #ffffff;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.btn-apply:hover {
+    background: #020617;
+}
+
+/* ====== Right column (map) ====== */
+.right-column {
+    display: flex;
+    flex-direction: column;
+}
+/* Botón Asignar */
+.btn-assign {
+    margin-top: 18px;
+    padding: 10px 22px;
+    background: #0f172a;
+    color: #ffffff;
+    border-radius: 999px;
+    font-size: 1rem;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.btn-assign:hover {
+    background: #1e293b;
+}
+.assign-container {
+    display: flex;
+    justify-content: flex-end; /* manda el botón a la derecha */
+    margin-top: 12px;
+}
+
+.btn-assign {
+    padding: 9px 20px;
+    background: #0f172a;
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.btn-assign:hover {
+    background: #1e293b;
+}
+
+
+
+.map-card {
+    background: #e5e7eb;
+    border-radius: 16px;
+    padding: 20px 22px;
+    text-align: center;
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.12);
+}
+
+.map-card h3 {
+    margin: 0 0 14px;
+    font-size: 1.1rem;
+}
+
+.map-container {
+    height: 360px;          /* antes estaba más chico, tipo 240px */
+    border-radius: 14px;
+    background: #d1d5db;
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.btn-modify,
+.btn-new {
+    display: inline-flex;       /* Para que se comporten como botones */
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-decoration: none;      /* Quita subrayado */
+    border-radius: 50px;
+    padding: 10px 22px;
+    font-weight: 600;
+    color: white;
+}
+
+.btn-modify svg,
+.btn-new svg {
+    width: 20px;
+    height: 20px;
+}
+
+.btn-modify {
+    background: #e9a523;
+}
+
+.btn-new {
+    background: #ef7d32;
+}
+
+.btn-modify:hover {
+    background: #d89218;
+}
+
+.btn-new:hover {
+    background: #e06620;
+}
+
+.map-icon {
+    width: 52px;
+    height: 52px;
+    color: #f59e0b;
+}
+
+.map-subtitle {
+    margin: 0;
+    font-size: 0.95rem;
+    color: #4b5563;
+}
+
+/* ====== Responsive ====== */
+@media (max-width: 1024px) {
+    .content-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .middle-column {
+        max-height: none;
+        overflow-y: visible;
+    }
+
+    .right-column {
+        margin-top: 16px;
+    }
+}
+
+@media (max-width: 640px) {
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .title-section {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .action-buttons {
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+
+}
+
+.card-footer {
+    display: flex;
+    justify-content: flex-end;  /* 🔥 Alinea el botón a la derecha */
+    padding: 10px 20px;
+}
+
+.btn-asignar {
+    background-color: #111e3e;      /* Color igual al diseño */
+    color: white;
+    padding: 10px 25px;
+    border-radius: 30px;            /* 🔥 Botón redondeado igual al original */
+    font-weight: bold;
+    text-decoration: none;
+    display: inline-block;
+    transition: 0.2s ease-in-out;
+}
+
+.btn-asignar:hover {
+    background-color: #0c162f;
+}
+

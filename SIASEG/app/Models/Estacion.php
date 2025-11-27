@@ -8,7 +8,7 @@ class Estacion extends Model
 {
     protected $table = 'estaciones';
     protected $primaryKey = 'id_estacion';
-    public $timestamps = false;
+    public $timestamps = false; // usamos fecha_creacion / fecha_actualizacion de la BD
 
     protected $fillable = [
         'nombre_estacion',
@@ -18,11 +18,10 @@ class Estacion extends Model
         'calle',
         'n_exterior',
         'p_requerido',
-        'codigo_estacion',
         'latitud',
         'longitud',
         'tipo',
         'descripcion',
-        'status'
+        'status',
     ];
 }
