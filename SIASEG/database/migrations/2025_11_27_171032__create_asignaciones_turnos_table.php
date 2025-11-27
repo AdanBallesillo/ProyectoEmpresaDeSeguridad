@@ -24,13 +24,13 @@ return new class extends Migration
 
             // Llave foránea hacia empleados
             $table->foreign('id_empleado')
-                ->references('id')
+                ->references('id_empleado')
                 ->on('empleados')
                 ->onDelete('cascade');
 
             // Llave foránea hacia estaciones
             $table->foreign('id_estacion')
-                ->references('id')
+                ->references('id_estacion')
                 ->on('estaciones')
                 ->onDelete('cascade');
         });
