@@ -25,12 +25,7 @@
                 <span class="user-role">Admin Usuario</span>
                 <div class="user-icon"></div>
             </div>
-
-
-
         </div>
-
-
     </header>
 
 

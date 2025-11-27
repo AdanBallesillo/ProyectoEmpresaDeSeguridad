@@ -21,9 +21,9 @@ class UnidadesController extends Controller
 
         // Nueva consulta
         $actividadUnidades = Viajes::with(['transporte', 'empleado', 'ruta'])
-            -> whereIn('estado', ['en_curso', 'pendiente'])
-            -> orderBy('fecha_programada', 'desc')
-            -> get();
+            ->whereIn('estado', ['en_curso', 'pendiente'])
+            ->orderBy('fecha_programada', 'desc')
+            ->get();
 
         return view('Jefe.IndexUnidades', compact('activos', 'mantenimientos', 'total', 'unidades', 'actividadUnidades'));
     }

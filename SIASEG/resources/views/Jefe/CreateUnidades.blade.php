@@ -142,6 +142,29 @@
         alert("{{ session('error') }}");
     </script>
     @endif
+    @if ($errors->any())
+    <div style="background:#fee2e2; border:1px solid #fca5a5; padding:10px; margin-bottom:15px; border-radius:6px; color:#b91c1c;">
+        <strong>Revisa los siguientes errores:</strong>
+        <ul style="margin-top:5px; padding-left:20px;">
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+
+    @if (session('error'))
+    <div style="background:#fee2e2; border:1px solid #fca5a5; padding:10px; margin-bottom:15px; border-radius:6px; color:#b91c1c;">
+        {{ session('error') }}
+    </div>
+    @endif
+
+    @if (session('success'))
+    <div style="background:#dcfce7; border:1px solid #4ade80; padding:10px; margin-bottom:15px; border-radius:6px; color:#166534;">
+        {{ session('success') }}
+    </div>
+    @endif
+
 </body>
 
 </html>

@@ -1,129 +1,194 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <!-- Codificación y configuración de la página -->
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Título que aparece en la pestaña del navegador -->
     <title>Nueva Estación - Sistema Integral de Gestión</title>
 
-    <!-- Enlace al archivo CSS externo donde está el diseño -->
     <link rel="stylesheet" href="{{ asset('css/style_NuevaEstacion.css') }}" />
-  </head>
 
-  <body>
+    <!-- 👉 Ajuste de layout del formulario -->
+    <style>
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 16px 24px;
+            align-items: flex-start;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 4px;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 6px 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        /* Campos que deben ocupar toda la fila */
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        /* Campos que ocupan 2 columnas (para que no se vea chueco) */
+        .form-group.span-2 {
+            grid-column: span 2;
+        }
+    </style>
+</head>
+
+<body>
+
     <!-- HEADER PRINCIPAL -->
     <header class="header-container">
-      <div class="header-content">
-        <div class="logo-and-text">
-          <div class="logo-placeholder"></div>
-          <div class="text-group">
-            <h1 class="main-title">Sistema integral de gestion</h1>
-            <p class="subtitle">Control de Personal y Asistencia</p>
-          </div>
+        <div class="header-content">
+            <div class="logo-and-text">
+                <div class="logo-placeholder"></div>
+                <div class="text-group">
+                    <h1 class="main-title">Sistema integral de gestion</h1>
+                    <p class="subtitle">Control de Personal y Asistencia</p>
+                </div>
+            </div>
+
+            <div class="user-info">
+                <span class="user-role">Admin Usuario</span>
+                <div class="user-icon"></div>
+            </div>
         </div>
-        <div class="user-info">
-          <span class="user-role">Admin Usuario</span>
-          <div class="user-icon"></div>
-        </div>
-      </div>
     </header>
 
     <!-- SUBHEADER -->
     <div class="sub-header">
-      <h2>Nueva Estación</h2>
+        <h2>Nueva Estación</h2>
     </div>
 
-      <!-- Tarjeta (card) que contiene todo el formulario -->
-      <div class="card">
-        <!-- Encabezado dentro de la tarjeta -->
+    <!-- TARJETA PRINCIPAL -->
+    <div class="card">
         <div class="card-header">
-          <h3>Información de la estación</h3>
+            <h3>Información de la estación</h3>
         </div>
 
-        <!-- Cuerpo de la tarjeta -->
         <div class="card-body">
-          <!-- Formulario para capturar los datos -->
-          <form method="POST" action="{{ route('estaciones.store') }}">
-            @csrf
-            <!-- Estructura en forma de cuadrícula -->
-            <div class="form-grid">
-              <!-- Cada “form-group” representa un campo con su etiqueta e input -->
-              <div class="form-group">
-                <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" name="nombre_estacion"/>
-              </div>
 
-              <div class="form-group">
-                <label for="estado">Estado:</label>
-                <input type="text" id="estado" name="estado"/>
-              </div>
-
-              <div class="form-group">
-                <label for="ciudad">Ciudad:</label>
-                <input type="text" id="ciudad" name="ciudad"/>
-              </div>
-
-              <div class="form-group">
-                <label for="colonia">Colonia:</label>
-                <input type="text" id="colonia" name="colonia"/>
-              </div>
-
-              <div class="form-group">
-                <label for="calle">Calle:</label>
-                <input type="text" id="calle" name="calle"/>
-              </div>
-
-              <div class="form-group">
-                <label for="numero-exterior">Numero Exterior:</label>
-                <input type="text" id="numero-exterior" name="n_exterior"/>
-              </div>
-
-              <div class="form-group">
-                <label for="numero-exterior">Codigo Postal:</label>
-                <input type="text" id="numero-exterior" name="codigo_estacion"/>
-              </div>
-
-              <div class="form-group">
-                <label for="coordenadas">Coordenadas:</label>
-                <input type="text" id="coordenadas" name="coordenadas"/>
-              </div>
-
-              <div class="form-group">
-                <label for="descripcion">Descripcion:</label>
-                <input type="text" id="descripcion" name="descripcion"/>
-              </div>
-
-              <div class="form-group">
-                <label for="tipo">Tipo:</label>
-                <select name="tipo" id="tipo">
-                    <option value="Estacion">Estacion</option>
-                    <option value="Zona">Zona</option>
-                </select>
-              </div>
-
-              <!-- Campo que ocupa todo el ancho del formulario -->
-              <div class="form-group">
-                <label for="personal-requerido">Personal Requerido:</label>
-                <input type="number" id="personal-requerido" name="p_requerido"/>
-              </div>
+            {{-- Mensajes de error --}}
+            @if ($errors->any())
+            <div style="background:#ffdddd; padding:12px; margin-bottom:15px; border-left:4px solid #ff4444;">
+                <strong>Corrige los siguientes errores:</strong>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
             </div>
+            @endif
 
-            <!-- Sección inferior del formulario con los botones -->
-            <div class="form-actions">
-              <!-- Botón principal (naranja) -->
-              <button type="submit" class="btn btn-primary">Guardar</button>
-
-              <!-- Botón secundario (azul oscuro) -->
-              <button type="button" class="btn btn-secondary">Cancelar</button>
-
-              <!-- Botón terciario (azul oscuro, usado para limpiar) -->
-              <button type="button" class="btn btn-tertiary">Limpiar</button>
+            @if (session('error'))
+            <div style="background:#ffdddd; padding:12px; margin-bottom:15px; border-left:4px solid #ff4444;">
+                {{ session('error') }}
             </div>
-          </form>
+            @endif
+
+            <form method="POST" action="{{ route('estaciones.store') }}">
+                @csrf
+
+                <div class="form-grid">
+
+                    <!-- FILA 1 -->
+                    <div class="form-group">
+                        <label>Nombre:</label>
+                        <input type="text" name="nombre_estacion" value="{{ old('nombre_estacion') }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Estado:</label>
+                        <input type="text" name="estado" value="{{ old('estado') }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Ciudad:</label>
+                        <input type="text" name="ciudad" value="{{ old('ciudad') }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Colonia:</label>
+                        <input type="text" name="colonia" value="{{ old('colonia') }}">
+                    </div>
+
+                    <!-- FILA 2 -->
+                    <div class="form-group">
+                        <label>Calle:</label>
+                        <input type="text" name="calle" value="{{ old('calle') }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Número Exterior:</label>
+                        <input type="text" name="n_exterior" value="{{ old('n_exterior') }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Latitud:</label>
+                        <input type="text" name="latitud" value="{{ old('latitud') }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Longitud:</label>
+                        <input type="text" name="longitud" value="{{ old('longitud') }}">
+                    </div>
+
+                    <!-- FILA 3 (Descripción a lo ancho) -->
+                    <div class="form-group full">
+                        <label>Descripción:</label>
+                        <input type="text" name="descripcion" value="{{ old('descripcion') }}">
+                    </div>
+
+                    <!-- FILA 4 -->
+                    <div class="form-group">
+                        <label>Tipo:</label>
+                        <select name="tipo">
+                            <option value="Estacion" {{ old('tipo') == 'Estacion' ? 'selected' : '' }}>Estación</option>
+                            <option value="Zona" {{ old('tipo') == 'Zona' ? 'selected' : '' }}>Zona</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Personal Requerido:</label>
+                        <input type="number" min="0" name="p_requerido" value="{{ old('p_requerido') }}">
+                    </div>
+
+                    <div class="form-group span-2">
+                        <label>Estado de la estación:</label>
+                        <select name="status">
+                            <option value="Activo" {{ old('status', 'Activo') == 'Activo' ? 'selected' : '' }}>Activo</option>
+                            <option value="Inactivo" {{ old('status') == 'Inactivo' ? 'selected' : '' }}>Inactivo</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <!-- BOTONES -->
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+
+                    <button type="button" class="btn btn-secondary"
+                        onclick="window.location='{{ route('estaciones.index') }}'">
+                        Cancelar
+                    </button>
+
+                    <button type="reset" class="btn btn-tertiary">Limpiar</button>
+                </div>
+
+            </form>
         </div>
-      </div>
-    </main>
-  </body>
+    </div>
+
+</body>
+
 </html>

@@ -20,7 +20,7 @@ RUTA RAIZ PARA QUE INICIEN LOS LOGIN
 
 Route::get('/', function () {
     return view('Empleados.IndexLoginEmpleados');
-}) -> name('login');
+})->name('login');
 
 /*------------------------------------------------
 RUTAS PARA EL CRUD DE USUARIOS
@@ -151,7 +151,7 @@ Route::post('/Empleado/Validate', [LoginEmpleadoController::class, 'Validate'])-
 // Ruta para mostrar el dashboard o menú, protegido por el middleware
 Route::get('/Empleado/Menu', function () {
     return view('Empleados.IndexEmpleados');
-})->middleware('checkrol:Administrador,Empleado', 'cambiar.pass') ->name('Empleado.Menu');
+})->middleware('checkrol:Administrador,Empleado', 'cambiar.pass')->name('Empleado.Menu');
 
 // Ruta para cerrar sesion
 Route::post('/Empleado/Logout', [LoginEmpleadoController::class, 'Logout'])->name('Empleado.Logout');
@@ -176,7 +176,7 @@ RUTAS PARA UNIDADES
 
 // DASHBOARD DEL JEFE
 Route::get('/jefe/unidades', [UnidadesController::class, 'index'])
-    ->name('jefe.unidades') -> middleware('checkrol:Administrador', 'cambiar.pass');
+    ->name('jefe.unidades');
 
 Route::get('/nuevasunidades', [TransporteController::class, 'create'])
     ->name('nuevasunidades');
@@ -241,32 +241,62 @@ RUTAS PARA EL CAMBIO DE CONTRASEÑA
 --------------------------------------------*/
 
 Route::get('/cambiarPassword', [PasswordController::class, 'index'])
-    -> name ('primer-login.index') -> middleware('auth');
+    ->name('primer-login.index')->middleware('auth');
 
 Route::post('/cambiarPassword', [PasswordController::class, 'ActualizarPassword'])
-    -> name ('primer-login.update') -> middleware('auth');
+    ->name('primer-login.update')->middleware('auth');
+
 
 
 /*--------------------------------------------
 RUTAS PARA LAS RUTAS DE TRANSPORTE
 --------------------------------------------*/
 
-Route::get('/rutas/index', [RutasController::class, 'index']) -> name ('rutas.index');
-Route::get('/rutas/create', [RutasController::class, 'create']) -> name ('rutas.create');
-Route::post('/rutas/store', [RutasController::class, 'store']) -> name ('rutas.store');
-Route::get('rutas/{id}/edit', [RutasController::class, 'edit']) -> name ('rutas.edit');
-Route::put('/rutas/{id}', [RutasController::class, 'update']) -> name ('rutas.update');
+Route::get('/rutas/index', [RutasController::class, 'index'])->name('rutas.index');
+Route::get('/rutas/create', [RutasController::class, 'create'])->name('rutas.create');
+Route::post('/rutas/store', [RutasController::class, 'store'])->name('rutas.store');
+Route::get('rutas/{id}/edit', [RutasController::class, 'edit'])->name('rutas.edit');
+Route::put('/rutas/{id}', [RutasController::class, 'update'])->name('rutas.update');
 
 
 /*--------------------------------------------
 RUTAS PARA LOS VIAJES
 --------------------------------------------*/
 
-Route::get('/viajes/create', [ViajesController::class, 'create']) -> name ('viajes.create');
-Route::post('/viajes/store', [ViajesController::class, 'store']) -> name ('viajes.store');
-Route::get('/mi-ruta', [ViajesController::class, 'miRuta']) -> name ('viajes.iniciar');
-Route::post('/viajes/{id}/iniciar', [ViajesController::class, 'iniciarViaje']) -> name('viajes.inicio');
-Route::post('/viaje/{id}/terminar', [ViajesController::class, 'terminarViaje']) -> name('viajes.terminar');
-Route::get('/viajes/index', [ViajesController::class, 'index']) -> name ('viajes.index');
-Route::get('/viajes/{id}/edit', [ViajesController::class, 'edit']) -> name ('viajes.edit');
-Route::put('/viajes/{id}', [ViajesController::class, 'update']) -> name ('viajes.update');
+Route::get('/viajes/create', [ViajesController::class, 'create'])->name('viajes.create');
+Route::post('/viajes/store', [ViajesController::class, 'store'])->name('viajes.store');
+Route::get('/mi-ruta', [ViajesController::class, 'miRuta'])->name('viajes.iniciar');
+Route::post('/viajes/{id}/iniciar', [ViajesController::class, 'iniciarViaje'])->name('viajes.inicio');
+Route::post('/viaje/{id}/terminar', [ViajesController::class, 'terminarViaje'])->name('viajes.terminar');
+Route::get('/viajes/index', [ViajesController::class, 'index'])->name('viajes.index');
+Route::get('/viajes/{id}/edit', [ViajesController::class, 'edit'])->name('viajes.edit');
+Route::put('/viajes/{id}', [ViajesController::class, 'update'])->name('viajes.update');
+
+//RUTAS DASHBOARD ESTACIONES
+// DASHBOARD ESTACIONES
+
+use App\Http\Controllers\DashboardEstacionesController;
+
+Route::get('/jefe/estaciones', [DashboardEstacionesController::class, 'index'])
+    ->name('jefe.estaciones.index');
+
+
+
+// Página para crear nueva estación
+Route::get('/jefe/estaciones/nueva', [EstacionController::class, 'create'])
+    ->name('jefe.estaciones.create');
+
+// Página para modificar estaciones
+Route::get('/jefe/estaciones/modificar', [EstacionController::class, 'edit'])
+    ->name('jefe.estaciones.edit');
+
+
+use App\Http\Controllers\AsignacionController;
+
+
+
+Route::get('/jefe/asignar/{estacion}', [AsignacionController::class, 'create'])
+    ->name('jefe.asignar.personal');
+
+Route::post('/jefe/asignar', [AsignacionController::class, 'store'])
+    ->name('asignaciones.store');
