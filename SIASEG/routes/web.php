@@ -11,6 +11,8 @@ use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\UnidadesController;
 use App\Http\Controllers\EstacionController;
 use App\Http\Controllers\AsistenciaController;
+use App\Http\Controllers\EmpleadoDashboardController;
+use App\Http\Controllers\TransportistaDashboardController;
 
 
 /*------------------------------------------------
@@ -117,6 +119,7 @@ Route::get('/Transportistas/Huella', function () {
 Route::post('/Transportista/Logout', [LoginTransportistaController::class, 'Logout'])->name('Transportista.Logout');
 
 
+
 /*------------------------------------------------
 RUTAS PARA EL LOGIN DE SECRETARIA
 --------------------------------------------------
@@ -149,9 +152,9 @@ Route::get('/LoginEmpleado', [LoginEmpleadoController::class, 'Index'])->name('E
 Route::post('/Empleado/Validate', [LoginEmpleadoController::class, 'Validate'])->name('Empleado.Validate');
 
 // Ruta para mostrar el dashboard o menú, protegido por el middleware
-Route::get('/Empleado/Menu', function () {
-    return view('Empleados.IndexEmpleados');
-})->middleware('checkrol:Administrador,Empleado', 'cambiar.pass') ->name('Empleado.Menu');
+Route::get('/Empleado/Menu', [EmpleadoDashboardController::class, 'index'])
+    ->middleware(['checkrol:Administrador,Empleado', 'cambiar.pass'])
+    ->name('Empleado.Menu');
 
 // Ruta para cerrar sesion
 Route::post('/Empleado/Logout', [LoginEmpleadoController::class, 'Logout'])->name('Empleado.Logout');
@@ -243,11 +246,54 @@ Route::post('/cambiarPassword', [PasswordController::class, 'ActualizarPassword'
 
 
 
-//rutas assitencia
+// Vista donde empieza el proceso de huella
+Route::get('/asistencias/verificarT', function () {
+    return view('Transportistas.IndexHuella');
+})
+->middleware('auth')
+->name('asistencia.verificarT');
 
-Route::post('/asistencias/registrar', [AsistenciaController::class, 'registrar'])
+//empleado heulla
+Route::get('/asistencias/verificarE', function () {
+    return view('Empleados.IndexHuella');
+})
+->middleware('auth')
+->name('asistencia.verificarE');
+
+// Evaluar la huella
+Route::post('/asistencias/verificar', [AsistenciaController::class, 'registrarHuella'])
     ->middleware('auth');
-Route::get('/tomar-asistencia', function() { return view('Transportistas.IndexHuella'); })->middleware('auth') -> name('asis');
-route::get('/dashempleados', action: function (): View{return view('Empleados.IndexEmpleados');})-> name('dashempleados');
 
-Route::post('/asistencias/foto', [AsistenciaController::class, 'guardarFoto']);
+// VISTA DE LA CÁMARA
+Route::get('/asistencias/camaraT', function () {
+    return view('Transportistas.indexVerificaridentidadT'); // <<< CAMBIA ESTE NOMBRE SI ES NECESARIO
+})
+->middleware('auth')
+->name('asistencia.camaraT');
+
+// VISTA DE LA CÁMARA Employed
+Route::get('/asistencias/camaraE', function () {
+    return view('Empleados.IndexVerificarIdentidad'); // <<< CAMBIA ESTE NOMBRE SI ES NECESARIO
+})
+->middleware('auth')
+->name('asistencia.camaraE');
+
+// Guardar foto
+Route::post('/asistencias/foto', [AsistenciaController::class, 'guardarFoto'])
+    ->middleware('auth')
+    ->name('asistencia.foto');
+//Ruta menu de trasnportista
+Route::get('/Transportista/Menu', [TransportistaDashboardController::class, 'index'])
+    ->middleware(['checkrol:Administrador,Transportista', 'cambiar.pass'])
+    ->name('Transportista.Menu');
+
+Route::post('/asistencias/verificarE', [AsistenciaController::class, 'verificarEmpleado'])
+    ->middleware('auth')
+    ->name('asistencia.verificarE');
+
+    Route::post('/asistencias/verificarT', [AsistenciaController::class, 'verificarTransportista'])
+    ->middleware('auth')
+    ->name('asistencia.verificarT');
+
+
+ 

@@ -379,3 +379,23 @@ body {
       background: #28a745;
       color: white;
     }
+
+    #video, #canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#canvas {
+  display: none;
+  z-index: 5; /* Solo visible cuando capturas */
+}
+
+#video {
+  z-index: 1;
+}
+
+.camera-frame {
+  position: relative; /* obligatorio */
+  overflow: hidden;   /* mantener enfoque */
+}

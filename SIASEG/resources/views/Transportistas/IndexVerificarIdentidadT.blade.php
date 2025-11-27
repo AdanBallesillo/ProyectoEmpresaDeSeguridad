@@ -4,15 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Verificar Identidad</title>
-  <link rel="stylesheet" href="../Estilos/style_VerificarIdentidad.css">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+  <link rel="stylesheet" href="{{ asset('css/style_VerificarIdentidad.css') }}">
 </head>
 
 <body>
+
   <main class="main-content">
     <div class="verify-container">
       <h1>Verificar Identidad</h1>
 
-      <!-- Cámara centrada -->
       <div class="camera-container">
         <div class="camera-frame">
           <video id="video" autoplay playsinline></video>
@@ -20,7 +21,6 @@
         </div>
       </div>
 
-      <!-- Botones -->
       <div class="action-buttons">
         <button class="btn-action btn-cancel">Cancelar</button>
         <button class="btn-action btn-capture" id="captureBtn">Capturar</button>
@@ -29,7 +29,6 @@
     </div>
   </main>
 
-  <!-- Script de cámara -->
   <script>
     const video = document.getElementById("video");
     const canvas = document.getElementById("canvas");
@@ -38,19 +37,17 @@
 
     let stream;
 
-    // Activar cámara
     async function iniciarCamara() {
       try {
         stream = await navigator.mediaDevices.getUserMedia({ video: true });
         video.srcObject = stream;
       } catch (error) {
-        alert("No se puede acceder a la cámara. Permisos rechazados.");
+        alert("No se puede acceder a la cámara.");
       }
     }
 
     iniciarCamara();
 
-    // Capturar imagen
     captureBtn.addEventListener("click", () => {
       const ctx = canvas.getContext("2d");
       canvas.width = video.videoWidth;
@@ -65,14 +62,30 @@
       confirmBtn.style.display = "inline-block";
     });
 
-    // Enviar imagen
     confirmBtn.addEventListener("click", () => {
-      const fotoBase64 = canvas.toDataURL("image/jpeg");
 
-      console.log("Imagen lista:", fotoBase64);
+  const fotoBase64 = canvas.toDataURL("image/jpeg");
+  const tipo = new URLSearchParams(window.location.search).get('tipo');
 
-      alert("Foto capturada y lista para subir.");
-    });
+  fetch("/asistencias/foto", {
+      method: "POST",
+      credentials: "same-origin",
+      headers: {
+          "Content-Type": "application/json",
+          "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content
+      },
+      body: JSON.stringify({ foto: fotoBase64, tipo: tipo })
+  })
+  .then(r => r.json())
+  .then(data => {
+      
+      window.location.href = "/Transportista/Menu";
+  });
+});
+
+    
+
   </script>
+
 </body>
 </html>

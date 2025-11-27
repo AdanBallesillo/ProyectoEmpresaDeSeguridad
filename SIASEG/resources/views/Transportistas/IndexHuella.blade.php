@@ -39,63 +39,49 @@
         margin-top: 10px;
         min-height: 24px;
     }
+
+    /* 🔥 Botón */
+    .btn-menu {
+        display: inline-block;
+        margin-top: 25px;
+        padding: 10px 20px;
+        background-color: #008cff;
+        color: white;
+        border-radius: 8px;
+        font-size: 16px;
+        text-decoration: none;
+        transition: 0.25s;
+    }
+    .btn-menu:hover {
+        background-color: #006ad1;
+    }
   </style>
 </head>
+
 <body>
 
   <div class="top-bar"></div>
 
   <div class="container">
     <h2>Tomar asistencia</h2>
-    <p>Primero revisa si tienes otros asuntos.</p>
+    <p>Presiona la huella para continuar.</p>
 
     <div class="fingerprint" id="fingerprint">
       <div class="press-animation"></div>
     </div>
 
     <p id="status">Presiona la huella…</p>
+
+    <!-- 🔥 Botón para ir al menú -->
+    <a href="{{ route('Transportista.Menu') }}" class="btn-menu">
+        Ir al menú
+    </a>
   </div>
 
   <div class="bottom-bar"></div>
 
-  <script>
-    const fingerprint = document.getElementById("fingerprint");
-    const pressAnimation = fingerprint.querySelector(".press-animation");
-    const status = document.getElementById("status");
-
-    let timer;
-
-    fingerprint.addEventListener("mousedown", () => {
-        status.textContent = "Mantén presionado...";
-        pressAnimation.classList.add("active");
-
-        const holdTime = Math.floor(Math.random() * 3) + 1;
-
-        timer = setTimeout(() => {
-            status.textContent = "Huella reconocida ✅";
-            pressAnimation.classList.remove("active");
-
-            fetch("/asistencias/registrar", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content
-                },
-                body: JSON.stringify({})
-            })
-            .then(r => r.json())
-            .then(data => {
-                status.textContent = data.mensaje;
-            });
-        }, holdTime * 1000);
-    });
-
-    fingerprint.addEventListener("mouseup", () => {
-        clearTimeout(timer);
-        pressAnimation.classList.remove("active");
-        status.textContent = "Presión cancelada ❌";
-    });
-  </script>
+  <script src="{{ asset('js/Anim_HuellaT.js') }}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </body>
 </html>

@@ -15,8 +15,11 @@ class Asistencia extends Model
         'turno_id',
         'estacion_id',
         'status_asistencia',
-        'STATUS',
         'fecha_registro',
-        'fecha_actualizacion'
+        'fecha_actualizacion',
+        'foto_entrada',
+        'foto_salida',
+        'hora_entrada',
+        'hora_salida'
     ];
 }
