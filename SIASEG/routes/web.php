@@ -325,7 +325,7 @@ Route::post('/asistencias/verificar', [AsistenciaController::class, 'registrarHu
 
 // VISTA DE LA CÁMARA
 Route::get('/asistencias/camaraT', function () {
-    return view('Transportistas.indexVerificaridentidadT'); // <<< CAMBIA ESTE NOMBRE SI ES NECESARIO
+    return view('Transportistas.IndexVerificarIdentidadT'); // <<< CAMBIA ESTE NOMBRE SI ES NECESARIO
 })
 ->middleware('auth')
 ->name('asistencia.camaraT');
@@ -355,4 +355,4 @@ Route::post('/asistencias/verificarE', [AsistenciaController::class, 'verificarE
     ->name('asistencia.verificarT');
 
 
- 
+
