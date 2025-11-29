@@ -45,6 +45,10 @@ Route::get('/Nuevo-Empleado', function () {
 // guardar empleado
 Route::post('/Nuevo-Empleado', [EmployedController::class, 'store'])->name('empleados.store');
 
+
+// Esta ruta sirve para mostrar el PDF, aun sin exportar.
+Route::get('empleados/pdf', [EmployedController::class, 'generatePDF'])->name('empleados.pdf');
+
 // Rutas para mostrar los usuarios
 Route::get(
     '/empleados/show',

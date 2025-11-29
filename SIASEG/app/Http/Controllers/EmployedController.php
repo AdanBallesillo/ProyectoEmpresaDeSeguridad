@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Barryvdh\DomPDF\Facade\PDF;
 use Illuminate\Http\Request;
 use App\Models\Employed;
 use Illuminate\Support\Facades\Hash;
@@ -300,6 +301,38 @@ class EmployedController extends Controller
         } catch (\Exception $e) {
             Log::error('Error al enviar credenciales por correo: ' . $e->getMessage());
             return false;
+        }
+    }
+
+    public function generatePdf(Request $request){
+        try {
+            $query = Employed::query();
+
+            // Si viene algo en la barra de búsqueda
+            if ($request->filled('busqueda')) {
+                $busqueda = $request->busqueda;
+
+                // indicamos las columnas donde se realizará la búsqueda
+                $query->where(function ($q) use ($busqueda) {
+                    $q->where('nombres', 'like', "%{$busqueda}%")
+                        ->orWhere('apellidos', 'like', "%{$busqueda}%")
+                        ->orWhere('RFC', 'like', "%{$busqueda}%")
+                        ->orWhere('CURP', 'like', "%{$busqueda}%")
+                        ->orWhere('correo', 'like', "%{$busqueda}%")
+                        ->orWhere('telefono', 'like', "%{$busqueda}%");
+                });
+            }
+
+            // Paginamos los resultados
+            // el numero es la cantidad de resultados por página
+            $empleados = $query->paginate();
+
+            $pdf = Pdf::loadView('details.empleados', compact('empleados')) ->setPaper('Letter', 'landscape');
+            return $pdf->download('empleados.pdf');
+
+        } catch (\Exception $e) {
+            \Log::error('Error al obtener la lista de empleados: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Ocurrió un error al cargar la lista de empleados.');
         }
     }
 }
