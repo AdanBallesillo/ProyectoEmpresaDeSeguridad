@@ -212,7 +212,7 @@ class EmployedController extends Controller
                     'telefono' => 'string|max:15',
                     'rol' => 'string|max:100',
                     'correo' => 'email|max:150|unique:empleados,correo,' . $id . ',id_empleado',
-                    'status' => 'in:activo,inactivo'
+                    'status' => 'required|in:Activo,Inactivo'
                 ],
                 $errorMessages
             );
@@ -251,7 +251,7 @@ class EmployedController extends Controller
                 $credenciales['password'] = $nuevaPass;
             }
 
-            $empleado->status = $request->estado;
+            $empleado->status = $request->status;
             $empleado->save();
 
             // enviar correo solo si se generaron credenciales nuevas
