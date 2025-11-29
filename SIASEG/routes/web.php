@@ -15,6 +15,9 @@ use App\Http\Controllers\ViajesController;
 use App\Http\Controllers\AsistenciaController;
 use App\Http\Controllers\EmpleadoDashboardController;
 use App\Http\Controllers\TransportistaDashboardController;
+use App\Http\Controllers\DashboardEstacionesController;
+use App\Http\Controllers\DashboardReportesController;
+use App\Http\Controllers\AsignacionController;
 
 
 /*------------------------------------------------
@@ -223,6 +226,13 @@ Route::get('/estaciones/{id}/edit', [EstacionController::class, 'edit'])->name('
 Route::put('/estaciones/{id}', [EstacionController::class, 'update'])->name('estaciones.update');
 
 
+/*--------------------------------------------
+RUTAS PARA DASHBOARD REPORTES
+--------------------------------------------*/
+
+Route::get('/reportes', [DashboardReportesController::class, 'asistencia'])
+    ->name('reportes.asistencia');
+
 ///// Welcome ///////
 Route::get('/welcome', function () {
     return view('welcome');
@@ -280,8 +290,6 @@ Route::put('/viajes/{id}', [ViajesController::class, 'update'])->name('viajes.up
 //RUTAS DASHBOARD ESTACIONES
 // DASHBOARD ESTACIONES
 
-use App\Http\Controllers\DashboardEstacionesController;
-
 Route::get('/jefe/estaciones', [DashboardEstacionesController::class, 'index'])
     ->name('jefe.estaciones.index');
 
@@ -295,8 +303,6 @@ Route::get('/jefe/estaciones/nueva', [EstacionController::class, 'create'])
 Route::get('/jefe/estaciones/modificar', [EstacionController::class, 'edit'])
     ->name('jefe.estaciones.edit');
 
-
-use App\Http\Controllers\AsignacionController;
 
 
 

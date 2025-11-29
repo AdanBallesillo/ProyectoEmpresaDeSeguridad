@@ -28,7 +28,7 @@ class EstacionesTableSeeder extends Seeder
         'calle'             => 'Av. Hidalgo',
         'n_exterior'        => 123,
         'p_requerido'       => 5,
-        'codigo_estacion' => 'EN001',
+        'codigo_postal' => 'EN001',
         'lat_sup_izq' => '21.123456',
         'lon_sup_izq' => '-101.123456',
         'lat_inf_der' => '21.120000',

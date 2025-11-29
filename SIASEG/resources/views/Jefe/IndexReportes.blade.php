@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../Estilos/style_Reportes.css">
-    <link rel="stylesheet" href="../Estilos/style_Menu.css">
+    <link rel="stylesheet" href=" {{ asset ('css/style_Reportes.css') }}">
+    <link rel="stylesheet" href=" {{ asset ('css/style_Menu.css') }}">
     <title>Reportes y Análisis</title>
 </head>
 <body>
-    
+
     <!-- Encabezado principal -->
     <header class="header-container">
         <div class="header-content">
@@ -125,14 +125,6 @@
                         <div class="icon-placeholder orange"></div>
                         <span>Asistencia y Puntualidad</span>
                     </div>
-                    <div class="report-option" data-value="desempeno">
-                        <div class="icon-placeholder dark"></div>
-                        <span>Desempeño del Personal</span>
-                    </div>
-                    <div class="report-option" data-value="gastos">
-                        <div class="icon-placeholder dark"></div>
-                        <span>Gastos de Unidades</span>
-                    </div>
                 </div>
             </div>
             <div class="sidebar-section">
@@ -156,19 +148,19 @@
             <h2 class="main-content-title">Resumen de Asistencia</h2>
             <div class="summary-cards">
                 <div class="summary-card">
-                    <div class="card-value">10</div>
+                    <div class="card-value"> {{ $presentes }} </div>
                     <div class="card-label">Presentes</div>
                 </div>
                 <div class="summary-card">
-                    <div class="card-value">2</div>
+                    <div class="card-value"> {{ $tardanzas }} </div>
                     <div class="card-label">Tardanzas</div>
                 </div>
                 <div class="summary-card">
-                    <div class="card-value">0</div>
+                    <div class="card-value"> {{ $ausentes }} </div>
                     <div class="card-label">Ausentes</div>
                 </div>
                 <div class="summary-card">
-                    <div class="card-value">90%</div>
+                    <div class="card-value"> {{ $puntualidad }}% </div>
                     <div class="card-label">Puntualidad</div>
                 </div>
             </div>
@@ -184,36 +176,38 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>
-                                <div class="employee-info">
-                                    <div class="profile-pic"></div>
-                                    <span>Mariela Chaves Diaz</span>
-                                </div>
-                            </td>
-                            <td>8:20am</td>
-                            <td>17:00pm</td>
-                            <td class="status-cell">
-                                <div class="status-container">
-                                    <span class="status red-x">Tarde</span>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="employee-info">
-                                    <div class="profile-pic"></div>
-                                    <span>Genaro Martinez Delgado</span>
-                                </div>
-                            </td>
-                            <td>7:55am</td>
-                            <td>17:00pm</td>
-                            <td class="status-cell">
-                                <div class="status-container">
-                                    <span class="status green-check">Temprano</span>
-                                </div>
-                            </td>
-                        </tr>
+                        @foreach ($asistencia as $row)
+                            <tr>
+                                <td>
+                                    <div class="employee-info">
+                                        <div class="profile-pic"></div>
+                                        {{ $row->nombres }} {{ $row->apellidos }}
+                                    </div>
+                                </td>
+
+                                <td>{{ $row->hora_entrada ?? '---' }}</td>
+                                <td>{{ $row->hora_salida ?? '---' }}</td>
+
+                                <td class="status-cell">
+                                    <div class="status-container">
+
+                                        @if ($row->status_asistencia === 'Tarde')
+                                            <span class="status red-x">Tarde</span>
+
+                                        @elseif ($row->status_asistencia === 'Falta')
+                                            <span class="status red-x">Falta</span>
+
+                                        @elseif ($row->status_asistencia === 'A tiempo')
+                                            <span class="status green-check">A tiempo</span>
+
+                                        @else
+                                            <span class="status">{{ $row->status_asistencia }}</span>
+                                        @endif
+
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
