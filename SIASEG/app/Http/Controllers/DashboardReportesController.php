@@ -67,7 +67,7 @@ class DashboardReportesController extends Controller
     {
         $periodo = $request->input('periodo', 'Mes'); // Semana / Mes / Año
 
-        // FILTROS DE FECHA
+        // FILTRADO DE DATOS
         $query = DB::table('asistencias')
             ->join('empleados', 'empleados.id_empleado', '=', 'asistencias.empleado_id')
             ->select(
