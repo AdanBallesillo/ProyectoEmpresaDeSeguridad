@@ -224,6 +224,7 @@ Route::get('/welcome', function () {
 use App\Mail\CredencialesEmpleadoMail;
 use Illuminate\Support\Facades\Mail;
 
+/* No entiendo el porqué hay rutas para usar bibliotecas aquí XD  */
 
 
 Route::get('/test-mail', function () {
