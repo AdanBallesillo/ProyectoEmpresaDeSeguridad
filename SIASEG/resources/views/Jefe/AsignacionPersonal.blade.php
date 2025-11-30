@@ -7,7 +7,7 @@
     <title>Nueva Asignación - Sistema Integral de Gestión</title>
 
     <link rel="stylesheet" href="{{ asset('css/style_NuevaEstacion.css') }}" />
-
+    <link rel="stylesheet" href="{{ asset('css/style_Menu.css') }}" />
     <style>
         /* CONTENEDOR GENERAL */
         .card-body-inner {
@@ -162,7 +162,7 @@
                 </div>
             </div>
             <div class="user-info">
-                <span class="user-role">Admin Usuario</span>
+                <span class="user-role"> Bienvenido, {{ Auth::user() -> nombres ?? 'Invitado' }} </span>
                 <div class="user-icon"></div>
             </div>
         </div>
@@ -298,6 +298,13 @@
                         Asignar
                     </button>
                 </div>
+   <div style="margin-top: 20px;">
+    <button type="button" class="cancelar"
+        style="width: 100%; background-color: #0056b3; color: white; border: none; padding: 10px; border-radius: 5px; cursor: pointer;"
+        onclick="window.location.href='{{ route('dashboard.estaciones') }}'">
+        Regresar
+    </button>
+</div>
 
             </form>
 

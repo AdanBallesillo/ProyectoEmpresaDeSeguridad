@@ -24,7 +24,7 @@
 
             <div class="header-right">
                 <div class="user-info">
-                    <span class="user-role">Admin Usuario</span>
+                    <span class="user-role"> Bienvenido, {{ Auth::user() -> nombres ?? 'Invitado' }} </span>
                     <div class="user-icon"></div>
                 </div>
 
@@ -37,87 +37,96 @@
         </div>
     </header>
 
-    {{-- OVERLAY MENÚ --}}
+<!-- Fondo oscuro del menú -->
     <div class="overlay" id="overlay"></div>
 
-    {{-- MENÚ LATERAL --}}
+    <!-- MENÚ HAMBURGUESA -->
     <div class="menu-container" id="menuContainer">
-        <div class="menu-header">
-            <div class="arrow" id="closeMenu">→</div>
-            <h2>Menú</h2>
-        </div>
+      <div class="menu-header">
+        <div class="arrow" id="closeMenu">→</div>
+        <h2>Menú</h2>
+      </div>
+            <a href="{{ route('dashboard.personal') }}" class="menu-item" style="text-decoration: none; color: inherit;">
+          <div class="icon dashboard">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <rect class="square1" x="3" y="3" width="8" height="8" />
+              <rect class="square2" x="13" y="3" width="8" height="8" />
+              <rect class="square2" x="3" y="13" width="8" height="8" />
+              <rect class="square1" x="13" y="13" width="8" height="8" />
+            </svg>
+          </div>
+          <span>Dashboard</span>
+        </a>
 
-        <div class="menu-items">
-            <div class="menu-item" data-link="../Formularios/Frm_Dashboard.php">
-                <div class="icon dashboard">
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <rect class="square1" x="3" y="3" width="8" height="8" />
-                        <rect class="square2" x="13" y="3" width="8" height="8" />
-                        <rect class="square2" x="3" y="13" width="8" height="8" />
-                        <rect class="square1" x="13" y="13" width="8" height="8" />
-                    </svg>
-                </div>
-                <span>Dashboard</span>
-            </div>
+      <div class="menu-items">
+        <a href="" class="menu-item" style="text-decoration: none; color: inherit;">
+          <div class="icon">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="12" cy="12" r="10" fill="none" stroke="#FF8B00" stroke-width="2" />
+              <polyline points="12,6 12,12 16,14" fill="none" stroke="#FF8B00" stroke-width="2" stroke-linecap="round" />
+            </svg>
+          </div>
+          <span>Asistencia</span>
+        </a>
 
-            <div class="menu-item" data-link="../Formularios/Frm_Asistencia.php">
-                <div class="icon">
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="12" cy="12" r="10" fill="none" stroke="#FF8B00" stroke-width="2" />
-                        <polyline points="12,6 12,12 16,14" fill="none" stroke="#FF8B00" stroke-width="2" stroke-linecap="round" />
-                    </svg>
-                </div>
-                <span>Asistencia</span>
-            </div>
+        <a href="{{ route('dashboard.personal') }}" class="menu-item" style="text-decoration: none; color: inherit;">
+          <div class="icon">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="12" cy="7" r="4" />
+              <path d="M5,21 C5,16.5 8,14 12,14 C16,14 19,16.5 19,21" />
+            </svg>
+          </div>
+          <span>Personal</span>
+        </a>
 
-            <div class="menu-item" data-link="../Formularios/Frm_VistaPersonal.php">
-                <div class="icon">
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="12" cy="7" r="4" />
-                        <path d="M5,21 C5,16.5 8,14 12,14 C16,14 19,16.5 19,21" />
-                    </svg>
-                </div>
-                <span>Personal</span>
-            </div>
+        <a href="{{ route('dashboard.estaciones') }}" class="menu-item" style="text-decoration: none; color: inherit;">
+          <div class="icon">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2L2 7v3c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z" />
+              <path d="M12 7c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z" fill="#7D848C" />
+              <circle cx="12" cy="17" r="1" fill="#7D848C" />
+            </svg>
+          </div>
+          <span>Estaciones</span>
+        </a>
 
-            <div class="menu-item" data-link="../Formularios/Frm_estaciones.html">
-                <div class="icon">
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 2L2 7v3c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z" />
-                        <path d="M12 7c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z"
-                            fill="#7D848C" />
-                        <circle cx="12" cy="17" r="1" fill="#7D848C" />
-                    </svg>
-                </div>
-                <span>Estaciones</span>
-            </div>
+        <a href="{{ route('dashboard.unidades') }}" class="menu-item" style="text-decoration: none; color: inherit;">
+          <div class="icon">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4z" />
+              <circle cx="6" cy="17" r="2" fill="#7D848C" />
+              <circle cx="18" cy="17" r="2" fill="#7D848C" />
+              <path d="M17 8V4l3 4h-3z" fill="#7D848C" />
+            </svg>
+          </div>
+          <span>Unidades</span>
+        </a>
 
-            <div class="menu-item" data-link="unidades.html">
-                <div class="icon">
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4z" />
-                        <circle cx="6" cy="17" r="2" fill="#7D848C" />
-                        <circle cx="18" cy="17" r="2" fill="#7D848C" />
-                        <path d="M17 8V4l3 4h-3z" fill="#7D848C" />
-                    </svg>
-                </div>
-                <span>Unidades</span>
-            </div>
+        <a href="" class="menu-item" style="text-decoration: none; color: inherit;">
+          <div class="icon">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <rect x="5" y="4" width="14" height="17" rx="1" />
+              <line x1="9" y1="8" x2="15" y2="8" stroke="#7D848C" stroke-width="1.5" />
+              <line x1="9" y1="12" x2="15" y2="12" stroke="#7D848C" stroke-width="1.5" />
+              <line x1="9" y1="16" x2="13" y2="16" stroke="#7D848C" stroke-width="1.5" />
+            </svg>
+          </div>
+          <span>Reportes</span>
+        </a>
+                <a href="{{ route('dashboard.rutas') }}" class="menu-item" style="text-decoration: none; color: inherit;">
+  <div class="icon">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <rect x="5" y="4" width="14" height="17" rx="1" />
+      <path d="M8 8 L11 11 L16 7 V16" stroke="#7D848C" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+  <span>Rutas</span>
+</a>
 
-            <div class="menu-item" data-link="../Formularios/Frm_VistaReportes.php">
-                <div class="icon">
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="5" y="4" width="14" height="17" rx="1" />
-                        <line x1="9" y1="8" x2="15" y2="8" stroke="#7D848C" stroke-width="1.5" />
-                        <line x1="9" y1="12" x2="15" y2="12" stroke="#7D848C" stroke-width="1.5" />
-                        <line x1="9" y1="16" x2="13" y2="16" stroke="#7D848C" stroke-width="1.5" />
-                    </svg>
-                </div>
-                <span>Reportes</span>
-            </div>
-        </div>
 
-        <button class="logout-btn" id="logoutBtn">Cerrar Sesión</button>
+      </div>
+
+      <a href="{{ route('Empleado.Logout') }}"><button class="logout-btn" id="logoutBtn">Cerrar Sesión</button></a>
     </div>
 
     {{-- CONTENIDO PRINCIPAL --}}
@@ -225,7 +234,7 @@
     </main>
 
     {{-- Scripts --}}
-    <script src="../Java/Anim_Menu.js"></script>
+    <script src="{{ asset('js/Anim_Menu.js') }}"></script>
     <script>
         // Botón Nueva Estación
         document.getElementById('btnNuevaEstacion').addEventListener('click', function() {

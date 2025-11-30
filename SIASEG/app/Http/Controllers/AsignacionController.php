@@ -51,7 +51,7 @@ class AsignacionController extends Controller
         // Empleados paginados
         $users = Employed::orderBy('nombres')->paginate(10);
 
-        return view('Jefe.asignacionpersonal', compact(
+        return view('Jefe.AsignacionPersonal', compact(
             'estaciones',
             'users',
             'asignaciones',

@@ -159,7 +159,7 @@ Route::get('/Empleado/Menu', [EmpleadoDashboardController::class, 'index'])
     ->name('Empleado.Menu');
 
 // Ruta para cerrar sesion
-Route::post('/Empleado/Logout', [LoginEmpleadoController::class, 'Logout'])->name('Empleado.Logout');
+Route::get('/Empleado/Logout', [LoginEmpleadoController::class, 'Logout'])->name('Empleado.Logout');
 
 
 /*--------------------------------------------
@@ -356,3 +356,24 @@ Route::post('/asistencias/verificarE', [AsistenciaController::class, 'verificarE
 
 
 
+Route::get('/reportes', function () {
+    return view ('Jefe.IndexReportes');
+});
+
+/*--------------------------------------------
+RUTAS PARA EL MENÚ
+--------------------------------------------*/
+
+Route::get('/dashboard/personal', [EmployedController::class, 'index']) -> name ('dashboard.personal');
+Route::get('/dashboard/unidades', [UnidadesController::class, 'index']) -> name ('dashboard.unidades');
+Route::get('/dashboard/estaciones', [DashboardEstacionesController::class, 'index']) -> name ('dashboard.estaciones');
+Route::get('/dashboard/rutas', [RutasController::class, 'index']) -> name ('dashboard.rutas');
+Route::get('/dashboard/viajes', [ViajesController::class, 'index']) -> name ('dashboard.viajes');
+
+Route::get('/asistencias', function () {
+    return view ('Jefe.IndexAsistencia');
+});
+
+Route::get('/secretaria/dash', function () {
+    return view ('Secretaria.IndexPersonalSecretaria');
+});

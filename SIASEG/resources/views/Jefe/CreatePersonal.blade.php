@@ -21,7 +21,7 @@
                 </div>
             </div>
             <div class="user-info">
-                <span class="user-role">Admin Usuario</span>
+                <span class="user-role"> Bienvenido, {{ Auth::user() -> nombres ?? 'Invitado' }} </span>
                 <div class="user-icon"></div>
             </div>
         </div>
@@ -99,7 +99,10 @@
                 <!-- Botones -->
                 <div class="botones">
                     <button type="submit" class="guardar">Guardar</button>
-                    <button type="button" class="cancelar">Cancelar</button>
+                    <button type="button" class="cancelar"
+    onclick="window.location='{{ url()->previous() }}'">
+    Regresar
+</button>
                     <button type="button" class="limpiar">Limpiar</button>
                 </div>
             </form>
@@ -114,9 +117,9 @@
         // });
 
         // Cancelar: regresar a Frm_VistaPersonal.php
-        document.querySelector('.cancelar').addEventListener('click', function() {
-            window.location.href = "../Formularios/Frm_VistaPersonal.php";
-        });
+        // document.querySelector('.cancelar').addEventListener('click', function() {
+        //     window.location.href = "../Formularios/Frm_VistaPersonal.php";
+        // });
 
         // Limpiar: borrar todos los campos
         document.querySelector('.limpiar').addEventListener('click', function() {

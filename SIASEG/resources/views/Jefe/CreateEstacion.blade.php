@@ -176,11 +176,10 @@
                 <!-- BOTONES -->
                 <div class="form-actions">
                     <button type="submit" class="btn btn-primary">Guardar</button>
-
                     <button type="button" class="btn btn-secondary"
-                        onclick="window.location='{{ route('estaciones.index') }}'">
-                        Cancelar
-                    </button>
+    onclick="window.location='{{ url()->previous() }}'">
+    Regresar
+</button>
 
                     <button type="reset" class="btn btn-tertiary">Limpiar</button>
                 </div>

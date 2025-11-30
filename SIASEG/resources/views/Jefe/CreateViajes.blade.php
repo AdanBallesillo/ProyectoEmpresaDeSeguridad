@@ -7,7 +7,6 @@
     <title>Asignar Viaje - Sistema Integral</title>
 
     <link rel="stylesheet" href="{{ asset('css/style.AgregarRuta.css') }}">
-
     <style>
         .alert-error {
             background-color: #fee2e2;
@@ -31,7 +30,7 @@
                 </div>
             </div>
             <div class="user-info">
-                <span class="user-role">Admin Usuario</span>
+                 <span class="user-role"> Bienvenido, {{ Auth::user() -> nombres ?? 'Invitado' }} </span>
                 <div class="user-icon"></div>
             </div>
         </div>
@@ -125,6 +124,31 @@
                             @endif>
                             💾 Confirmar Asignación
                         </button>
+                        <button type="button"
+    onclick="window.location='{{ url()->previous() }}'"
+    style="
+        background-color: #0F2340; /* El azul oscuro de tu barra superior */
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px; /* Mismo redondeado que el botón naranja */
+        font-weight: bold;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px; /* Espacio entre flecha y texto */
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Sombrita suave */
+        transition: background 0.3s;
+    "
+    onmouseover="this.style.backgroundColor='#1a3a63'"
+    onmouseout="this.style.backgroundColor='#0F2340'">
+
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+      <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+    </svg>
+
+    Regresar
+</button>
 
                         {{-- <a href="{{ route('viajes.index') }}" class="btn btn-secondary">Cancelar</a> --}}
                     </div>

@@ -20,7 +20,7 @@
                 </div>
             </div>
             <div class="user-info">
-                <span class="user-role">Admin Usuario</span>
+                   <span class="user-role"> Bienvenido, {{ Auth::user() -> nombres ?? 'Invitado' }} </span>
                 <div class="user-icon"></div>
             </div>
         </div>

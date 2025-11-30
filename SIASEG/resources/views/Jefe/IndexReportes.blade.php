@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../Estilos/style_Reportes.css">
-    <link rel="stylesheet" href="../Estilos/style_Menu.css">
+    <link rel="stylesheet" href="{{ asset('css/style_Reportes.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style_Menu.css') }}">
     <title>Reportes y Análisis</title>
 </head>
 <body>
-    
+
     <!-- Encabezado principal -->
     <header class="header-container">
         <div class="header-content">
@@ -224,6 +224,6 @@
     <div id="page-transition" class="page-transition"></div>
 
     <!-- JS -->
-    <script src="../Java/Anim_Reportes.js"></script>
+    <script src="{{ asset('js/Anim_Menu.js') }}"></script>
 </body>
 </html>

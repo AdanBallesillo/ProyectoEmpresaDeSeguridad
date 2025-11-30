@@ -88,7 +88,7 @@ class DashboardEstacionesController extends Controller
             })
             ->values();
 
-        return view('jefe.DashboardEstaciones', [
+        return view('Jefe.DashboardEstaciones', [
             'estaciones'              => $estacionesPreparadas,
             'totalEstaciones'         => $totalEstaciones,
             'personalTotal'           => $personalTotal,

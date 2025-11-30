@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Control de Asistencia</title>
-    <link rel="stylesheet" href="../Estilos/style_Asistencia.css">
-    <link rel="stylesheet" href="../Estilos/style_Menu.css">
+    <link rel="stylesheet" href="{{ asset('css/style_Asistencia.css') }}">
+    <link rel="stylesheet" href="{{ asset('js/Anim_Menu.js') }}">
 </head>
 <body>
     <header class="header-container">
@@ -213,6 +213,6 @@
         </section>
     </main>
 
-    <script src="../Java/Anim_Menu.js"></script>
+    <script src="{{ asset('js/Anim_Menu.js') }}"></script>
 </body>
 </html>
