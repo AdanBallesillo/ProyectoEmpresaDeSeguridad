@@ -19,6 +19,7 @@ use App\Http\Controllers\DashboardEstacionesController;
 use App\Http\Controllers\DashboardReportesController;
 use App\Http\Controllers\AsignacionController;
 use App\Http\Controllers\ReporteController;
+use App\Http\Controllers\IndexAsistenciaController;
 
 
 /*------------------------------------------------
@@ -245,6 +246,7 @@ Route::get('/reportes/excel/{periodo}', [ReporteController::class, 'generarExcel
     ->name('reportes.excel');
 
 
+Route::get('/show/asistencia', [IndexAsistenciaController::class, 'index'])->name('asistencia.index');
 
 
 
