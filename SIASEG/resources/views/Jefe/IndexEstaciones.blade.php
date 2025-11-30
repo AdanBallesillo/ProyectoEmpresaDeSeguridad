@@ -59,7 +59,7 @@
         </a>
 
       <div class="menu-items">
-        <a href="" class="menu-item" style="text-decoration: none; color: inherit;">
+        <a href="{{ route('dashboard.asistencia') }}" class="menu-item" style="text-decoration: none; color: inherit;">
           <div class="icon">
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <circle cx="12" cy="12" r="10" fill="none" stroke="#FF8B00" stroke-width="2" />
@@ -102,7 +102,7 @@
           <span>Unidades</span>
         </a>
 
-        <a href="" class="menu-item" style="text-decoration: none; color: inherit;">
+        <a href="{{ route('dashboard.reportes') }}" class="menu-item" style="text-decoration: none; color: inherit;">
           <div class="icon">
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <rect x="5" y="4" width="14" height="17" rx="1" />

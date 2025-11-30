@@ -388,11 +388,5 @@ Route::get('/dashboard/unidades', [UnidadesController::class, 'index']) -> name 
 Route::get('/dashboard/estaciones', [DashboardEstacionesController::class, 'index']) -> name ('dashboard.estaciones');
 Route::get('/dashboard/rutas', [RutasController::class, 'index']) -> name ('dashboard.rutas');
 Route::get('/dashboard/viajes', [ViajesController::class, 'index']) -> name ('dashboard.viajes');
-
-Route::get('/asistencias', function () {
-    return view ('Jefe.IndexAsistencia');
-});
-
-Route::get('/secretaria/dash', function () {
-    return view ('Secretaria.IndexPersonalSecretaria');
-});
+Route::get('/dashoard/asistencia', [IndexAsistenciaController::class, 'index']) -> name ('dashboard.asistencia');
+Route::get('/dashboard/reportes', [DashboardReportesController::class, 'asistencia']) -> name ('dashboard.reportes');
