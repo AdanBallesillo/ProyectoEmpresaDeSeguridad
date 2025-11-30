@@ -127,19 +127,21 @@
                     </div>
                 </div>
             </div>
+
             <div class="sidebar-section">
                 <h3 class="section-title">Periodo</h3>
                 <div class="period-select-container">
-                    <select class="period-select">
-                        <option>Semana</option>
-                        <option>Mes</option>
-                        <option>Año</option>
+                    <select class="period-select" id="selectPeriodo" name="periodo">
+                        <option value="Semana" {{ $periodo === 'Semana' ? 'selected' : '' }}>Semana</option>
+                        <option value="Mes"    {{ $periodo === 'Mes' ? 'selected' : '' }}>Mes</option>
+                        <option value="Año"    {{ $periodo === 'Año' ? 'selected' : '' }}>Año</option>
                     </select>
                 </div>
             </div>
+
             <div class="sidebar-buttons">
-                <button class="export-btn pdf">Exportar en PDF</button>
-                <button class="export-btn excel">Exportar en Excel</button>
+                <button class="export-btn pdf" id="btnPDF">Exportar en PDF</button>
+                <button class="export-btn excel" id="btnExcel">Exportar en Excel</button>
             </div>
         </aside>
 
@@ -220,4 +222,29 @@
     <!-- JS -->
     <script src="../Java/Anim_Reportes.js"></script>
 </body>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const selectPeriodo = document.getElementById("selectPeriodo");
+
+        // Recargar dashboard al cambiar periodo
+        selectPeriodo.addEventListener("change", function () {
+            const periodo = selectPeriodo.value;
+            window.location.href = `/reportes?periodo=${periodo}`;
+        });
+
+        // Botón PDF
+        document.getElementById("btnPDF").addEventListener("click", function () {
+            const periodo = selectPeriodo.value;
+            window.location.href = `/reportes/pdf/${periodo}`;
+        });
+
+        // Botón Excel
+        document.getElementById("btnExcel").addEventListener("click", function () {
+            const periodo = selectPeriodo.value;
+            window.location.href = `/reportes/excel/${periodo}`;
+        });
+    });
+</script>
+
+
 </html>
