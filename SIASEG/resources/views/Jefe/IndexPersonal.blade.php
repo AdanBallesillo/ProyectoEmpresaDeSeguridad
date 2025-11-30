@@ -153,9 +153,9 @@
 
         <div class="table-container">
 
-            <!-- Barra de búsqueda -->
+            <!-- Barra de búsqueda --> <!-- Hay un error en 'max-width: 700px;', esta mal declarado, no corregiré hasta tener aprobación. -->
             <div class="search-bar" style="margin-bottom: 20px; display: flex; justify-content: center; width: 100%; ">
-                <form action="{{ route('mostrarempleados') }}" method="GET" style="display: flex; width: 100%; max width: 700px; gap: 10px;">
+                <form action="{{ route('mostrarempleados') }}" method="GET" style="display: flex; width: 100%; max-width: 700px; gap: 10px;">
                     <input type="text" name="busqueda" placeholder="Buscar empleado..."
                         value="{{ request('busqueda') }}"
                         style="flex: 1; padding: 10px; border-radius: 5px; border: 1px solid #ccc;">
@@ -163,6 +163,9 @@
                         Buscar
                     </button>
                 </form>
+
+                {{-- Aquí agregaré la etiqueta para el botón de exporat a PDF, en caso de algun problema, consultar aquí --}}
+                <a href="{{ route('empleados.pdf') }}" class="">Exportar a PDF</a>
             </div>
 
             <table class="personnel-table">

@@ -125,29 +125,23 @@
                         <div class="icon-placeholder orange"></div>
                         <span>Asistencia y Puntualidad</span>
                     </div>
-                    <div class="report-option" data-value="desempeno">
-                        <div class="icon-placeholder dark"></div>
-                        <span>Desempeño del Personal</span>
-                    </div>
-                    <div class="report-option" data-value="gastos">
-                        <div class="icon-placeholder dark"></div>
-                        <span>Gastos de Unidades</span>
-                    </div>
                 </div>
             </div>
+
             <div class="sidebar-section">
                 <h3 class="section-title">Periodo</h3>
                 <div class="period-select-container">
-                    <select class="period-select">
-                        <option>Semana</option>
-                        <option>Mes</option>
-                        <option>Año</option>
+                    <select class="period-select" id="selectPeriodo" name="periodo">
+                        <option value="Semana" {{ $periodo === 'Semana' ? 'selected' : '' }}>Semana</option>
+                        <option value="Mes"    {{ $periodo === 'Mes' ? 'selected' : '' }}>Mes</option>
+                        <option value="Año"    {{ $periodo === 'Año' ? 'selected' : '' }}>Año</option>
                     </select>
                 </div>
             </div>
+
             <div class="sidebar-buttons">
-                <button class="export-btn pdf">Exportar en PDF</button>
-                <button class="export-btn excel">Exportar en Excel</button>
+                <button class="export-btn pdf" id="btnPDF">Exportar en PDF</button>
+                <button class="export-btn excel" id="btnExcel">Exportar en Excel</button>
             </div>
         </aside>
 
@@ -156,19 +150,19 @@
             <h2 class="main-content-title">Resumen de Asistencia</h2>
             <div class="summary-cards">
                 <div class="summary-card">
-                    <div class="card-value">10</div>
+                    <div class="card-value"> {{ $presentes }} </div>
                     <div class="card-label">Presentes</div>
                 </div>
                 <div class="summary-card">
-                    <div class="card-value">2</div>
+                    <div class="card-value"> {{ $tardanzas }} </div>
                     <div class="card-label">Tardanzas</div>
                 </div>
                 <div class="summary-card">
-                    <div class="card-value">0</div>
+                    <div class="card-value"> {{ $ausentes }} </div>
                     <div class="card-label">Ausentes</div>
                 </div>
                 <div class="summary-card">
-                    <div class="card-value">90%</div>
+                    <div class="card-value"> {{ $puntualidad }}% </div>
                     <div class="card-label">Puntualidad</div>
                 </div>
             </div>
@@ -184,36 +178,38 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>
-                                <div class="employee-info">
-                                    <div class="profile-pic"></div>
-                                    <span>Mariela Chaves Diaz</span>
-                                </div>
-                            </td>
-                            <td>8:20am</td>
-                            <td>17:00pm</td>
-                            <td class="status-cell">
-                                <div class="status-container">
-                                    <span class="status red-x">Tarde</span>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="employee-info">
-                                    <div class="profile-pic"></div>
-                                    <span>Genaro Martinez Delgado</span>
-                                </div>
-                            </td>
-                            <td>7:55am</td>
-                            <td>17:00pm</td>
-                            <td class="status-cell">
-                                <div class="status-container">
-                                    <span class="status green-check">Temprano</span>
-                                </div>
-                            </td>
-                        </tr>
+                        @foreach ($asistencia as $row)
+                            <tr>
+                                <td>
+                                    <div class="employee-info">
+                                        <div class="profile-pic"></div>
+                                        {{ $row->nombres }} {{ $row->apellidos }}
+                                    </div>
+                                </td>
+
+                                <td>{{ $row->hora_entrada ?? '---' }}</td>
+                                <td>{{ $row->hora_salida ?? '---' }}</td>
+
+                                <td class="status-cell">
+                                    <div class="status-container">
+
+                                        @if ($row->status_asistencia === 'Tarde')
+                                            <span class="status red-x">Tarde</span>
+
+                                        @elseif ($row->status_asistencia === 'Falta')
+                                            <span class="status red-x">Falta</span>
+
+                                        @elseif ($row->status_asistencia === 'A tiempo')
+                                            <span class="status green-check">A tiempo</span>
+
+                                        @else
+                                            <span class="status">{{ $row->status_asistencia }}</span>
+                                        @endif
+
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -226,4 +222,29 @@
     <!-- JS -->
     <script src="{{ asset('js/Anim_Menu.js') }}"></script>
 </body>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const selectPeriodo = document.getElementById("selectPeriodo");
+
+        // Recargar dashboard al cambiar periodo
+        selectPeriodo.addEventListener("change", function () {
+            const periodo = selectPeriodo.value;
+            window.location.href = `/reportes?periodo=${periodo}`;
+        });
+
+        // Botón PDF
+        document.getElementById("btnPDF").addEventListener("click", function () {
+            const periodo = selectPeriodo.value;
+            window.location.href = `/reportes/pdf/${periodo}`;
+        });
+
+        // Botón Excel
+        document.getElementById("btnExcel").addEventListener("click", function () {
+            const periodo = selectPeriodo.value;
+            window.location.href = `/reportes/excel/${periodo}`;
+        });
+    });
+</script>
+
+
 </html>
