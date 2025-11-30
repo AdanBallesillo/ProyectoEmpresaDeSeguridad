@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Asistencia;
+use App\Models\Viajes;
 
 class TransportistaDashboardController extends Controller
 {
@@ -12,7 +13,7 @@ class TransportistaDashboardController extends Controller
     {
         $empleado = Auth::user();
 
-        // Obtener la asistencia del día
+        // Obtener asistencia
         $asistenciaHoy = Asistencia::where('empleado_id', $empleado->id_empleado)
             ->whereDate('fecha_registro', now()->toDateString())
             ->first();
@@ -27,10 +28,17 @@ class TransportistaDashboardController extends Controller
             }
         }
 
+        // OBTENER VIAJE ACTIVO DEL TRANSPORTISTA (IGUAL QUE EN LA MODAL)
+        $viaje = Viajes::where('empleado_id', $empleado->id_empleado)
+    ->whereIn('estado', ['pendiente', 'en_curso'])
+    ->with('ruta')
+    ->first();
+
         return view('Transportistas.IndexTransportista', [
             'empleado' => $empleado,
             'asistencia' => $asistenciaHoy,
-            'progreso' => $progreso
+            'progreso' => $progreso,
+            'viaje' => $viaje
         ]);
     }
 }

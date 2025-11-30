@@ -19,7 +19,7 @@ class LoginTransportistaController extends Controller
         'password' => $request->password
     ])){
 
-        // 🔥 Validar si debe cambiar la contraseña (primer inicio)
+        //  Validar si debe cambiar la contraseña (primer inicio)
         if (Auth::user()->cambiar_pass == 1) {
             return redirect()->route('primer-login.index');
         }
@@ -41,6 +41,6 @@ class LoginTransportistaController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('Transportistas.Login');
+        return redirect()->route('Transportista.Login');
     }
 }

@@ -23,6 +23,17 @@
                 <h1 class="header-title">Inicio</h1>
 
                 <div class="header-info">
+
+<!-- CERRAR SESIÓN-->
+        <form id="logoutForm" action="{{ route('Empleado.Logout') }}" method="POST" style="display:none;">
+            @csrf
+        </form>
+
+        <button class="start-route-btn" onclick="document.getElementById('logoutForm').submit()">
+            Cerrar sesión
+        </button>
+
+
                     <span class="date">{{ now()->locale('es')->isoFormat('dddd, D [de] MMMM [del] YYYY') }}</span>
                     <span class="time" id="liveClock"></span>
 
