@@ -309,15 +309,15 @@ Route::post('/jefe/asignar', [AsignacionController::class, 'store'])
 Route::get('/asistencias/verificarT', function () {
     return view('Transportistas.IndexHuella');
 })
-->middleware('auth')
-->name('asistencia.verificarT');
+    ->middleware('auth')
+    ->name('asistencia.verificarT');
 
 //empleado heulla
 Route::get('/asistencias/verificarE', function () {
     return view('Empleados.IndexHuella');
 })
-->middleware('auth')
-->name('asistencia.verificarE');
+    ->middleware('auth')
+    ->name('asistencia.verificarE');
 
 // Evaluar la huella
 Route::post('/asistencias/verificar', [AsistenciaController::class, 'registrarHuella'])
@@ -327,15 +327,15 @@ Route::post('/asistencias/verificar', [AsistenciaController::class, 'registrarHu
 Route::get('/asistencias/camaraT', function () {
     return view('Transportistas.indexVerificaridentidadT'); // <<< CAMBIA ESTE NOMBRE SI ES NECESARIO
 })
-->middleware('auth')
-->name('asistencia.camaraT');
+    ->middleware('auth')
+    ->name('asistencia.camaraT');
 
 // VISTA DE LA CÁMARA Employed
 Route::get('/asistencias/camaraE', function () {
     return view('Empleados.IndexVerificarIdentidad'); // <<< CAMBIA ESTE NOMBRE SI ES NECESARIO
 })
-->middleware('auth')
-->name('asistencia.camaraE');
+    ->middleware('auth')
+    ->name('asistencia.camaraE');
 
 // Guardar foto
 Route::post('/asistencias/foto', [AsistenciaController::class, 'guardarFoto'])
@@ -350,9 +350,13 @@ Route::post('/asistencias/verificarE', [AsistenciaController::class, 'verificarE
     ->middleware('auth')
     ->name('asistencia.verificarE');
 
-    Route::post('/asistencias/verificarT', [AsistenciaController::class, 'verificarTransportista'])
+Route::post('/asistencias/verificarT', [AsistenciaController::class, 'verificarTransportista'])
     ->middleware('auth')
     ->name('asistencia.verificarT');
 
 
- 
+// RUTAS PARA DASHBOARD JEFE
+use App\Http\Controllers\DashboardJefeController;
+
+Route::get('/dashboard-jefe', [DashboardJefeController::class, 'index'])
+    ->name('dashboard.jefe');
