@@ -30,7 +30,6 @@ class Employed extends Authenticatable
         // Modificacion
         'disponible',
         'status'
-
     ];
 
     /**

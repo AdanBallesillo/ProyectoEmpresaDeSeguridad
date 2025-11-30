@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Control de Asistencia</title>
-    <link rel="stylesheet" href="../Estilos/style_Asistencia.css">
-    <link rel="stylesheet" href="../Estilos/style_Menu.css">
+    <link rel="stylesheet" href=" {{ asset ('css/style_Asistencia.css') }} ">
+    <link rel="stylesheet" href=" {{ asset ('css/style_Menu.css') }} ">
 </head>
 <body>
     <header class="header-container">
@@ -169,45 +169,58 @@
         <section class="dashboard-grid">
             <div class="attendance-table-container card">
                 <h2 class="section-title">Asistencia</h2>
-                <div class="attendance-table">
+                <div class="attendance-table overflow-y-auto">
                     <div class="table-header">
                         <span class="header-item">Empleado</span>
                         <span class="header-item">Estación</span>
-                        <span class="header-item">Hora</span>
+                        <span class="header-item">Hora Llegada</span>
+                        <span class="header-item">Hora Salida</span>
                         <span class="header-item">Asistencia</span>
                     </div>
-                    <div class="table-row">
-                        <span class="row-item">Osvaldo Flaco Gallegos</span>
-                        <span class="row-item">Central</span>
-                        <span class="row-item">07:55</span>
-                        <span class="row-item status-punctual">Puntual</span>
-                    </div>
-                    <div class="table-row">
-                        <span class="row-item">Emiliano Villa Hernandez Martinez</span>
-                        <span class="row-item">Central</span>
-                        <span class="row-item">08:10</span>
-                        <span class="row-item status-absent">Retardo</span>
-                    </div>
+
+                    @foreach($asistencias as $a)
+                        <div class="table-row">
+                            <span class="row-item">{{ $a->nombres }} {{ $a->apellidos }}</span>
+                            <span class="row-item">{{ $a->nombre_estacion ?? 'Sin estación' }}</span>
+                            <span class="row-item">{{ $a->hora_entrada ?? '--:--' }}</span>
+                            <span class="row-item">{{ $a->hora_salida ?? '--:--' }}</span>
+
+                            @php
+                                $clase = $a->status_asistencia === 'A tiempo'
+                                            ? 'status-punctual'
+                                            : 'status-absent';
+                            @endphp
+
+                            <span class="row-item {{ $clase }}">
+                                {{ $a->status_asistencia }}
+                            </span>
+                        </div>
+                    @endforeach
                 </div>
+
             </div>
 
             <div class="top-lists-container">
                 <div class="top-list card">
                     <h2 class="section-title">TOP 10 Asistencia</h2>
-                    <div class="list-item">
-                        <div class="ranking-number rank-1">1</div>
-                        <div class="user-avatar user-1"></div>
-                        <span class="user-name">Osvaldo Flaco</span>
-                    </div>
+                    @foreach($topPuntuales as $i => $p)
+                        <div class="list-item overflow-y-auto">
+                            <div class="ranking-number rank-1">{{ $i + 1 }}</div>
+                            <div class="user-avatar"></div>
+                            <span class="user-name">{{ $p->nombres }} {{ $p->apellidos }}</span>
+                        </div>
+                    @endforeach
                 </div>
 
                 <div class="top-list card">
                     <h2 class="section-title">TOP 10 Inasistencia</h2>
-                    <div class="list-item">
-                        <div class="ranking-number rank-red-1">1</div>
-                        <div class="user-avatar user-4"></div>
-                        <span class="user-name">Pancracio Villa</span>
-                    </div>
+                    @foreach($topInasistencias as $i => $p)
+                        <div class="list-item overflow-y-auto">
+                            <div class="ranking-number rank-red-1">{{ $i + 1 }}</div>
+                            <div class="user-avatar"></div>
+                            <span class="user-name">{{ $p->nombres }} {{ $p->apellidos }}</span>
+                        </div>
+                    @endforeach
                 </div>
             </div>
         </section>
