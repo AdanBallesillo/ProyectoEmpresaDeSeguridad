@@ -51,7 +51,7 @@ Route::post('/Nuevo-Empleado', [EmployedController::class, 'store'])->name('empl
 // Esta ruta sirve para mostrar el PDF, aun sin exportar.
 Route::get('empleados/pdf', [EmployedController::class, 'generatePDF'])->name('empleados.pdf');
 
-// Rutas para mostrar los usuarios
+// Rutas para mostrar los empleados
 Route::get(
     '/empleados/show',
     [EmployedController::class, 'index']

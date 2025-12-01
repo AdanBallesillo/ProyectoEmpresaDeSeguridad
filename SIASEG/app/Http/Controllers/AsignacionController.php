@@ -20,12 +20,6 @@ class AsignacionController extends Controller
         // Estación actual
         $estacionSeleccionada = (int) $idEstacion;
 
-        // LIMPIAR ASIGNACIONES VENCIDAS (salida simulada = created_at + 3 min)
-        DB::table('asignaciones_turnos')
-            ->whereDate('fecha', Carbon::today())
-            ->whereRaw("DATE_ADD(created_at, INTERVAL 3 MINUTE) <= NOW()")
-            ->delete();
-
         // Estaciones
         $estaciones = Estacion::orderBy('nombre_estacion')->get();
 
@@ -39,16 +33,14 @@ class AsignacionController extends Controller
                 'asignaciones_turnos.id_empleado',
                 'asignaciones_turnos.id_estacion',
                 'asignaciones_turnos.turno',
-                'asignaciones_turnos.fecha',
                 'asignaciones_turnos.created_at',
                 'estaciones.nombre_estacion'
             )
-            ->whereDate('asignaciones_turnos.fecha', Carbon::today())
             ->get();
 
-        // 🔹 SOLO usuarios con rol Empleado
-        $users = Employed::where('rol', 'Empleado')      // <-- cambia 'rol' y 'Empleado' si en tu BD se llaman distinto
-            ->where('status', 'Activo')    // opcional
+        // SOLO usuarios con rol Empleado
+        $users = Employed::where('rol', 'Empleado')
+            ->where('status', 'Activo')
             ->orderBy('nombres')
             ->paginate(10);
 
@@ -81,7 +73,6 @@ class AsignacionController extends Controller
         $estacionId = (int) $request->estacion_id;
         $empleados  = array_unique($request->empleados);
         $turno      = $request->turno;
-        $fecha      = Carbon::today()->toDateString();
 
         // Límite de personal de la estación
         $estacion = Estacion::findOrFail($estacionId);
@@ -97,19 +88,8 @@ class AsignacionController extends Controller
 
         try {
             // Empleados ya asignados HOY en ESTA estación y ESTE turno
-            $yaAsignadosMismoTurno = DB::table('asignaciones_turnos')
-                ->where('id_estacion', $estacionId)
-                ->where('turno', $turno)
-                ->whereDate('fecha', $fecha)
+            $yaAsignados = DB::table('asignaciones_turnos')
                 ->whereIn('id_empleado', $empleados)
-                ->pluck('id_empleado')
-                ->toArray();
-
-            // Empleados que ya tienen OTRO turno ese mismo día (para prohibir doble turno)
-            $yaEnOtroTurno = DB::table('asignaciones_turnos')
-                ->whereDate('fecha', $fecha)
-                ->whereIn('id_empleado', $empleados)
-                ->where('turno', '!=', $turno)
                 ->pluck('id_empleado')
                 ->toArray();
 
@@ -117,11 +97,9 @@ class AsignacionController extends Controller
             $toInsert = [];
 
             foreach ($empleados as $idEmpleado) {
-                // Si ya está en el mismo turno o en otro turno hoy, se salta
-                if (
-                    in_array($idEmpleado, $yaAsignadosMismoTurno) ||
-                    in_array($idEmpleado, $yaEnOtroTurno)
-                ) {
+
+                // Si ya tiene asignación, no se agrega otra
+                if (in_array($idEmpleado, $yaAsignados)) {
                     continue;
                 }
 
@@ -129,7 +107,6 @@ class AsignacionController extends Controller
                     'id_estacion' => $estacionId,
                     'id_empleado' => $idEmpleado,
                     'turno'       => $turno,
-                    'fecha'       => $fecha,
                     'created_at'  => $now,
                     'updated_at'  => $now,
                 ];
