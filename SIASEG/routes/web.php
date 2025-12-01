@@ -51,7 +51,7 @@ Route::post('/Nuevo-Empleado', [EmployedController::class, 'store'])->name('empl
 // Esta ruta sirve para mostrar el PDF, aun sin exportar.
 Route::get('empleados/pdf', [EmployedController::class, 'generatePDF'])->name('empleados.pdf');
 
-// Rutas para mostrar los usuarios
+// Rutas para mostrar los empleados
 Route::get(
     '/empleados/show',
     [EmployedController::class, 'index']
@@ -124,14 +124,12 @@ Route::post('/Transportista/Validate', [LoginTransportistaController::class, 'Va
 // Ruta para mostrar el dashboard o menú, protegido por el middleware
 Route::get('/Transportistas/Huella', function () {
     return view('Transportistas.IndexTransportista');
-})->name('Transportistas.Menu');
+})->middleware('checkrol:Transportista, Administrador', 'cambiar.pass')->name('Transportistas.Menu');
 
 // Ruta para cerrar sesion
 Route::post('/Transportista/Logout', [LoginTransportistaController::class, 'Logout'])->name('Transportista.Logout');
 
-// Route::get('/Transportistas/Huella', function () {
-//     return view('Transportistas.IndexTransportista');
-// })->middleware('checkrol:Transportista, Administrador', 'cambiar.pass')->name('Transportistas.Menu');
+
 
 /*------------------------------------------------
 RUTAS PARA EL LOGIN DE SECRETARIA

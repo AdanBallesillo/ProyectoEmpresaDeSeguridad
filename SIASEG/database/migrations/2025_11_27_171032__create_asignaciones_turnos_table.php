@@ -21,7 +21,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_estacion');
 
             $table->enum('turno', ['Matutino', 'Nocturno']);
-            // $table->date('fecha');  NO NECESITAMOS SABER POR FECHA, YA QUE SERA TURNO FIJO, NO DE SOLO UN DIA
+            // $table->date('fecha');   no ocuparemos fecha ya que los turnos seran indefinidos
 
             $table->timestamps();
 

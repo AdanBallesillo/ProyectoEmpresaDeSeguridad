@@ -38,7 +38,6 @@ class DashboardEstacionesController extends Controller
             // 🔹 Contar asignaciones del día de hoy para esa estación
             $asignado = DB::table('asignaciones_turnos')
                 ->where('id_estacion', $estacion->id_estacion)
-                ->whereDate('fecha', $hoy)
                 ->count();
 
             // Porcentaje para la barra
@@ -90,7 +89,7 @@ class DashboardEstacionesController extends Controller
             })
             ->values();
 
-        return view('jefe.DashboardEstaciones', [
+        return view('Jefe.DashboardEstaciones', [
             'estaciones'              => $estacionesPreparadas,
             'totalEstaciones'         => $totalEstaciones,
             'personalTotal'           => $personalTotal,
