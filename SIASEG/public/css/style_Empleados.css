@@ -531,3 +531,15 @@ body {
 .card {
     width: 250px;
 }
+
+.start-route-btn {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: auto;
+}

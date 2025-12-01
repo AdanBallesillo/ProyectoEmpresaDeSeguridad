@@ -7,38 +7,41 @@
     <link rel="stylesheet" href="{{ asset('css/style_Empleados_Conductores.css') }}">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+
 </head>
 <body>
     <div class="top-bar"></div>
 
-<<<<<<< HEAD
-    <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Inicio de Empleado</title>
-      <link rel="stylesheet" href="{{ asset('css/style_Empleados_Conductores.css') }}">
-      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    </head>
-
-    <body>
-      <div class="top-bar"></div>
-
-      <main class="main-content">
-=======
     <main class="main-content">
->>>>>>> RegistroAsistencia
+
         <div class="page-container">
             <header class="content-header">
-                <h1 class="header-title">Inicio</h1>
-                <div class="header-info">
-                    <span class="date">{{ now()->locale('es')->isoFormat('dddd, D [de] MMMM [del] YYYY') }}</span>
-                    <span class="time" id="liveClock"></span>
+    <h1 class="header-title">Inicio</h1>
+    <div class="header-info">
 
-                    <span class="notification-icon" id="notification-icon">
-                        <span class="material-icons">notifications</span>
-                    </span>
-                </div>
-            </header>
+        <!-- CERRAR SESIÓN-->
+        <form id="logoutForm" action="{{ route('Transportista.Logout') }}" method="POST" style="display:none;">
+            @csrf
+        </form>
+
+        <button class="start-route-btn" onclick="document.getElementById('logoutForm').submit()">
+            Cerrar sesión
+        </button>
+
+        <span class="date">{{ now()->locale('es')->isoFormat('dddd, D [de] MMMM [del] YYYY') }}</span>
+        <span class="time" id="liveClock"></span>
+
+        <span class="notification-icon" id="notification-icon">
+    <span class="material-icons">notifications</span>
+
+    @if($viaje)
+        <span class="notif-dot"></span>
+    @endif
+</span>
+
+    </div>
+</header>
+
 
             <section class="progress-section">
                 <h2 class="section-title">Progreso de asistencia</h2>
@@ -79,13 +82,7 @@
             </section>
 
             <section class="info-cards-section">
-                <div class="card card-gray">
-                    <div class="card-header">
-                        <span class="material-icons">place</span>
-                        <h3>Estación asignada</h3>
-                    </div>
-                    <p>{{ $empleado->estacion_asignada ?? '---' }}</p>
-                </div>
+                
                 <div class="card card-green">
                     <div class="card-header">
                         <span class="material-icons">schedule</span>
@@ -105,7 +102,9 @@
                         <span class="material-icons">route</span>
                         <h3>Ruta asignada</h3>
                     </div>
-                    <p>{{ $empleado->ruta_asignada ?? '---' }}</p>
+                    @if($viaje)
+    <span style="font-weight: bold;">{{ $viaje->ruta->nombre }}</span>
+@endif
                     <button class="start-route-btn" onclick="abrirModal()">Iniciar Ruta</button>
                 </div>
             </section>
@@ -114,6 +113,7 @@
 
     <!-- Panel lateral de notificaciones -->
     <div id="notification-panel" class="notification-panel">
+      
         <span class="close-panel" onclick="cerrarPanel()">&times;</span>
         <h3>Notificaciones</h3>
         <!-- Aquí puedes hacer un foreach si tienes notificaciones dinámicas -->
@@ -124,6 +124,19 @@
                 <p>No olvides revisar el vehículo antes de iniciar la ruta asignada.</p>
             </div>
         </div>
+        @if($viaje)
+    <div class="notification-item importante">
+        <span class="material-icons">route</span>
+        <div>
+            <h4>Ruta Asignada</h4>
+            <p>
+                Tienes la ruta <strong>{{ $viaje->ruta->nombre }}</strong> programada para hoy.
+            </p>
+        </div>
+    </div>
+@endif
+
+
     </div>
 
     <!-- Modal para el formulario -->
