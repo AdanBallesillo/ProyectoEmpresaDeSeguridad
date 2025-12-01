@@ -27,21 +27,13 @@ return new class extends Migration
 
             // FK hacia empleados.id_empleado  (NO tocamos la tabla empleados)
             $table->foreign('id_empleado')
-<<<<<<< HEAD
-                ->references('id_empleado')   // 👈 aquí está el cambio
-=======
                 ->references('id_empleado')
->>>>>>> origin/Testing-6
                 ->on('empleados')
                 ->onDelete('cascade');
 
             // Ajusta esto a como esté tu tabla estaciones
             $table->foreign('id_estacion')
-<<<<<<< HEAD
-                ->references('id_estacion')   // o 'id' si así se llama
-=======
                 ->references('id_estacion')
->>>>>>> origin/Testing-6
                 ->on('estaciones')
                 ->onDelete('cascade');
         });
