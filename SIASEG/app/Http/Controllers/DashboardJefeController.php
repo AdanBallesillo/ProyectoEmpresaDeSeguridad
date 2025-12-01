@@ -60,7 +60,6 @@ class DashboardJefeController extends Controller
             // Cuántos empleados están asignados hoy a esa estación
             $asignado = DB::table('asignaciones_turnos')
                 ->where('id_estacion', $estacion->id_estacion)
-                ->whereDate('fecha', $hoy)
                 ->count();
 
             // Porcentaje para la barra
