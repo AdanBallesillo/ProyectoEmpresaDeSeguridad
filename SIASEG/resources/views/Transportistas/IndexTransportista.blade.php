@@ -82,7 +82,7 @@
             </section>
 
             <section class="info-cards-section">
-                
+
                 <div class="card card-green">
                     <div class="card-header">
                         <span class="material-icons">schedule</span>
@@ -113,7 +113,7 @@
 
     <!-- Panel lateral de notificaciones -->
     <div id="notification-panel" class="notification-panel">
-      
+
         <span class="close-panel" onclick="cerrarPanel()">&times;</span>
         <h3>Notificaciones</h3>
         <!-- Aquí puedes hacer un foreach si tienes notificaciones dinámicas -->

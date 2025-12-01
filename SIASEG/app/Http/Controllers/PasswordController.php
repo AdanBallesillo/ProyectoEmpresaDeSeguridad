@@ -38,16 +38,16 @@ class PasswordController extends Controller
         switch ($empleado -> rol) {
 
             case 'Administrador':
-                return redirect() -> route('jefe.unidades')
+                return redirect() -> route('dashboard.jefe')
                     ->with('success', '¡Contraseña actualizada correctamente!');
                 break;
 
             case 'Empleado':
-                return redirect() -> route('asistencia.verificarE') 
+                return redirect() -> route('asistencia.verificarE')
                     ->with('success', '¡Contraseña actualizada correctamente!');
                 break;
             case 'Secretaria':
-                return redirect() -> route('Secretaria.Dashboard')
+                return redirect() -> route('dashboard.jefe')
                     ->with('success', '¡Contraseña actualizada correctamente!');
                 break;
             case 'Transportista':

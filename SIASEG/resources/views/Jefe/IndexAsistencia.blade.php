@@ -49,7 +49,7 @@
 
       <div class="menu-items">
 
-        <a href="{{ route('dashboard.personal') }}" class="menu-item" style="text-decoration: none; color: inherit;">
+        <a href="{{ route('dashboard.jefe') }}" class="menu-item" style="text-decoration: none; color: inherit;">
           <div class="icon dashboard">
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <rect class="square1" x="3" y="3" width="8" height="8" />

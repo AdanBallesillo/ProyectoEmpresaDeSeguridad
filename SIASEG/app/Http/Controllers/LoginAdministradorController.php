@@ -26,7 +26,7 @@ class LoginAdministradorController extends Controller
             'password' => $request->password
         ])) {
             // Si son correctas las credenciales lo redireccionamos a su menú o dashboard
-            return redirect()->route('jefe.unidades');
+            return redirect()->route('dashboard.jefe');
         } else {
             // Si no, le mostramos este mensaje.
             return back()->withErrors([
@@ -46,6 +46,6 @@ class LoginAdministradorController extends Controller
         // Cambiamos el token del formulario
         $request->session()->regenerateToken();
 
-        return redirect()->route('Admin.Login');
+        return redirect()->route('Administrador.Logout');
     }
 }

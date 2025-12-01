@@ -168,7 +168,7 @@ Route::get('/Empleado/Menu', [EmpleadoDashboardController::class, 'index'])
     ->name('Empleado.Menu');
 
 // Ruta para cerrar sesion
-Route::get('/Empleado/Logout', [LoginEmpleadoController::class, 'Logout'])->name('Empleado.Logout');
+Route::any('/Empleado/Logout', [LoginEmpleadoController::class, 'Logout'])->name('Empleado.Logout');
 
 
 /*--------------------------------------------
@@ -394,4 +394,4 @@ Route::get('/dashboard/reportes', [DashboardReportesController::class, 'asistenc
 use App\Http\Controllers\DashboardJefeController;
 
 Route::get('/dashboard-jefe', [DashboardJefeController::class, 'index'])
-    ->name('dashboard.jefe');
+    ->name('dashboard.jefe') -> middleware('checkrol:Administrador,Secretaria', 'cambiar.pass');

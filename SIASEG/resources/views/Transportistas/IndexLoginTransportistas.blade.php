@@ -23,7 +23,7 @@
     <div class="login-container">
         <!-- Lado izquierdo con logo -->
         <div class="login-icon">
-            <img src="../Imagenes/Logo.png" alt="Logo del sistema" class="logo">
+            <img src="{{ asset('images/Logo.png') }}" style="width: 200px; height: auto;" alt="Logo">
         </div>
 
         <!-- Lado derecho con formulario -->
