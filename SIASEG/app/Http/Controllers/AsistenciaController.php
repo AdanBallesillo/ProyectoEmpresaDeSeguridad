@@ -111,6 +111,15 @@ class AsistenciaController extends Controller
                     return response()->json(['error' => 'El empleado no tiene un turno asignado'], 400);
                 }
 
+                // Obtener estacion asignada
+                $estacionAsignada = DB::table('asignaciones_turnos')
+                    ->where('id_empleado', $empleado_id)
+                    ->value('id_estacion');
+
+                if (!$estacionAsignada) {
+                    return response()->json(['error' => 'El empleado no tiene una estación de trabajo asignada'], 400);
+                }
+
                 // Ej: "matutino" o "nocturno"
                 $claveTurno = $turnoAsignado->turno;
 
@@ -136,7 +145,7 @@ class AsistenciaController extends Controller
                 Asistencia::create([
                     'empleado_id' => $empleado_id,
                     'turno_id' => $turnoAsignado->id,
-                    'estacion_id' => null,
+                    'estacion_id' => $estacionAsignada,
                     'status_asistencia' => $status,
                     'fecha_registro' => Carbon::now(),
                     'foto_entrada' => $path,

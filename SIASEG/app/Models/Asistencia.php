@@ -22,4 +22,10 @@ class Asistencia extends Model
         'hora_entrada',
         'hora_salida'
     ];
+
+
+    public function estacion()
+    {
+        return $this->belongsTo(\App\Models\Estacion::class, 'estacion_id', 'id_estacion');
+    }
 }

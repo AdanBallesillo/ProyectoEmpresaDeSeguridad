@@ -101,7 +101,7 @@
                     </div>
 
                     <p>
-                        No disponible
+                        {{ $asistencia->estacion->nombre_estacion ?? 'No asignado' }}
                     </p>
                 </div>
 

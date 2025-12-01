@@ -17,6 +17,12 @@ class EmpleadoDashboardController extends Controller
             ->whereDate('fecha_registro', now()->toDateString())
             ->first();
 
+        // Obtener estacion asignada
+        $estacionAsignada = Asistencia::with('estacion')
+            ->where('empleado_id', $empleado->id_empleado)
+            ->first();
+
+
         // Calcular progreso
         $progreso = 0;
         if ($asistenciaHoy) {
@@ -30,6 +36,7 @@ class EmpleadoDashboardController extends Controller
         return view('Empleados.IndexEmpleados', [
             'empleado' => $empleado,
             'asistencia' => $asistenciaHoy,
+            'estacion' => $estacionAsignada,
             'progreso' => $progreso,
         ]);
     }
