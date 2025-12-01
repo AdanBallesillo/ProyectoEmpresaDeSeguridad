@@ -22,7 +22,7 @@
       </div>
 
       <div class="action-buttons">
-        <button class="btn-action btn-cancel">Cancelar</button>
+       
         <button class="btn-action btn-capture" id="captureBtn">Capturar</button>
         <button class="btn-action btn-confirm" id="confirmBtn" style="display:none;">Confirmar</button>
       </div>

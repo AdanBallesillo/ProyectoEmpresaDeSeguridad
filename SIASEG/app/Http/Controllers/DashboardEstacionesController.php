@@ -22,7 +22,9 @@ class DashboardEstacionesController extends Controller
 
         $personalTotal = DB::table('empleados')
             ->where('status', 'Activo')
+            ->where('rol', 'Empleado')   // o ->where('id_rol', 3) si usas ids
             ->count();
+
 
         $estacionesCompletas = 0;
         $estacionesFaltaPersonal = 0;

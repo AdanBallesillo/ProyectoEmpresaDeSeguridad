@@ -328,15 +328,15 @@ Route::post('/jefe/asignar', [AsignacionController::class, 'store'])
 Route::get('/asistencias/verificarT', function () {
     return view('Transportistas.IndexHuella');
 })
-->middleware('auth')
-->name('asistencia.verificarT');
+    ->middleware('auth')
+    ->name('asistencia.verificarT');
 
 //empleado heulla
 Route::get('/asistencias/verificarE', function () {
     return view('Empleados.IndexHuella');
 })
-->middleware('auth')
-->name('asistencia.verificarE');
+    ->middleware('auth')
+    ->name('asistencia.verificarE');
 
 // Evaluar la huella
 Route::post('/asistencias/verificar', [AsistenciaController::class, 'registrarHuella'])
@@ -346,15 +346,15 @@ Route::post('/asistencias/verificar', [AsistenciaController::class, 'registrarHu
 Route::get('/asistencias/camaraT', function () {
     return view('Transportistas.IndexVerificarIdentidadT'); // <<< CAMBIA ESTE NOMBRE SI ES NECESARIO
 })
-->middleware('auth')
-->name('asistencia.camaraT');
+    ->middleware('auth')
+    ->name('asistencia.camaraT');
 
 // VISTA DE LA CÁMARA Employed
 Route::get('/asistencias/camaraE', function () {
     return view('Empleados.IndexVerificarIdentidad'); // <<< CAMBIA ESTE NOMBRE SI ES NECESARIO
 })
-->middleware('auth')
-->name('asistencia.camaraE');
+    ->middleware('auth')
+    ->name('asistencia.camaraE');
 
 // Guardar foto
 Route::post('/asistencias/foto', [AsistenciaController::class, 'guardarFoto'])
@@ -369,7 +369,7 @@ Route::post('/asistencias/verificarE', [AsistenciaController::class, 'verificarE
     ->middleware('auth')
     ->name('asistencia.verificarE');
 
-    Route::post('/asistencias/verificarT', [AsistenciaController::class, 'verificarTransportista'])
+Route::post('/asistencias/verificarT', [AsistenciaController::class, 'verificarTransportista'])
     ->middleware('auth')
     ->name('asistencia.verificarT');
 
@@ -390,3 +390,8 @@ Route::get('/dashboard/rutas', [RutasController::class, 'index']) -> name ('dash
 Route::get('/dashboard/viajes', [ViajesController::class, 'index']) -> name ('dashboard.viajes');
 Route::get('/dashoard/asistencia', [IndexAsistenciaController::class, 'index']) -> name ('dashboard.asistencia');
 Route::get('/dashboard/reportes', [DashboardReportesController::class, 'asistencia']) -> name ('dashboard.reportes');
+// RUTAS PARA DASHBOARD JEFE
+use App\Http\Controllers\DashboardJefeController;
+
+Route::get('/dashboard-jefe', [DashboardJefeController::class, 'index'])
+    ->name('dashboard.jefe');

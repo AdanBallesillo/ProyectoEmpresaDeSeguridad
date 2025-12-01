@@ -20,9 +20,7 @@ class AsignacionController extends Controller
         // Estación actual
         $estacionSeleccionada = (int) $idEstacion;
 
-        // ------------------------------------------------------------------
         // LIMPIAR ASIGNACIONES VENCIDAS (salida simulada = created_at + 3 min)
-        // ------------------------------------------------------------------
         DB::table('asignaciones_turnos')
             ->whereDate('fecha', Carbon::today())
             ->whereRaw("DATE_ADD(created_at, INTERVAL 3 MINUTE) <= NOW()")
@@ -48,8 +46,11 @@ class AsignacionController extends Controller
             ->whereDate('asignaciones_turnos.fecha', Carbon::today())
             ->get();
 
-        // Empleados paginados
-        $users = Employed::orderBy('nombres')->paginate(10);
+        // 🔹 SOLO usuarios con rol Empleado
+        $users = Employed::where('rol', 'Empleado')      // <-- cambia 'rol' y 'Empleado' si en tu BD se llaman distinto
+            ->where('status', 'Activo')    // opcional
+            ->orderBy('nombres')
+            ->paginate(10);
 
         return view('Jefe.AsignacionPersonal', compact(
             'estaciones',
@@ -59,7 +60,6 @@ class AsignacionController extends Controller
             'turnoSeleccionado'
         ));
     }
-
 
     /**
      * Guardar asignaciones en la tabla asignaciones_turnos.

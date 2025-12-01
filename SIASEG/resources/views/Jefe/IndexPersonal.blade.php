@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="{{ asset ('css/style_Menu.css') }}">
     <title>Sistema de Gestión de Personal</title>
 </head>
+
 <body>
     <!-- Encabezado -->
     <header class="header-container" style="position: relative">
@@ -47,7 +49,7 @@
     <!-- OVERLAY -->
     <div class="overlay" id="overlay"></div>
 
-        <!-- Transición entre páginas -->
+    <!-- Transición entre páginas -->
     <div id="page-transition"></div>
 
     <!-- Fondo oscuro del menú -->
@@ -55,6 +57,7 @@
 
     <!-- MENÚ HAMBURGUESA -->
     <div class="menu-container" id="menuContainer">
+<<<<<<< HEAD
       <div class="menu-header">
         <div class="arrow" id="closeMenu">→</div>
         <h2>Menú</h2>
@@ -153,9 +156,9 @@
 
         <div class="table-container">
 
-            <!-- Barra de búsqueda --> <!-- Hay un error en 'max-width: 700px;', esta mal declarado, no corregiré hasta tener aprobación. -->
+            <!-- Barra de búsqueda -->
             <div class="search-bar" style="margin-bottom: 20px; display: flex; justify-content: center; width: 100%; ">
-                <form action="{{ route('mostrarempleados') }}" method="GET" style="display: flex; width: 100%; max-width: 700px; gap: 10px;">
+                <form action="{{ route('mostrarempleados') }}" method="GET" style="display: flex; width: 100%; max width: 700px; gap: 10px;">
                     <input type="text" name="busqueda" placeholder="Buscar empleado..."
                         value="{{ request('busqueda') }}"
                         style="flex: 1; padding: 10px; border-radius: 5px; border: 1px solid #ccc;">
@@ -163,9 +166,6 @@
                         Buscar
                     </button>
                 </form>
-
-                {{-- Aquí agregaré la etiqueta para el botón de exporat a PDF, en caso de algun problema, consultar aquí --}}
-                <a href="{{ route('empleados.pdf') }}" class="">Exportar a PDF</a>
             </div>
 
             <table class="personnel-table">
@@ -181,30 +181,29 @@
                 </thead>
                 <tbody>
                     @forelse ($empleados as $empleado)
-                        <tr>
-                            <td>{{ $empleado->nombres }} {{ $empleado->apellidos }}</td>
-                            <td>{{ $empleado->RFC }}</td>
-                            <td>{{ $empleado->CURP }}</td>
-                            <td>{{ $empleado->telefono }}</td>
-                            <td>{{ $empleado->correo }}</td>
-                            <td class="actions-cell">
-                                <button class="action-button modify-button"
-                                    data-id="{{ $empleado->id_empleado }}"
-                                    data-nombres="{{ $empleado->nombres }}"
-                                    data-apellidos="{{ $empleado->apellidos }}"
-                                    data-curp="{{ $empleado->CURP }}"
-                                    data-rfc="{{ $empleado->RFC }}"
-                                    data-telefono="{{ $empleado->telefono }}"
-                                    data-rol="{{ $empleado->rol }}"
-                                    data-correo="{{ $empleado->correo }}"
-                                    data-foto="{{ $empleado->fotografia }}"
-                                >Modificar</button>
-                            </td>
-                        </tr>
+                    <tr>
+                        <td>{{ $empleado->nombres }} {{ $empleado->apellidos }}</td>
+                        <td>{{ $empleado->RFC }}</td>
+                        <td>{{ $empleado->CURP }}</td>
+                        <td>{{ $empleado->telefono }}</td>
+                        <td>{{ $empleado->correo }}</td>
+                        <td class="actions-cell">
+                            <button class="action-button modify-button"
+                                data-id="{{ $empleado->id_empleado }}"
+                                data-nombres="{{ $empleado->nombres }}"
+                                data-apellidos="{{ $empleado->apellidos }}"
+                                data-curp="{{ $empleado->CURP }}"
+                                data-rfc="{{ $empleado->RFC }}"
+                                data-telefono="{{ $empleado->telefono }}"
+                                data-rol="{{ $empleado->rol }}"
+                                data-correo="{{ $empleado->correo }}"
+                                data-foto="{{ $empleado->fotografia }}">Modificar</button>
+                        </td>
+                    </tr>
                     @empty
-                        <tr>
-                            <td colspan="6" style="text-align:center;">No hay empleados registrados.</td>
-                        </tr>
+                    <tr>
+                        <td colspan="6" style="text-align:center;">No hay empleados registrados.</td>
+                    </tr>
                     @endforelse
                 </tbody>
             </table>
@@ -233,14 +232,15 @@
 
         // Redirigir botones Modificar
         document.querySelectorAll('.modify-button').forEach(button => {
-        button.addEventListener('click', () => {
-            // le damos el id del usuario a modificar
-            const id = button.dataset.id;
-            // construimos la url con el id hacia la vista de modificar
-            const url = "{{ route('modificarempleadojefe', ['id' => ':id']) }}".replace(':id', id);
-            window.location.href = url;
+            button.addEventListener('click', () => {
+                // le damos el id del usuario a modificar
+                const id = button.dataset.id;
+                // construimos la url con el id hacia la vista de modificar
+                const url = "{{ route('modificarempleadojefe', ['id' => ':id']) }}".replace(':id', id);
+                window.location.href = url;
+            });
         });
-    });
     </script>
 </body>
+
 </html>

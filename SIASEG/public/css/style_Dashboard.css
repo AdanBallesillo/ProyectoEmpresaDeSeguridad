@@ -117,22 +117,22 @@ body {
 
 /* MENU HAMBURGUESA */
 .menu-btn {
-  position: fixed;
-  top: 120px; /* 🔹 antes 20px — bajado más */
-  right: 25px;
-  width: 55px;
-  height: 55px;
-  background-color: #001F3E;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  z-index: 900;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 6px;
-  transition: all 0.3s ease;
+    position: fixed;
+    top: 120px;
+    right: 25px;
+    width: 55px;
+    height: 55px;
+    background-color: #001F3E;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    z-index: 900;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.3s ease;
 }
 
 .menu-btn span {
@@ -289,7 +289,7 @@ body {
 .main-content {
     padding: 30px;
     display: grid;
-    grid-template-columns: 520px 250px 1fr;
+    grid-template-columns: 520px 280px 1fr; /* izquierda - centro - derecha */
     gap: 25px;
     max-width: 1800px;
     margin: 0 auto;
@@ -302,10 +302,14 @@ body {
     gap: 25px;
 }
 
+/* === ASISTENCIAS === */
 .recent-card {
     background-color: #E0E0E0;
     border-radius: 12px;
     padding: 25px;
+    display: flex;
+    flex-direction: column;
+    min-height: 320px;
 }
 
 .card-header {
@@ -331,82 +335,157 @@ body {
     text-decoration: underline;
 }
 
+/* Lista con scroll bonito */
 .attendance-list {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 10px;
+    margin-top: 8px;
+    max-height: 280px;
+    overflow-y: auto;
+    padding-right: 6px;
 }
 
+/* Scrollbar solo dentro de la lista */
+.attendance-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.attendance-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.attendance-list::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 999px;
+}
+
+.attendance-list::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.25);
+}
+
+/* Quitamos la “foto” redonda */
+.avatar-placeholder {
+    display: none;
+}
+
+/* Wrapper sin fondo */
 .attendance-item {
+    padding: 6px 0;
+    background: transparent;
+    border-radius: 0;
+    box-shadow: none;
+    min-height: auto;
+}
+
+/* Tarjeta real de la asistencia */
+.attendance-content {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 12px 18px;
     display: flex;
     align-items: center;
-    gap: 15px;
-    padding: 15px;
-    background-color: white;
-    border-radius: 8px;
-    min-height: 80px;
+    justify-content: space-between;
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.10);
+    transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+    width: 100%;
 }
 
-.avatar-placeholder {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background-color: #D9D9D9;
-    flex-shrink: 0;
+.attendance-item:hover .attendance-content {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px rgba(15, 23, 42, 0.18);
+    background-color: #f9fafb;
 }
 
 .attendance-info {
     flex: 1;
 }
 
+/* Texto */
 .attendance-info .name {
     font-size: 16px;
     font-weight: 600;
     color: #001F3E;
-    margin-bottom: 5px;
-    height: 20px;
-    background-color: #E0E0E0;
-    border-radius: 4px;
-    width: 60%;
+    margin-bottom: 2px;
 }
 
 .attendance-info .station {
-    font-size: 14px;
-    color: #666;
-    height: 16px;
-    background-color: #E0E0E0;
-    border-radius: 4px;
-    width: 40%;
+    font-size: 13px;
+    color: #6b7280;
 }
 
-.time-badge {
+.attendance-right {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    gap: 8px;
+    gap: 4px;
 }
 
-.time-badge .time {
-    font-size: 18px;
-    font-weight: bold;
-    color: #001F3E;
-    height: 20px;
-    width: 60px;
-    background-color: #E0E0E0;
-    border-radius: 4px;
+.attendance-time {
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: #111827;
 }
 
-.time-badge .status-badge {
-    padding: 4px 12px;
-    border-radius: 12px;
-    font-size: 12px;
+/* Pills de estado */
+.status-pill {
+    padding: 2px 10px;
+    border-radius: 999px;
+    font-size: 0.7rem;
     font-weight: 600;
-    height: 24px;
-    width: 70px;
-    background-color: #E0E0E0;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    border: 1px solid transparent;
 }
 
-/* ALERTAS */
+.status-pill.ok {
+    background: #ecfdf3;
+    color: #166534;
+    border-color: #bbf7d0;
+}
+
+.status-pill.late {
+    background: #fff7ed;
+    color: #9a3412;
+    border-color: #fed7aa;
+}
+
+.status-pill.miss {
+    background: #fef2f2;
+    color: #b91c1c;
+    border-color: #fecaca;
+}
+
+/* Skeletons */
+.skeleton-bar {
+    height: 10px;
+    width: 120px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #e5e7eb, #f3f4f6, #e5e7eb);
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.4s ease-in-out infinite;
+}
+
+.skeleton-bar.small {
+    width: 70px;
+}
+
+.skeleton-pill {
+    display: inline-block;
+    height: 18px;
+    width: 70px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #e5e7eb, #f3f4f6, #e5e7eb);
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.4s ease-in-out infinite;
+}
+
+@keyframes skeleton-loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* === ALERTAS === */
 .alerts-card {
     background-color: #E0E0E0;
     border-radius: 12px;
@@ -425,97 +504,118 @@ body {
     gap: 15px;
 }
 
+/* Tarjeta base */
 .alert-item {
     padding: 20px;
-    border-radius: 8px;
+    border-radius: 12px;
     min-height: 80px;
+    border: 1px solid transparent;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
+    transition: transform .15s ease, box-shadow .15s ease, background .15s ease, border-color .15s ease;
 }
 
-.alert-error {
-    background-color: #f8d7da;
+.alert-item:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(15, 23, 42, 0.12);
 }
 
-.alert-success {
-    background-color: #d4edda;
-}
-
+/* Cabecera de la alerta */
 .alert-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 6px;
 }
 
+/* Texto alerta */
 .alert-title {
-    font-weight: 600;
-    font-size: 16px;
-    color: #001F3E;
-    height: 20px;
-    width: 150px;
-    background-color: rgba(0, 0, 0, 0.1);
-    border-radius: 4px;
-    display: inline-block;
+    font-weight: 700;
+    font-size: 15px;
+    color: #111827;
 }
 
-.alert-icon {
-    flex-shrink: 0;
+.alert-message {
+    margin-top: 4px;
+    font-size: 14px;
+    color: #374151;
+    line-height: 1.5;
 }
 
+/* Iconos */
+.alert-icon,
 .alert-icon-check {
     flex-shrink: 0;
 }
 
-.alert-message {
-    font-size: 14px;
-    color: #333;
-    line-height: 1.5;
-    height: 18px;
-    background-color: rgba(0, 0, 0, 0.1);
-    border-radius: 4px;
-    width: 90%;
+/* TIPOS DE ALERTA */
+.alert-success {
+    background-color: #ecfdf3;
+    border-color: #bbf7d0;
 }
 
-/* COLUMNA CENTRO */
+.alert-warning {
+    background-color: #fffbeb;
+    border-color: #facc15;
+}
+
+.alert-danger {
+    background-color: #fef2f2;
+    border-color: #fecaca;
+}
+
+/* Mensaje “sin alertas” */
+.no-alerts {
+    font-size: 14px;
+    color: #4b5563;
+    background: #f9fafb;
+    border-radius: 10px;
+    padding: 10px 14px;
+}
+
+/* ========== COLUMNA CENTRO (MÉTRICAS) ========== */
 .center-column {
     display: flex;
     flex-direction: column;
-    gap: 25px;
+    gap: 18px;               /* antes 25px */
 }
 
-.stat-card {
-    background-color: #E0E0E0;
-    border-radius: 12px;
-    padding: 25px;
+.metric-card {
+    background: #e6e6e6;
+    padding: 16px 18px;      /* antes 22px */
+    border-radius: 16px;     /* antes 20px */
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+}
+
+.metric-content {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    min-height: 140px;
-}
-
-.stat-content {
-    display: flex;
-    flex-direction: column;
+    justify-content: space-between;
     gap: 10px;
 }
 
-.stat-label {
-    font-size: 16px;
-    color: #001F3E;
-    font-weight: 600;
+.metric-title {
+    font-size: 18px;        /* antes 20px */
+    font-weight: 700;
+    color: #0b2a4a;
 }
 
-.stat-number {
-    font-size: 56px;
-    font-weight: bold;
-    color: #FF8B00;
-    height: 70px;
-    width: 100px;
-    background-color: #D0D0D0;
-    border-radius: 8px;
+/* Número GRANDE un poco más pequeño */
+.metric-number {
+    font-size: 46px;        /* antes 58px */
+    font-weight: 800;
+    color: #e67e22;
+    background: #d1d1d1;
+    padding: 8px 20px;      /* antes 12px 30px */
+    border-radius: 14px;
+    text-align: center;
+    min-width: 80px;        /* antes 95px */
 }
 
-.stat-icon {
-    flex-shrink: 0;
+/* Iconos un poco más chicos */
+.metric-icon svg {
+    display: block;
+    width: 48px;            /* antes 60px */
+    height: 48px;
 }
 
 /* COLUMNA DERECHA */
@@ -523,37 +623,99 @@ body {
     background-color: #E0E0E0;
     border-radius: 12px;
     padding: 25px;
+    display: flex;
+    flex-direction: column;
 }
 
-.right-column h3 {
-    font-size: 22px;
+.right-column {
+    background-color: #E0E0E0;
+    border-radius: 12px;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;  /* título arriba, lista abajo */
+}
+
+/* LISTA CON SCROLL DE ESTACIONES */
+.station-status-list {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    max-height: 420px;          /* <- alto máximo de la lista */
+    overflow-y: auto;           /* <- aquí aparece la barrita */
+    padding-right: 6px;
+}
+
+/* Contenedor de TODAS las estaciones dentro del recuadro gris */
+.station-status-list {
+    flex: 1;              /* ocupa TODO el alto disponible del recuadro gris */
+    min-height: 0;        /* importante para que flex deje recortar y hacer scroll */
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin-top: 10px;
+
+    overflow-y: auto;     /* scroll vertical */
+    padding-right: 6px;   /* espacio para el scrollbar */
+}
+
+/* Scroll bonito */
+.station-status-list::-webkit-scrollbar {
+    width: 6px;
+}
+.station-status-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+.station-status-list::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 999px;
+}
+.station-status-list::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.25);
+}
+
+/* Cada card de estación (puedes dejar la tuya o usar esta) */
+.station-card {
+    background-color: #f9fafb;
+    border-radius: 16px;
+    padding: 18px 22px;
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.10);
+}
+
+.station-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+.station-header h4 {
+    font-size: 16px;
     color: #001F3E;
-    margin-bottom: 25px;
+    font-weight: 700;
 }
 
-.station-status {
-    margin-bottom: 30px;
+.station-percentage {
+    background-color: #e5e7eb;
+    color: #111827;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 700;
 }
 
-.station-status h4 {
-    font-size: 18px;
-    color: #001F3E;
+.station-subtitle {
+    font-size: 13px;
+    color: #6b7280;
     margin-bottom: 10px;
 }
 
-.station-label {
-    font-size: 14px;
-    color: #666;
-    display: block;
-    margin-bottom: 12px;
-}
-
-.progress-container {
+.station-progress {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 10px;
 }
 
+/* ya los tienes, pero por si acaso: */
 .progress-bar-wrapper {
     flex: 1;
     height: 12px;
@@ -581,22 +743,10 @@ body {
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
-.progress-ratio {
-    font-size: 18px;
-    font-weight: bold;
-    color: #001F3E;
-    min-width: 50px;
-    text-align: right;
-    height: 22px;
-    background-color: #D0D0D0;
-    border-radius: 4px;
-    display: inline-block;
-}
-
 /* RESPONSIVE */
 @media screen and (max-width: 1400px) {
     .main-content {
-        grid-template-columns: 450px 220px 1fr;
+        grid-template-columns: 1fr 260px 1fr;
     }
 }
 
@@ -604,7 +754,7 @@ body {
     .main-content {
         grid-template-columns: 1fr 1fr;
     }
-    
+
     .right-column {
         grid-column: 1 / -1;
     }
@@ -613,6 +763,14 @@ body {
 @media screen and (max-width: 900px) {
     .main-content {
         grid-template-columns: 1fr;
+    }
+
+    .center-column {
+        order: 2;
+    }
+
+    .right-column {
+        order: 3;
     }
 }
 
@@ -660,40 +818,25 @@ body {
         width: 280px;
     }
 
-    .recent-card, .alerts-card {
+    .recent-card, .alerts-card, .right-column, .metric-card {
         padding: 20px;
     }
 
-    .card-header h3, .alerts-card h3 {
+    .card-header h3,
+    .alerts-card h3,
+    .right-column h3 {
         font-size: 18px;
     }
 
-    .stat-card {
-        padding: 20px;
-        min-height: 120px;
-    }
-
-    .stat-number {
+    .metric-number {
         font-size: 48px;
-        height: 60px;
-        width: 90px;
+        padding: 10px 22px;
+        min-width: 80px;
     }
 
-    .stat-icon svg {
+    .metric-icon svg {
         width: 50px;
         height: 50px;
-    }
-
-    .right-column {
-        padding: 20px;
-    }
-
-    .right-column h3 {
-        font-size: 20px;
-    }
-
-    .station-status h4 {
-        font-size: 16px;
     }
 }
 
@@ -724,78 +867,29 @@ body {
         gap: 15px;
     }
 
-    .recent-card, .alerts-card {
+    .recent-card, .alerts-card, .right-column, .metric-card {
         padding: 18px;
     }
 
-    .card-header h3, .alerts-card h3 {
-        font-size: 16px;
-    }
-
-    .attendance-item {
-        padding: 12px;
-    }
-
-    .avatar-placeholder {
-        width: 40px;
-        height: 40px;
-    }
-
-    .attendance-info .name {
-        font-size: 14px;
-    }
-
-    .attendance-info .station {
-        font-size: 12px;
-    }
-
-    .time-badge .time {
-        font-size: 16px;
-    }
-
-    .stat-card {
-        padding: 18px;
-        min-height: 100px;
-    }
-
-    .stat-label {
-        font-size: 14px;
-    }
-
-    .stat-number {
-        font-size: 40px;
-        height: 50px;
-        width: 80px;
-    }
-
-    .stat-icon svg {
-        width: 40px;
-        height: 40px;
-    }
-
-    .right-column {
-        padding: 18px;
-    }
-
+    .card-header h3,
+    .alerts-card h3,
     .right-column h3 {
+        font-size: 16px;
+    }
+
+    .metric-title {
         font-size: 18px;
     }
 
-    .station-status h4 {
-        font-size: 15px;
+    .metric-number {
+        font-size: 40px;
+        padding: 8px 18px;
+        min-width: 72px;
     }
 
-    .station-label {
-        font-size: 13px;
-    }
-
-    .progress-ratio {
-        font-size: 16px;
-    }
-
-    .alert-item {
-        padding: 15px;
-        min-height: 70px;
+    .metric-icon svg {
+        width: 40px;
+        height: 40px;
     }
 }
 
@@ -812,9 +906,60 @@ body {
         width: 100%;
     }
 
-    .stat-card {
+    .metric-content {
         flex-direction: column;
-        text-align: center;
-        gap: 15px;
+        align-items: flex-start;
     }
+
+    .metric-icon {
+        align-self: flex-end;
+    }
+}
+
+/* ==== COLUMNA DERECHA: ESTADO DE ESTACIONES (OVERRIDE) ==== */
+.right-column {
+    background-color: #E0E0E0;
+    border-radius: 12px;
+    padding: 25px;
+
+    /* clave: que NO se estire a toda la altura de la fila del grid */
+    align-self: flex-start;
+
+    /* alto fijo más pequeño para el recuadro gris */
+    height: 420px; /* si lo quieres más chico, baja este número */
+
+    /* para que el título quede arriba y la lista llene el resto */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Contenedor de todas las estaciones dentro del recuadro gris */
+.station-status-list {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+
+    /* que use todo el alto disponible dentro de la columna */
+    flex: 1;
+    min-height: 0;
+
+    /* scroll interno */
+    overflow-y: auto;
+    padding-right: 8px;
+}
+
+/* Scrollbar bonito de la lista de estaciones */
+.station-status-list::-webkit-scrollbar {
+    width: 6px;
+}
+.station-status-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+.station-status-list::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 999px;
+}
+.station-status-list::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.25);
 }
