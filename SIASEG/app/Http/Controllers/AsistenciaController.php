@@ -102,6 +102,29 @@ class AsistenciaController extends Controller
             // Registrar ENTRADA
             if ($tipo === 'entrada') {
 
+                // Si es TRANSPORTISTA → NO usa turnos ni estaciones
+                if (Auth::user()->rol === 'Transportista') {
+
+                    Asistencia::create([
+                        'empleado_id' => $empleado_id,
+                        'turno_id' => null,
+                        'estacion_id' => null,
+                        'status_asistencia' => 'A tiempo', // o lo que gustes
+                        'fecha_registro' => Carbon::now(),
+                        'foto_entrada' => $path,
+                        'hora_entrada' => Carbon::now()->format('H:i:s'),
+                    ]);
+
+                    return response()->json([
+                        'ok' => true,
+                        'mensaje' => 'Entrada registrada (transportista)'
+                    ]);
+                }
+
+                // ---------------------------
+                // EMPLEADO NORMAL (código actual)
+                // ---------------------------
+
                 // Obtener turno asignado al empleado
                 $turnoAsignado = DB::table('asignaciones_turnos')
                     ->where('id_empleado', $empleado_id)
@@ -134,10 +157,9 @@ class AsistenciaController extends Controller
                 $horaEntrada = Carbon::parse($turnoConfig['entrada']);
                 $tolerancia = $turnoConfig['tolerancia_minutos'];
 
-                // Hora real de marcaje
+                // Hora real
                 $horaReal = Carbon::now();
 
-                // Comparar y determinar estado
                 $status = $horaReal->lessThanOrEqualTo($horaEntrada->copy()->addMinutes($tolerancia))
                     ? 'A tiempo'
                     : 'Tarde';
@@ -157,6 +179,7 @@ class AsistenciaController extends Controller
                     'mensaje' => 'Entrada registrada'
                 ]);
             }
+
 
             // Registrar SALIDA
             if ($tipo === 'salida') {
