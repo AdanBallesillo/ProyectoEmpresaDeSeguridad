@@ -42,10 +42,10 @@ Route::get('/Empleados', [EmployedController::class, 'index'])->name('mostraremp
 // formulario nuevo empleado
 Route::get('/Nuevo-Empleado', function () {
     return view('Jefe.CreatePersonal');
-})->name('crearempleado') -> middleware('checkrol:Administrador,Secretaria');
+})->name('crearempleado');
 
 // guardar empleado
-Route::post('/Nuevo-Empleado', [EmployedController::class, 'store'])->name('empleados.store') -> middleware('checkrol:Administrador,Secretaria');
+Route::post('/Nuevo-Empleado', [EmployedController::class, 'store'])->name('empleados.store');
 
 
 // Esta ruta sirve para mostrar el PDF, aun sin exportar.

@@ -16,7 +16,8 @@ return new class extends Migration
 
             // Relación con empleados, turnos, estaciones
             $table->integer('empleado_id');
-            $table->integer('turno_id');
+            // Modificacion
+            $table->integer('turno_id')->nullable();
             $table->integer('estacion_id')->nullable();
 
             // Registro de fecha/hora en que se creó
