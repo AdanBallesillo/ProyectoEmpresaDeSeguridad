@@ -99,11 +99,13 @@
                 <!-- Botones -->
                 <div class="botones">
                     <button type="submit" class="guardar">Guardar</button>
-                    <button type="button" class="cancelar"
-    onclick="window.location='{{ url()->previous() }}'">
+                    <a href="{{ route('mostrarempleados') }}">
+                        <button type="button" class="cancelar">
     Regresar
 </button>
-                    <button type="button" class="limpiar">Limpiar</button>
+
+                    </a>
+                     <button type="button" class="limpiar">Limpiar</button>
                 </div>
             </form>
         </div>

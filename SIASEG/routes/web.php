@@ -42,31 +42,31 @@ Route::get('/Empleados', [EmployedController::class, 'index'])->name('mostraremp
 // formulario nuevo empleado
 Route::get('/Nuevo-Empleado', function () {
     return view('Jefe.CreatePersonal');
-})->name('crearempleado');
+})->name('crearempleado') -> middleware('checkrol:Administrador,Secretaria');
 
 // guardar empleado
-Route::post('/Nuevo-Empleado', [EmployedController::class, 'store'])->name('empleados.store');
+Route::post('/Nuevo-Empleado', [EmployedController::class, 'store'])->name('empleados.store') -> middleware('checkrol:Administrador,Secretaria');
 
 
 // Esta ruta sirve para mostrar el PDF, aun sin exportar.
-Route::get('empleados/pdf', [EmployedController::class, 'generatePDF'])->name('empleados.pdf');
+Route::get('empleados/pdf', [EmployedController::class, 'generatePDF'])->name('empleados.pdf') -> middleware('checkrol:Administrador,Secretaria');
 
 // Rutas para mostrar los empleados
 Route::get(
     '/empleados/show',
     [EmployedController::class, 'index']
-)->name('mostrarempleados');
+)->name('mostrarempleados') -> middleware('checkrol:Administrador,Secretaria');
 
 // Rutas para modificar usuarios como jefe
 Route::get(
     '/empleados/{id}/edit',
     [EmployedController::class, 'edit']
-)->name('modificarempleadojefe');
+)->name('modificarempleadojefe') -> middleware('checkrol:Administrador,Secretaria');
 
 Route::put(
     '/Editar-Empleado/{id}',
     [EmployedController::class, 'update']
-)->name('empleados.update');
+)->name('empleados.update') -> middleware('checkrol:Administrador,Secretaria');
 
 /*------------------------------------------------
 RUTAS PARA EL MENÚ DE LOS LOGIN
@@ -177,11 +177,11 @@ RUTAS PARA TRANSPORTE
 
 // Listado
 Route::get('/unidades', [TransporteController::class, 'index'])
-    ->name('mostrartodasunidades');
+    ->name('mostrartodasunidades') -> middleware('checkrol:Administrador,Secretaria');
 
 // Formulario crear
 Route::get('/nuevasunidades', [TransporteController::class, 'create'])
-    ->name('nuevasunidades');
+    ->name('nuevasunidades') -> middleware('checkrol:Administrador,Secretaria');
 
 
 /*--------------------------------------------
@@ -190,26 +190,26 @@ RUTAS PARA UNIDADES
 
 // DASHBOARD DEL JEFE
 Route::get('/jefe/unidades', [UnidadesController::class, 'index'])
-    ->name('jefe.unidades');
+    ->name('jefe.unidades') -> middleware('checkrol:Administrador,Secretaria');
 
 Route::get('/nuevasunidades', [TransporteController::class, 'create'])
-    ->name('nuevasunidades');
+    ->name('nuevasunidades') -> middleware('checkrol:Administrador,Secretaria');
 
 Route::post('/nuevasunidades', [TransporteController::class, 'store'])
-    ->name('unidades.store');
+    ->name('unidades.store') -> middleware('checkrol:Administrador,Secretaria');
 
 // Listar todas las unidades
 // Esta ruta al parecer no sirve
 Route::get('/unidades/show', [TransporteController::class, 'showUnidades'])
-    ->name('mostrartodasunidades');
+    ->name('mostrartodasunidades') -> middleware('checkrol:Administrador,Secretaria');
 
 // Formulario para editar UNA unidad
 Route::get('/unidades/{id}/editar', [TransporteController::class, 'edit'])
-    ->name('unidades.edit');
+    ->name('unidades.edit') -> middleware('checkrol:Administrador,Secretaria');
 
 // Guardar cambios de la unidad
 Route::put('/unidades/{id}', [TransporteController::class, 'update'])
-    ->name('unidades.update');
+    ->name('unidades.update') -> middleware('checkrol:Administrador,Secretaria');
 
 
 /*--------------------------------------------
@@ -217,19 +217,19 @@ RUTAS PARA ESTACIONES
 --------------------------------------------*/
 
 // Listado de estaciones
-Route::get('/estaciones/show', [EstacionController::class, 'index'])->name('estaciones.index');
+Route::get('/estaciones/show', [EstacionController::class, 'index'])->name('estaciones.index') -> middleware('checkrol:Administrador,Secretaria');
 
 // Formulario para crear estación
-Route::get('/estaciones/create', [EstacionController::class, 'create'])->name('estaciones.create');
+Route::get('/estaciones/create', [EstacionController::class, 'create'])->name('estaciones.create') -> middleware('checkrol:Administrador,Secretaria');
 
 // Guardar nueva estación (POST)
-Route::post('/estaciones', [EstacionController::class, 'store'])->name('estaciones.store');
+Route::post('/estaciones', [EstacionController::class, 'store'])->name('estaciones.store') -> middleware('checkrol:Administrador,Secretaria');
 
 // Editar estación
-Route::get('/estaciones/{id}/edit', [EstacionController::class, 'edit'])->name('estaciones.edit');
+Route::get('/estaciones/{id}/edit', [EstacionController::class, 'edit'])->name('estaciones.edit') -> middleware('checkrol:Administrador,Secretaria');
 
 // Actualizar estación
-Route::put('/estaciones/{id}', [EstacionController::class, 'update'])->name('estaciones.update');
+Route::put('/estaciones/{id}', [EstacionController::class, 'update'])->name('estaciones.update') -> middleware('checkrol:Administrador,Secretaria');
 
 
 /*--------------------------------------------
@@ -237,16 +237,16 @@ RUTAS PARA DASHBOARD REPORTES
 --------------------------------------------*/
 
 Route::get('/reportes', [DashboardReportesController::class, 'asistencia'])
-    ->name('reportes.index');
+    ->name('reportes.index') -> middleware('checkrol:Administrador,Secretaria');
 
 Route::get('/reportes/pdf/{periodo}', [ReporteController::class, 'generarPDF'])
-    ->name('reportes.pdf');
+    ->name('reportes.pdf') -> middleware('checkrol:Administrador,Secretaria');
 
 Route::get('/reportes/excel/{periodo}', [ReporteController::class, 'generarExcel'])
-    ->name('reportes.excel');
+    ->name('reportes.excel') -> middleware('checkrol:Administrador,Secretaria');
 
 
-Route::get('/show/asistencia', [IndexAsistenciaController::class, 'index'])->name('asistencia.index');
+Route::get('/show/asistencia', [IndexAsistenciaController::class, 'index'])->name('asistencia.index') -> middleware('checkrol:Administrador,Secretaria');
 
 
 
@@ -285,42 +285,42 @@ Route::post('/cambiarPassword', [PasswordController::class, 'ActualizarPassword'
 RUTAS PARA LAS RUTAS DE TRANSPORTE
 --------------------------------------------*/
 
-Route::get('/rutas/index', [RutasController::class, 'index'])->name('rutas.index');
-Route::get('/rutas/create', [RutasController::class, 'create'])->name('rutas.create');
-Route::post('/rutas/store', [RutasController::class, 'store'])->name('rutas.store');
-Route::get('rutas/{id}/edit', [RutasController::class, 'edit'])->name('rutas.edit');
-Route::put('/rutas/{id}', [RutasController::class, 'update'])->name('rutas.update');
+Route::get('/rutas/index', [RutasController::class, 'index'])->name('rutas.index') -> middleware('checkrol:Administrador,Secretaria');
+Route::get('/rutas/create', [RutasController::class, 'create'])->name('rutas.create')-> middleware('checkrol:Administrador,Secretaria');
+Route::post('/rutas/store', [RutasController::class, 'store'])->name('rutas.store') -> middleware('checkrol:Administrador,Secretaria');;
+Route::get('rutas/{id}/edit', [RutasController::class, 'edit'])->name('rutas.edit') -> middleware('checkrol:Administrador,Secretaria');;
+Route::put('/rutas/{id}', [RutasController::class, 'update'])->name('rutas.update') -> middleware('checkrol:Administrador,Secretaria');;
 
 
 /*--------------------------------------------
 RUTAS PARA LOS VIAJES
 --------------------------------------------*/
 
-Route::get('/viajes/create', [ViajesController::class, 'create'])->name('viajes.create');
-Route::post('/viajes/store', [ViajesController::class, 'store'])->name('viajes.store');
+Route::get('/viajes/create', [ViajesController::class, 'create'])->name('viajes.create') -> middleware('checkrol:Administrador,Secretaria');
+Route::post('/viajes/store', [ViajesController::class, 'store'])->name('viajes.store') -> middleware('checkrol:Administrador,Secretaria');
 Route::get('/mi-ruta', [ViajesController::class, 'miRuta'])->name('viajes.iniciar');
 Route::post('/viajes/{id}/iniciar', [ViajesController::class, 'iniciarViaje'])->name('viajes.inicio');
 Route::post('/viaje/{id}/terminar', [ViajesController::class, 'terminarViaje'])->name('viajes.terminar');
-Route::get('/viajes/index', [ViajesController::class, 'index'])->name('viajes.index');
-Route::get('/viajes/{id}/edit', [ViajesController::class, 'edit'])->name('viajes.edit');
-Route::put('/viajes/{id}', [ViajesController::class, 'update'])->name('viajes.update');
+Route::get('/viajes/index', [ViajesController::class, 'index'])->name('viajes.index') -> middleware('checkrol:Administrador,Secretaria');
+Route::get('/viajes/{id}/edit', [ViajesController::class, 'edit'])->name('viajes.edit') -> middleware('checkrol:Administrador,Secretaria');
+Route::put('/viajes/{id}', [ViajesController::class, 'update'])->name('viajes.update') -> middleware('checkrol:Administrador,Secretaria');
 
 //RUTAS DASHBOARD ESTACIONES
 // DASHBOARD ESTACIONES
 
 Route::get('/jefe/estaciones', [DashboardEstacionesController::class, 'index'])
-    ->name('jefe.estaciones.index');
+    ->name('jefe.estaciones.index') -> middleware('checkrol:Administrador,Secretaria');
 
 // Página para crear nueva estación
 Route::get('/jefe/estaciones/nueva', [EstacionController::class, 'create'])
-    ->name('jefe.estaciones.create');
+    ->name('jefe.estaciones.create') -> middleware('checkrol:Administrador,Secretaria');
 
 // Página para modificar estaciones
 Route::get('/jefe/estaciones/modificar', [EstacionController::class, 'edit'])
-    ->name('jefe.estaciones.edit');
+    ->name('jefe.estaciones.edit') -> middleware('checkrol:Administrador,Secretaria');
 
 Route::get('/jefe/asignar/{estacion}', [AsignacionController::class, 'create'])
-    ->name('jefe.asignar.personal');
+    ->name('jefe.asignar.personal') -> middleware('checkrol:Administrador,Secretaria');
 
 Route::post('/jefe/asignar', [AsignacionController::class, 'store'])
     ->name('asignaciones.store');
@@ -383,13 +383,13 @@ Route::get('/reportes', function () {
 RUTAS PARA EL MENÚ
 --------------------------------------------*/
 
-Route::get('/dashboard/personal', [EmployedController::class, 'index']) -> name ('dashboard.personal');
-Route::get('/dashboard/unidades', [UnidadesController::class, 'index']) -> name ('dashboard.unidades');
-Route::get('/dashboard/estaciones', [DashboardEstacionesController::class, 'index']) -> name ('dashboard.estaciones');
-Route::get('/dashboard/rutas', [RutasController::class, 'index']) -> name ('dashboard.rutas');
-Route::get('/dashboard/viajes', [ViajesController::class, 'index']) -> name ('dashboard.viajes');
-Route::get('/dashoard/asistencia', [IndexAsistenciaController::class, 'index']) -> name ('dashboard.asistencia');
-Route::get('/dashboard/reportes', [DashboardReportesController::class, 'asistencia']) -> name ('dashboard.reportes');
+Route::get('/dashboard/personal', [EmployedController::class, 'index']) -> name ('dashboard.personal') -> middleware('checkrol:Administrador,Secretaria');
+Route::get('/dashboard/unidades', [UnidadesController::class, 'index']) -> name ('dashboard.unidades') -> middleware('checkrol:Administrador,Secretaria');
+Route::get('/dashboard/estaciones', [DashboardEstacionesController::class, 'index']) -> name ('dashboard.estaciones') -> middleware('checkrol:Administrador,Secretaria');
+Route::get('/dashboard/rutas', [RutasController::class, 'index']) -> name ('dashboard.rutas') -> middleware('checkrol:Administrador,Secretaria');
+Route::get('/dashboard/viajes', [ViajesController::class, 'index']) -> name ('dashboard.viajes') -> middleware('checkrol:Administrador,Secretaria');
+Route::get('/dashoard/asistencia', [IndexAsistenciaController::class, 'index']) -> name ('dashboard.asistencia') -> middleware('checkrol:Administrador,Secretaria');
+Route::get('/dashboard/reportes', [DashboardReportesController::class, 'asistencia']) -> name ('dashboard.reportes') -> middleware('checkrol:Administrador,Secretaria');
 // RUTAS PARA DASHBOARD JEFE
 use App\Http\Controllers\DashboardJefeController;
 

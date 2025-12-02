@@ -26,7 +26,7 @@ class LoginSecretariaController extends Controller
             'password' => $request->password
         ])) {
             // Si son correctas las credenciales lo redireccionamos a su menú o dashboard
-            return redirect()->route('Secretaria.Dashboard');
+            return redirect()->route('dashboard.jefe');
         } else {
             // Si no, le mostramos este mensaje.
             return back()->withErrors([

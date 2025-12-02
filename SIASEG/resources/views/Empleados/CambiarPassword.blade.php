@@ -193,7 +193,7 @@
                     placeholder="Ingresa tu nueva contraseña"
                     required
                 >
-                <p class="form-hint">Mínimo 6 caracteres.</p>
+                <p class="form-hint">Mínimo 8 caracteres.</p>
             </div>
 
             <!-- Campo Confirmación -->
