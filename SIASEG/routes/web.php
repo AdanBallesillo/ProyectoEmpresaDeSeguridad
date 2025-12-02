@@ -98,7 +98,7 @@ RUTAS PARA EL LOGIN DE ADMINISTRADOR
 Route::get('/LoginAdministrador', [LoginAdministradorController::class, 'Index'])->name('Administrador.Login');
 
 // Ruta para validar los datos
-Route::post('/Administrador/Validate', [LoginAdministradorController::class, 'Validate'])->name('Administrador.Validate');
+Route::post('/Administrador/Validate', [LoginAdministradorController::class, 'Validate'])->name('Administrador.Validate') -> middleware('throttle:admin-login');
 
 // Ruta para mostrar el dashboard o menú, protegido por el middleware
 Route::get('/Administrador/Menu', function () {
@@ -119,7 +119,7 @@ RUTAS PARA EL LOGIN DE TRANSPORTISTA
 Route::get('/LoginTransportista', [LoginTransportistaController::class, 'Index'])->name('Transportista.Login');
 
 // Ruta para validar los datos
-Route::post('/Transportista/Validate', [LoginTransportistaController::class, 'Validate'])->name('Transportista.Validate');
+Route::post('/Transportista/Validate', [LoginTransportistaController::class, 'Validate'])->name('Transportista.Validate') -> middleware('throttle:transportista-login');
 
 // Ruta para mostrar el dashboard o menú, protegido por el middleware
 Route::get('/Transportistas/Huella', function () {
@@ -140,7 +140,7 @@ RUTAS PARA EL LOGIN DE SECRETARIA
 Route::get('/LoginSecretaria', [LoginSecretariaController::class, 'Index'])->name('Secretaria.Login');
 
 // Ruta para validar los datos
-Route::post('/Secretaria/Validate', [LoginSecretariaController::class, 'Validate'])->name('Secretaria.Validate');
+Route::post('/Secretaria/Validate', [LoginSecretariaController::class, 'Validate'])->name('Secretaria.Validate') -> middleware('throttle:secretaria-login');
 
 // Ruta para mostrar el dashboard o menú, protegido por el middleware
 Route::get('/Jefe/Menu', function () {
@@ -160,7 +160,7 @@ RUTAS PARA EL LOGIN DE EMPLEADOS
 Route::get('/LoginEmpleado', [LoginEmpleadoController::class, 'Index'])->name('Empleado.Login');
 
 // Ruta para validar los datos
-Route::post('/Empleado/Validate', [LoginEmpleadoController::class, 'Validate'])->name('Empleado.Validate');
+Route::post('/Empleado/Validate', [LoginEmpleadoController::class, 'Validate'])->name('Empleado.Validate') -> middleware('throttle:empleado-login');
 
 // Ruta para mostrar el dashboard o menú, protegido por el middleware
 Route::get('/Empleado/Menu', [EmpleadoDashboardController::class, 'index'])
