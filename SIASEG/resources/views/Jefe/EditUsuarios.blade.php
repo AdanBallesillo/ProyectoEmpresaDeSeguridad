@@ -43,13 +43,13 @@
                 <div class="alert success" style="background: #e6ffed; border: 1px solid #22c55e; padding: 10px; border-radius: 5px; color: #166534; margin-bottom: 15px;">
                     <strong>{{ session('success') }}</strong><br>
 
-                    {{-- @if(session('no_empleado'))
+                    @if(session('no_empleado'))
                     Número de control nuevo: <strong>{{ session('no_empleado') }}</strong><br>
                     @endif
 
                     @if(session('password'))
                     {{ session('password') }}
-                    @endif --}}
+                    @endif
                 </div>
                 @endif
 
