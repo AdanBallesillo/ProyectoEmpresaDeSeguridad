@@ -74,6 +74,11 @@ class AsistenciaController extends Controller
     public function guardarFoto(Request $request)
     {
         try {
+            \Log::info("GUARDAR FOTO:", [
+            "rol"  => Auth::user()->rol,
+            "tipo" => $request->tipo,
+            "foto_llega" => strlen($request->foto)
+        ]);
             $empleado_id = Auth::user()->id_empleado;
             $tipo = $request->tipo;
             $foto = $request->foto;
@@ -120,64 +125,65 @@ class AsistenciaController extends Controller
                         'mensaje' => 'Entrada registrada (transportista)'
                     ]);
                 }
+                else {
+                    // ---------------------------
+                    // EMPLEADO NORMAL (código actual)
+                    // ---------------------------
 
-                // ---------------------------
-                // EMPLEADO NORMAL (código actual)
-                // ---------------------------
+                    // Obtener turno asignado al empleado
+                    $turnoAsignado = DB::table('asignaciones_turnos')
+                        ->where('id_empleado', $empleado_id)
+                        ->first();
 
-                // Obtener turno asignado al empleado
-                $turnoAsignado = DB::table('asignaciones_turnos')
-                    ->where('id_empleado', $empleado_id)
-                    ->first();
+                    if (!$turnoAsignado) {
+                        return response()->json(['error' => 'El empleado no tiene un turno asignado'], 400);
+                    }
 
-                if (!$turnoAsignado) {
-                    return response()->json(['error' => 'El empleado no tiene un turno asignado'], 400);
+                    // Obtener estacion asignada
+                    $estacionAsignada = DB::table('asignaciones_turnos')
+                        ->where('id_empleado', $empleado_id)
+                        ->value('id_estacion');
+
+                    if (!$estacionAsignada) {
+                        return response()->json(['error' => 'El empleado no tiene una estación de trabajo asignada'], 400);
+                    }
+
+                    // Ej: "matutino" o "nocturno"
+                    $claveTurno = $turnoAsignado->turno;
+
+                    // Leer configuración desde config/turnos.php
+                    $turnoConfig = config("turnos.$claveTurno");
+
+                    if (!$turnoConfig) {
+                        return response()->json(['error' => 'Configuración de turno no encontrada'], 500);
+                    }
+
+                    // Hora teórica de entrada + tolerancia
+                    $horaEntrada = Carbon::parse($turnoConfig['entrada']);
+                    $tolerancia = $turnoConfig['tolerancia_minutos'];
+
+                    // Hora real
+                    $horaReal = Carbon::now();
+
+                    $status = $horaReal->lessThanOrEqualTo($horaEntrada->copy()->addMinutes($tolerancia))
+                        ? 'A tiempo'
+                        : 'Tarde';
+
+                    Asistencia::create([
+                        'empleado_id' => $empleado_id,
+                        'turno_id' => $turnoAsignado->id,
+                        'estacion_id' => $estacionAsignada,
+                        'status_asistencia' => $status,
+                        'fecha_registro' => Carbon::now(),
+                        'foto_entrada' => $path,
+                        'hora_entrada' => Carbon::now()->format('H:i:s'),
+                    ]);
+
+                    return response()->json([
+                        'ok' => true,
+                        'mensaje' => 'Entrada registrada'
+                    ]);
                 }
-
-                // Obtener estacion asignada
-                $estacionAsignada = DB::table('asignaciones_turnos')
-                    ->where('id_empleado', $empleado_id)
-                    ->value('id_estacion');
-
-                if (!$estacionAsignada) {
-                    return response()->json(['error' => 'El empleado no tiene una estación de trabajo asignada'], 400);
-                }
-
-                // Ej: "matutino" o "nocturno"
-                $claveTurno = $turnoAsignado->turno;
-
-                // Leer configuración desde config/turnos.php
-                $turnoConfig = config("turnos.$claveTurno");
-
-                if (!$turnoConfig) {
-                    return response()->json(['error' => 'Configuración de turno no encontrada'], 500);
-                }
-
-                // Hora teórica de entrada + tolerancia
-                $horaEntrada = Carbon::parse($turnoConfig['entrada']);
-                $tolerancia = $turnoConfig['tolerancia_minutos'];
-
-                // Hora real
-                $horaReal = Carbon::now();
-
-                $status = $horaReal->lessThanOrEqualTo($horaEntrada->copy()->addMinutes($tolerancia))
-                    ? 'A tiempo'
-                    : 'Tarde';
-
-                Asistencia::create([
-                    'empleado_id' => $empleado_id,
-                    'turno_id' => $turnoAsignado->id,
-                    'estacion_id' => $estacionAsignada,
-                    'status_asistencia' => $status,
-                    'fecha_registro' => Carbon::now(),
-                    'foto_entrada' => $path,
-                    'hora_entrada' => Carbon::now()->format('H:i:s'),
-                ]);
-
-                return response()->json([
-                    'ok' => true,
-                    'mensaje' => 'Entrada registrada'
-                ]);
             }
 
 
