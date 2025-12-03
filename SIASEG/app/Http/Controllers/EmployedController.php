@@ -265,9 +265,9 @@ class EmployedController extends Controller
             $mensaje = 'Empleado actualizado correctamente.';
 
             // Si se generaron credenciales nuevas, añadimos detalle al mensaje
-            // if (!empty($credenciales)) {
-            //     $mensaje .= "\n\nNuevas credenciales generadas:";
-            // }
+            if (!empty($credenciales)) {
+                $mensaje .= "\n\nNuevas credenciales generadas:";
+            }
 
             // Retornar con los datos correctos
             return redirect()->back()->with([

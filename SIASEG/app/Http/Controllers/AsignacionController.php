@@ -71,14 +71,14 @@ class AsignacionController extends Controller
         ]);
 
         $estacionId = (int) $request->estacion_id;
-        $empleados  = array_unique($request->empleados);
-        $turno      = $request->turno;
+        $empleadosSeleccionados = array_unique($request->empleados);
+        $turno = $request->turno;
 
         // Límite de personal de la estación
         $estacion = Estacion::findOrFail($estacionId);
-        $limite   = $estacion->p_requerido ?? 0;
+        $limite = $estacion->p_requerido ?? 0;
 
-        if ($limite > 0 && count($empleados) > $limite) {
+        if ($limite > 0 && count($empleadosSeleccionados) > $limite) {
             return back()
                 ->with('error', "La estación '{$estacion->nombre_estacion}' solo requiere {$limite} empleados.")
                 ->withInput();
@@ -87,46 +87,59 @@ class AsignacionController extends Controller
         DB::beginTransaction();
 
         try {
-            // Empleados ya asignados HOY en ESTA estación y ESTE turno
-            $yaAsignados = DB::table('asignaciones_turnos')
-                ->whereIn('id_empleado', $empleados)
+
+            // ============================================
+            // OBTENER ASIGNACIONES ACTUALES DE ESTA ESTACIÓN Y TURNO
+            // ============================================
+            $empleadosActualmente = DB::table('asignaciones_turnos')
+                ->where('id_estacion', $estacionId)
+                ->where('turno', $turno)
                 ->pluck('id_empleado')
                 ->toArray();
 
-            $now = Carbon::now();
-            $toInsert = [];
+            // ============================================
+            // DETERMINAR QUIÉNES SE ELIMINAN Y QUIÉNES SE INSERTAN
+            // ============================================
+            $paraEliminar = array_diff($empleadosActualmente, $empleadosSeleccionados);
+            $paraInsertar = array_diff($empleadosSeleccionados, $empleadosActualmente);
 
-            foreach ($empleados as $idEmpleado) {
-
-                // Si ya tiene asignación, no se agrega otra
-                if (in_array($idEmpleado, $yaAsignados)) {
-                    continue;
-                }
-
-                $toInsert[] = [
-                    'id_estacion' => $estacionId,
-                    'id_empleado' => $idEmpleado,
-                    'turno'       => $turno,
-                    'created_at'  => $now,
-                    'updated_at'  => $now,
-                ];
+            // ============================================
+            // ELIMINAR EMPLEADOS DESMARCADOS
+            // ============================================
+            if (!empty($paraEliminar)) {
+                DB::table('asignaciones_turnos')
+                    ->where('id_estacion', $estacionId)
+                    ->where('turno', $turno)
+                    ->whereIn('id_empleado', $paraEliminar)
+                    ->delete();
             }
 
-            if (!empty($toInsert)) {
+            // ============================================
+            // INSERTAR NUEVAS ASIGNACIONES
+            // ============================================
+            if (!empty($paraInsertar)) {
+                $now = Carbon::now();
+                $toInsert = [];
+
+                foreach ($paraInsertar as $empleadoId) {
+                    $toInsert[] = [
+                        'id_estacion' => $estacionId,
+                        'id_empleado' => $empleadoId,
+                        'turno'       => $turno,
+                        'created_at'  => $now,
+                        'updated_at'  => $now,
+                    ];
+                }
+
                 DB::table('asignaciones_turnos')->insert($toInsert);
             }
 
             DB::commit();
 
-            $added   = count($toInsert);
-            $skipped = count($empleados) - $added;
-
             return redirect()
                 ->route('jefe.asignar.personal', $estacionId)
-                ->with(
-                    'success',
-                    "Asignaciones guardadas. Agregados: {$added}. Omitidos (ya tenían turno hoy): {$skipped}."
-                );
+                ->with('success', 'Asignaciones actualizadas correctamente.');
+
         } catch (\Throwable $e) {
             DB::rollBack();
             Log::error('Error al guardar asignaciones: ' . $e->getMessage());
@@ -134,4 +147,5 @@ class AsignacionController extends Controller
             return back()->with('error', 'Ocurrió un error al guardar las asignaciones.');
         }
     }
+
 }

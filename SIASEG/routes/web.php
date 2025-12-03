@@ -309,18 +309,22 @@ Route::put('/viajes/{id}', [ViajesController::class, 'update'])->name('viajes.up
 // DASHBOARD ESTACIONES
 
 Route::get('/jefe/estaciones', [DashboardEstacionesController::class, 'index'])
-    ->name('jefe.estaciones.index') -> middleware('checkrol:Administrador,Secretaria');
+    ->name('jefe.estaciones.index');
+    // -> middleware('checkrol:Administrador,Secretaria');
 
 // Página para crear nueva estación
 Route::get('/jefe/estaciones/nueva', [EstacionController::class, 'create'])
-    ->name('jefe.estaciones.create') -> middleware('checkrol:Administrador,Secretaria');
+    ->name('jefe.estaciones.create');
+    // -> middleware('checkrol:Administrador,Secretaria');
 
 // Página para modificar estaciones
 Route::get('/jefe/estaciones/modificar', [EstacionController::class, 'edit'])
-    ->name('jefe.estaciones.edit') -> middleware('checkrol:Administrador,Secretaria');
+    ->name('jefe.estaciones.edit');
+    // -> middleware('checkrol:Administrador,Secretaria');
 
 Route::get('/jefe/asignar/{estacion}', [AsignacionController::class, 'create'])
-    ->name('jefe.asignar.personal') -> middleware('checkrol:Administrador,Secretaria');
+    ->name('jefe.asignar.personal');
+    // -> middleware('checkrol:Administrador,Secretaria');
 
 Route::post('/jefe/asignar', [AsignacionController::class, 'store'])
     ->name('asignaciones.store');
