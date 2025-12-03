@@ -128,10 +128,11 @@ class EmployedController extends Controller
 
             // Retornar con datos útiles
             return redirect()->route('crearempleado')->with([
-                'success' => 'Empleado registrado exitosamente.',
-                'password' => $passwordPlain,
-                'no_empleado' => $noEmpleado
+                'success' => 'Empleado registrado exitosamente.'
+                // 'password' => $passwordPlain,
+                // 'no_empleado' => $noEmpleado
             ]);
+
         } catch (ValidationException $e) {
             // Error de validación (regresa los mensajes)
             return redirect()->back()
@@ -265,16 +266,17 @@ class EmployedController extends Controller
             $mensaje = 'Empleado actualizado correctamente.';
 
             // Si se generaron credenciales nuevas, añadimos detalle al mensaje
-            // if (!empty($credenciales)) {
-            //     $mensaje .= "\n\nNuevas credenciales generadas:";
-            // }
+            if (!empty($credenciales)) {
+                $mensaje .= "\n\nNuevas credenciales generadas:";
+            }
 
             // Retornar con los datos correctos
             return redirect()->back()->with([
-                'success' => $mensaje,
-                'no_empleado' => $credenciales['no_empleado'] ?? null,
-                'password' => $credenciales['password'] ?? null,
+                'success' => $mensaje
+                // 'no_empleado' => $credenciales['no_empleado'] ?? null,
+                // 'password' => $credenciales['password'] ?? null,
             ]);
+
         } catch (\Exception $e) {
             \Log::error('Error al actualizar empleado: ' . $e->getMessage());
             return redirect()->back()->with('error', 'No se pudo actualizar el empleado.');
